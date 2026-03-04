@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2026 Player Registration | Purchase Line Little Gridders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09060a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Stripe.js — free, loaded from Stripe's CDN -->
+  <script src="https://js.stripe.com/v3/" defer></script>
+  <style>
+    :root{
+      --bg:#09060a;--card:rgba(14,7,13,.97);
+      --red:#dc2626;--red-2:#ef4444;--red-3:#fca5a5;
+      --red-soft:rgba(220,38,38,.1);--red-glow:rgba(220,38,38,.28);--red-border:rgba(220,38,38,.4);
+      --green:#22c55e;--green-soft:rgba(34,197,94,.12);--green-border:rgba(34,197,94,.45);
+      --stripe:#635bff;--stripe-soft:rgba(99,91,255,.12);--stripe-border:rgba(99,91,255,.4);
+      --text:#ede9e9;--muted:#7a7080;--border:rgba(155,105,115,.18);--border-med:rgba(175,120,130,.26);
+      --radius:13px;--radius-lg:22px;--t:170ms ease-out;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    body::before{content:"";position:fixed;top:0;left:0;right:0;height:480px;background:radial-gradient(ellipse at 50% -15%,rgba(220,38,38,.08),transparent 65%);pointer-events:none;z-index:0}
+    a{color:inherit;text-decoration:none} button{font-family:inherit;cursor:pointer} img{max-width:100%;display:block}
+    .container{width:min(800px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
+    .wide{width:min(1140px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
+    .display{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+
+    /* ── BUTTONS ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.65rem 1.6rem;border-radius:999px;border:1px solid transparent;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:all var(--t);line-height:1;font-family:inherit}
+    .btn--red{background:linear-gradient(135deg,var(--red),#991b1b);color:#fff;box-shadow:0 10px 28px var(--red-glow)}
+    .btn--red:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 38px rgba(220,38,38,.45)}
+    .btn--red:disabled{opacity:.45;cursor:not-allowed}
+    .btn--ghost{background:transparent;border-color:var(--border-med);color:var(--text)}
+    .btn--ghost:hover{border-color:var(--red-border);color:var(--red-3);transform:translateY(-1px)}
+    .btn--stripe{background:linear-gradient(135deg,#635bff,#4b44cc);color:#fff;box-shadow:0 10px 28px rgba(99,91,255,.32)}
+    .btn--stripe:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 38px rgba(99,91,255,.48)}
+    .btn--stripe:disabled{opacity:.45;cursor:not-allowed}
+    .btn--lg{padding:.88rem 2.4rem;font-size:.9rem}
+
+    /* ── HEADER ── */
+    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(9,6,10,.91);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding-block:.82rem;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.7rem}
+    .brand-logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--red),#7f1d1d);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px var(--red-glow);flex-shrink:0}
+    .brand-logo svg{width:20px;height:20px}
+    .brand-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+    .brand-sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-top:.05rem}
+    .nav-links{display:flex;align-items:center;gap:1.5rem;font-size:.76rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+    .nav-links a{transition:color var(--t)}.nav-links a:hover{color:var(--text)}
+
+    /* ── PAGE HERO ── */
+    .reg-hero{padding:2.5rem 0 1.8rem;border-bottom:1px solid var(--border)}
+    .rh-kicker{display:inline-flex;align-items:center;gap:.45rem;padding:.2rem .65rem .2rem .28rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--red-3);margin-bottom:.75rem}
+    .kicker-dot{width:7px;height:7px;border-radius:999px;background:var(--red);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(220,38,38,.3)}50%{box-shadow:0 0 0 7px rgba(220,38,38,.07)}}
+    .rh-title{font-size:clamp(2rem,5vw,3rem);line-height:.95;margin-bottom:.5rem}
+    .rh-title .accent{color:var(--red)}
+    .rh-sub{font-size:.86rem;color:var(--muted);line-height:1.6;max-width:540px}
+    .fee-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .75rem;border-radius:999px;background:var(--stripe-soft);border:1px solid var(--stripe-border);font-size:.72rem;color:#c4c0ff;font-weight:600;margin-top:.75rem}
+
+    /* ── PROGRESS ── */
+    .prog-wrap{padding-block:1.5rem .5rem}
+    .prog-bar{height:3px;background:var(--border);border-radius:999px;overflow:hidden}
+    .prog-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--red-2));border-radius:999px;width:0%;transition:width .4s ease-out}
+
+    /* ── FORM SECTIONS ── */
+    .form-wrap{padding-block:.5rem 4rem}
+    .fsec{margin-bottom:1.6rem;border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--border);overflow:hidden}
+    .fsec-head{padding:.9rem 1.35rem;background:rgba(9,4,9,.98);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.8rem}
+    .fsec-num{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;color:var(--red);min-width:1.5rem;line-height:1}
+    .fsec-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em}
+    .fsec-sub{font-size:.72rem;color:var(--muted);margin-top:.08rem}
+    .fsec-body{padding:1.2rem 1.35rem;display:flex;flex-direction:column;gap:.9rem}
+
+    /* ── FIELDS ── */
+    .frow{display:grid;gap:.8rem}
+    .frow--2{grid-template-columns:1fr 1fr}
+    .frow--3{grid-template-columns:1fr 1fr 1fr}
+    .ffield{display:flex;flex-direction:column;gap:.26rem}
+    .ffield--full{grid-column:1/-1}
+    .flabel{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(200,180,185,.85)}
+    .flabel .req{color:var(--red-3);margin-left:.15rem}
+    .flabel .opt{font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:.66rem;margin-left:.3rem}
+    .finput,.fselect,.ftextarea{border-radius:10px;border:1px solid var(--border-med);background:rgba(9,4,9,.95);padding:.52rem .72rem;color:var(--text);font-size:.83rem;font-family:inherit;outline:none;width:100%;transition:border-color var(--t),box-shadow var(--t)}
+    .finput::placeholder,.ftextarea::placeholder{color:rgba(120,100,120,.55)}
+    .finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--red-border);box-shadow:0 0 0 2px rgba(220,38,38,.13),0 6px 18px rgba(0,0,0,.5)}
+    .ftextarea{min-height:76px;resize:vertical}
+    .fselect option{background:#180d18}
+    .finput.err{border-color:#f87171;box-shadow:0 0 0 2px rgba(248,113,113,.13)}
+
+    /* ── RADIO / PILL CHOOSER ── */
+    .fradio{display:flex;flex-wrap:wrap;gap:.4rem}
+    .fradio-item{position:relative}
+    .fradio-item input{position:absolute;opacity:0;width:0;height:0}
+    .fradio-item label{display:inline-flex;align-items:center;gap:.4rem;padding:.34rem .78rem;border-radius:999px;border:1px solid var(--border-med);background:rgba(9,4,9,.9);font-size:.76rem;color:var(--muted);cursor:pointer;transition:all var(--t);user-select:none}
+    .fradio-item label::before{content:"";width:8px;height:8px;border-radius:999px;border:1.4px solid var(--muted);transition:all var(--t);flex-shrink:0}
+    .fradio-item input:checked+label{border-color:var(--red-border);background:var(--red-soft);color:var(--red-3)}
+    .fradio-item input:checked+label::before{background:var(--red);border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.18)}
+    .fradio-item label:hover{border-color:var(--red-border);color:var(--text)}
+
+    /* ── TEAM CARDS ── */
+    .fteam{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+    .fteam-item{position:relative}
+    .fteam-item input{position:absolute;opacity:0;width:0;height:0}
+    .fteam-item label{display:flex;flex-direction:column;gap:.18rem;padding:.65rem .8rem;border-radius:11px;border:1px solid var(--border);background:rgba(9,4,9,.95);font-size:.74rem;color:var(--muted);cursor:pointer;transition:all var(--t);user-select:none}
+    .fteam-item label strong{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;text-transform:uppercase;letter-spacing:.04em;color:var(--text)}
+    .fteam-item input:checked+label{border-color:var(--red-border);background:var(--red-soft);color:var(--red-3)}
+    .fteam-item input:checked+label strong{color:var(--text)}
+    .fteam-item label:hover{border-color:var(--red-border)}
+
+    /* ── CHECKBOX ── */
+    .fcheck{position:relative;display:flex;align-items:flex-start;gap:.75rem}
+    .fcheck input{position:absolute;opacity:0;width:0;height:0}
+    .fcheck label{display:flex;align-items:flex-start;gap:.75rem;font-size:.83rem;color:var(--text);cursor:pointer;line-height:1.55;padding-top:.05rem}
+    .fcheck label::before{content:"";width:18px;height:18px;min-width:18px;border-radius:5px;border:1.5px solid var(--border-med);background:rgba(9,4,9,.95);transition:all var(--t);margin-top:.14rem}
+    .fcheck input:checked+label::before{background:var(--red);border-color:var(--red);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 7L5.5 10L11.5 4' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:12px}
+    .fcheck label:hover::before{border-color:var(--red-border)}
+
+    /* ── WAIVER ── */
+    .waiver-box{border-radius:11px;background:rgba(220,38,38,.04);border:1px solid var(--red-border);padding:.9rem 1.05rem;font-size:.81rem;color:rgba(230,210,215,.82);line-height:1.72}
+    .waiver-box strong{color:var(--text)}
+
+    /* ── SIGNATURE ── */
+    .sig-outer{border-radius:11px;border:1.5px solid var(--border-med);background:#fff;overflow:hidden}
+    .sig-outer canvas{display:block;width:100%;touch-action:none;cursor:crosshair}
+    .sig-bar{display:flex;align-items:center;justify-content:space-between;margin-top:.45rem}
+    .sig-clear{padding:.28rem .75rem;border-radius:999px;border:1px solid var(--border-med);background:transparent;font-size:.7rem;color:var(--muted);cursor:pointer;font-family:inherit;transition:all var(--t)}
+    .sig-clear:hover{border-color:var(--red-border);color:var(--red-3)}
+    .sig-hint{font-size:.68rem;color:var(--muted);line-height:1.5}
+
+    /* ── FILE UPLOAD ── */
+    .fupload{position:relative}
+    .fupload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2}
+    .fupload-face{border-radius:10px;border:1.5px dashed var(--border-med);background:rgba(9,4,9,.8);padding:.75rem 1rem;text-align:center;font-size:.78rem;color:var(--muted);transition:all var(--t)}
+    .fupload:hover .fupload-face{border-color:var(--red-border);color:var(--red-3)}
+    .fupload-name{margin-top:.3rem;font-size:.72rem;color:var(--red-3)}
+    .fupload-alt{font-size:.7rem;color:var(--muted);margin-top:.38rem;line-height:1.55}
+    .fupload-alt strong{color:var(--text)}
+
+    /* ── DIVIDER ── */
+    .fdiv{height:1px;background:linear-gradient(90deg,transparent,var(--border-med),transparent);margin-block:.1rem}
+
+    /* ── STRIPE PAYMENT SECTION ── */
+    .pay-sec{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--stripe-border);overflow:hidden;margin-bottom:1.6rem}
+    .pay-sec-head{padding:.9rem 1.35rem;background:linear-gradient(135deg,rgba(99,91,255,.12),rgba(9,4,9,.98));border-bottom:1px solid var(--stripe-border);display:flex;align-items:center;gap:.8rem}
+    .pay-sec-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#635bff,#4b44cc);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .pay-sec-icon svg{width:17px;height:17px;stroke:#fff}
+    .pay-sec-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em}
+    .pay-sec-sub{font-size:.71rem;color:rgba(190,185,255,.75);margin-top:.07rem}
+    .pay-body{padding:1.2rem 1.35rem;display:flex;flex-direction:column;gap:1rem}
+    .pay-summary{border-radius:10px;background:rgba(99,91,255,.07);border:1px solid var(--stripe-border);padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+    .pay-summary-desc{font-size:.8rem;color:rgba(190,185,255,.9)}
+    .pay-summary-amount{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;color:#c4c0ff;line-height:1}
+    .pay-summary-note{font-size:.65rem;color:var(--muted);margin-top:.08rem;text-align:right}
+    #stripe-element{border-radius:10px;border:1px solid var(--border-med);background:rgba(9,4,9,.95);padding:.6rem .72rem;min-height:44px;transition:border-color var(--t)}
+    #stripe-element.StripeElement--focus{border-color:var(--stripe-border);box-shadow:0 0 0 2px rgba(99,91,255,.15)}
+    #stripe-element.StripeElement--invalid{border-color:#f87171}
+    .pay-error{font-size:.76rem;color:#f87171;min-height:1rem}
+    .pay-secure{display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:var(--muted)}
+    .pay-secure svg{width:12px;height:12px;stroke:var(--muted)}
+
+    /* ── SUBMIT AREA ── */
+    .submit-area{display:flex;flex-direction:column;align-items:center;gap:.85rem;text-align:center;margin-bottom:2rem}
+    .submit-note{font-size:.74rem;color:var(--muted);line-height:1.6;max-width:500px}
+    .submit-note strong{color:var(--text)}
+    .form-err{color:#f87171;font-size:.76rem;display:none}
+
+    /* ── SUCCESS ── */
+    .success-screen{display:none;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;padding:3rem 1rem}
+    .success-screen.on{display:flex}
+    .success-icon{width:64px;height:64px;border-radius:999px;background:var(--green-soft);border:1.5px solid var(--green-border);display:flex;align-items:center;justify-content:center}
+    .success-icon svg{width:30px;height:30px;stroke:var(--green)}
+    .success-title{font-size:clamp(1.7rem,4vw,2.4rem);line-height:.95}
+    .success-title .accent{color:var(--green)}
+    .success-body{font-size:.88rem;color:var(--muted);max-width:480px;line-height:1.65}
+    .success-body strong{color:var(--text)}
+    .success-card{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--green-border);padding:1.35rem 1.5rem;width:100%;max-width:440px;text-align:left}
+    .sc-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.2em;color:rgba(100,200,130,.75);margin-bottom:.3rem}
+    .sc-row{font-size:.83rem;color:var(--text);margin-bottom:.22rem}
+    .sc-row span{color:var(--muted)}
+
+    /* ── FOOTER ── */
+    .site-footer{padding-block:1.5rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--muted);text-align:center}
+
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .spin{animation:spin .8s linear infinite}
+
+    @media(max-width:640px){
+      .frow--2,.frow--3{grid-template-columns:1fr}
+      .fteam{grid-template-columns:1fr 1fr}
+      .nav-links{display:none}
+    }
+    @media(max-width:400px){.fteam{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wide">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none">
+            <ellipse cx="12" cy="12" rx="9" ry="5.8" fill="rgba(255,255,255,.92)"/>
+            <line x1="3" y1="12" x2="21" y2="12" stroke="#7f1d1d" stroke-width="1.2" stroke-dasharray="3 2"/>
+            <line x1="12" y1="6.2" x2="12" y2="17.8" stroke="#7f1d1d" stroke-width="1.2"/>
+            <line x1="7.5" y1="8" x2="7.5" y2="16" stroke="#7f1d1d" stroke-width=".9"/>
+            <line x1="16.5" y1="8" x2="16.5" y2="16" stroke="#7f1d1d" stroke-width=".9"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">PLG Gridders</div>
+          <div class="brand-sub">Victory Through Character</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#teams">Teams</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="about.html">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="reg-hero">
+  <div class="container">
+    <div class="rh-kicker"><span class="kicker-dot"></span>Purchase Line Little Gridders · 2026 Season</div>
+    <h1 class="display rh-title"><span class="accent">Player</span><br>Registration</h1>
+    <p class="rh-sub">Complete all fields, sign the liability waiver, then pay your registration fee — all on one page.</p>
+    <div class="fee-badge">
+      <svg viewBox="0 0 20 20" fill="none" width="13" height="13"><rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><line x1="2" y1="8" x2="18" y2="8" stroke="currentColor" stroke-width="1.6"/></svg>
+      Registration fee: $<span id="hero-fee">41.50</span> per player · Secure payment via Stripe
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- PROGRESS BAR -->
+  <div class="prog-wrap">
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+  </div>
+
+  <!-- THE FORM -->
+  <form id="reg-form" novalidate class="form-wrap">
+
+    <!-- Web3Forms hidden fields — fill in your key in SETUP -->
+    <input type="hidden" name="access_key" id="w3f-key" value="YOUR_WEB3FORMS_KEY">
+    <input type="hidden" name="subject" id="w3f-subject" value="PLG Gridders 2026 — New Registration">
+    <input type="hidden" name="from_name" value="PLG Gridders Registration">
+    <input type="hidden" name="botcheck" value="">
+    <input type="hidden" name="signature_data" id="sig-data">
+
+    <!-- ══ 01 PLAYER INFO ══════════════════════════════════════════ -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <div class="fsec-num">01</div>
+        <div>
+          <div class="fsec-title">Player Information</div>
+          <div class="fsec-sub">The child who will be participating</div>
+        </div>
+      </div>
+      <div class="fsec-body">
+        <div class="frow frow--2">
+          <div class="ffield">
+            <label class="flabel" for="p-first">First Name<span class="req">*</span></label>
+            <input class="finput" id="p-first" name="player_first" type="text" placeholder="Jordan" required autocomplete="given-name">
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="p-last">Last Name<span class="req">*</span></label>
+            <input class="finput" id="p-last" name="player_last" type="text" placeholder="Smith" required autocomplete="family-name">
+          </div>
+        </div>
+        <div class="frow frow--2">
+          <div class="ffield">
+            <label class="flabel" for="p-age">Player's Current Age<span class="req">*</span></label>
+            <input class="finput" id="p-age" name="player_age" type="number" min="4" max="15" placeholder="10" required>
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="p-bday">Player's Birthday<span class="req">*</span></label>
+            <input class="finput" id="p-bday" name="player_birthday" type="date" required>
+          </div>
+        </div>
+        <div class="ffield">
+          <label class="flabel" for="p-street">Street Address</label>
+          <input class="finput" id="p-street" name="player_street" type="text" placeholder="123 Main Street" autocomplete="street-address">
+        </div>
+        <div class="frow frow--3">
+          <div class="ffield">
+            <label class="flabel" for="p-city">City</label>
+            <input class="finput" id="p-city" name="player_city" type="text" placeholder="Commodore" autocomplete="address-level2">
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="p-state">State</label>
+            <input class="finput" id="p-state" name="player_state" type="text" placeholder="PA" maxlength="2" autocomplete="address-level1">
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="p-zip">Zip Code</label>
+            <input class="finput" id="p-zip" name="player_zip" type="text" placeholder="15729" maxlength="10" autocomplete="postal-code">
+          </div>
+        </div>
+        <div class="fdiv"></div>
+        <div class="ffield">
+          <label class="flabel">Grade for 2026–2027 School Year<span class="req">*</span></label>
+          <div class="fradio" id="grade-group">
+            <div class="fradio-item"><input type="radio" name="player_grade" id="g-k"  value="K"   required><label for="g-k">K</label></div>
+            <div class="fradio-item"><input type="radio" name="player_grade" id="g-1"  value="1st"><label for="g-1">1st</label></div>
+            <div class="fradio-item"><input type="radio" name="player_grade" id="g-2"  value="2nd"><label for="g-2">2nd</label></div>
+            <div class="fradio-item"><input type="radio" name="player_grade" id="g-3"  value="3rd"><label for="g-3">3rd</label></div>
+            <div class="fradio-item"><input type="radio" name="player_grade" id="g-4"  value="4th"><label for="g-4">4th</label></div>
+            <div class="fradio-item"><input type="radio" name="player_grade" id="g-5"  value="5th"><label for="g-5">5th</label></div>
+            <div class="fradio-item"><input type="radio" name="player_grade" id="g-6"  value="6th"><label for="g-6">6th</label></div>
+          </div>
+        </div>
+        <div class="ffield">
+          <label class="flabel">Shirt Size<span class="req">*</span></label>
+          <div class="fradio" id="shirt-group">
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-yxs" value="YXS"    required><label for="s-yxs">YXS</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-ys"  value="YS"    ><label for="s-ys">YS</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-ym"  value="YM"    ><label for="s-ym">YM</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-yl"  value="YL"    ><label for="s-yl">YL</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-yxl" value="YXL"   ><label for="s-yxl">YXL</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-sm"  value="SMALL" ><label for="s-sm">Small</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-md"  value="MEDIUM"><label for="s-md">Medium</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-lg"  value="LARGE" ><label for="s-lg">Large</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-xl"  value="XL"   ><label for="s-xl">XL</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-2xl" value="2XL"  ><label for="s-2xl">2XL</label></div>
+            <div class="fradio-item"><input type="radio" name="shirt_size" id="s-3xl" value="3XL"  ><label for="s-3xl">3XL</label></div>
+          </div>
+        </div>
+        <div class="ffield">
+          <label class="flabel">Registering For<span class="req">*</span></label>
+          <div class="fteam" id="team-group">
+            <div class="fteam-item"><input type="radio" name="team" id="t-flag-fb"  value="FLAG FOOTBALL (K - 2ND)"        required><label for="t-flag-fb" ><strong>Flag Football</strong>K – 2nd Grade</label></div>
+            <div class="fteam-item"><input type="radio" name="team" id="t-jv-fb"    value="JV FOOTBALL (3RD &amp; 4TH)"   ><label for="t-jv-fb"   ><strong>JV Football</strong>3rd – 4th Grade</label></div>
+            <div class="fteam-item"><input type="radio" name="team" id="t-var-fb"   value="VARSITY FOOTBALL (5TH &amp; 6TH)"><label for="t-var-fb"  ><strong>Varsity Football</strong>5th – 6th Grade</label></div>
+            <div class="fteam-item"><input type="radio" name="team" id="t-flag-ch"  value="FLAG CHEERLEADING (K - 2ND)"    ><label for="t-flag-ch" ><strong>Flag Cheer</strong>K – 2nd Grade</label></div>
+            <div class="fteam-item"><input type="radio" name="team" id="t-jv-ch"    value="JV CHEERLEADING (3RD &amp; 4TH)"><label for="t-jv-ch"  ><strong>JV Cheer</strong>3rd – 4th Grade</label></div>
+            <div class="fteam-item"><input type="radio" name="team" id="t-var-ch"   value="VARSITY CHEERLEADING (5TH &amp; 6TH)"><label for="t-var-ch"><strong>Varsity Cheer</strong>5th – 6th Grade</label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 02 PARENT / GUARDIAN 1 ════════════════════════════════ -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <div class="fsec-num">02</div>
+        <div>
+          <div class="fsec-title">Parent / Legal Guardian</div>
+          <div class="fsec-sub">Primary contact — required</div>
+        </div>
+      </div>
+      <div class="fsec-body">
+        <div class="frow frow--2">
+          <div class="ffield">
+            <label class="flabel" for="par1-first">First Name<span class="req">*</span></label>
+            <input class="finput" id="par1-first" name="parent1_first" type="text" placeholder="Jamie" required autocomplete="given-name">
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="par1-last">Last Name<span class="req">*</span></label>
+            <input class="finput" id="par1-last" name="parent1_last" type="text" placeholder="Smith" required autocomplete="family-name">
+          </div>
+        </div>
+        <div class="frow frow--2">
+          <div class="ffield">
+            <label class="flabel" for="par1-email">Email Address<span class="req">*</span></label>
+            <input class="finput" id="par1-email" name="parent1_email" type="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="par1-phone">Mobile Phone<span class="req">*</span></label>
+            <input class="finput" id="par1-phone" name="parent1_phone" type="tel" placeholder="(814) 555-0000" required autocomplete="tel">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 03 PARENT / GUARDIAN 2 (OPTIONAL) ════════════════════ -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <div class="fsec-num">03</div>
+        <div>
+          <div class="fsec-title">Parent / Legal Guardian #2 <span style="font-family:'DM Sans',sans-serif;font-weight:400;text-transform:none;font-size:.7rem;letter-spacing:0;color:var(--muted)">(optional)</span></div>
+          <div class="fsec-sub">If applicable</div>
+        </div>
+      </div>
+      <div class="fsec-body">
+        <div class="frow frow--2">
+          <div class="ffield">
+            <label class="flabel" for="par2-first">First Name</label>
+            <input class="finput" id="par2-first" name="parent2_first" type="text" placeholder="Alex">
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="par2-last">Last Name</label>
+            <input class="finput" id="par2-last" name="parent2_last" type="text" placeholder="Smith">
+          </div>
+        </div>
+        <div class="frow frow--2">
+          <div class="ffield">
+            <label class="flabel" for="par2-email">Email Address</label>
+            <input class="finput" id="par2-email" name="parent2_email" type="email" placeholder="alex@example.com">
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="par2-phone">Mobile Phone</label>
+            <input class="finput" id="par2-phone" name="parent2_phone" type="tel" placeholder="(814) 555-0000">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 04 EMERGENCY CONTACT ══════════════════════════════════ -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <div class="fsec-num">04</div>
+        <div>
+          <div class="fsec-title">Emergency Contact</div>
+          <div class="fsec-sub">Someone to reach if parents are unavailable</div>
+        </div>
+      </div>
+      <div class="fsec-body">
+        <div class="frow frow--2">
+          <div class="ffield">
+            <label class="flabel" for="ec-first">First Name<span class="req">*</span></label>
+            <input class="finput" id="ec-first" name="ec_first" type="text" placeholder="Chris" required>
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="ec-last">Last Name<span class="req">*</span></label>
+            <input class="finput" id="ec-last" name="ec_last" type="text" placeholder="Johnson" required>
+          </div>
+        </div>
+        <div class="frow frow--2">
+          <div class="ffield">
+            <label class="flabel" for="ec-rel">Relationship to Player<span class="req">*</span></label>
+            <input class="finput" id="ec-rel" name="ec_relationship" type="text" placeholder="Grandparent, Aunt, etc." required>
+          </div>
+          <div class="ffield">
+            <label class="flabel" for="ec-phone">Phone Number<span class="req">*</span></label>
+            <input class="finput" id="ec-phone" name="ec_phone" type="tel" placeholder="(814) 555-0000" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 05 MEDICAL ════════════════════════════════════════════ -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <div class="fsec-num">05</div>
+        <div>
+          <div class="fsec-title">Medical Information</div>
+          <div class="fsec-sub">Helps our coaches keep your player safe</div>
+        </div>
+      </div>
+      <div class="fsec-body">
+        <div class="ffield">
+          <label class="flabel">Does the child have health insurance?<span class="req">*</span></label>
+          <div class="fradio">
+            <div class="fradio-item"><input type="radio" name="has_insurance" id="ins-yes" value="YES" required><label for="ins-yes">YES</label></div>
+            <div class="fradio-item"><input type="radio" name="has_insurance" id="ins-no"  value="NO"><label for="ins-no">NO</label></div>
+          </div>
+        </div>
+        <div class="ffield">
+          <label class="flabel" for="medical">Medical Conditions / Allergies <span class="opt">(leave blank if none)</span></label>
+          <textarea class="ftextarea" id="medical" name="medical_conditions" placeholder="List any allergies, conditions, or medications coaches should be aware of..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 06 LIABILITY WAIVER ═══════════════════════════════════ -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <div class="fsec-num">06</div>
+        <div>
+          <div class="fsec-title">Liability Waiver</div>
+          <div class="fsec-sub">Read carefully and sign below</div>
+        </div>
+      </div>
+      <div class="fsec-body">
+        <div class="waiver-box">
+          I understand that as a parent or legal guardian, I am <strong>solely responsible for any injury</strong> that may occur during the duration of the Purchase Line Little Gridder Season and will not hold the <strong>Purchase Line School District</strong>, Purchase Line School Board, Purchase Line Gridder Corporation, Coaches, Officers, Board Members, or any Gridder member liable for an injury that could result. I have also read and agree to adhere to the list of requirements necessary for the successful football season.
+        </div>
+        <div class="fcheck">
+          <input type="radio" id="waiver-accept" name="waiver_accepted" value="I accept the liability waiver" required>
+          <label for="waiver-accept">I accept the liability waiver and understand its terms<span class="req" style="margin-left:.3rem">*</span></label>
+        </div>
+        <div class="fdiv"></div>
+        <div class="ffield">
+          <label class="flabel">Parent / Guardian Signature<span class="req">*</span></label>
+          <div class="sig-outer">
+            <canvas id="sig-canvas" height="120"></canvas>
+          </div>
+          <div class="sig-bar">
+            <button type="button" class="sig-clear" id="sig-clear-btn">↺ Clear</button>
+            <span class="sig-hint">BY SIGNING YOU GUARANTEE ALL INFORMATION IS CORRECT TO THE BEST OF YOUR KNOWLEDGE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 07 BIRTH CERTIFICATE ══════════════════════════════════ -->
+    <div class="fsec">
+      <div class="fsec-head">
+        <div class="fsec-num">07</div>
+        <div>
+          <div class="fsec-title">Birth Certificate <span style="font-family:'DM Sans',sans-serif;font-weight:400;text-transform:none;font-size:.7rem;letter-spacing:0;color:var(--muted)">(first-time players only)</span></div>
+          <div class="fsec-sub">Required for players new to the program</div>
+        </div>
+      </div>
+      <div class="fsec-body">
+        <div class="ffield">
+          <label class="flabel">Upload Birth Certificate <span class="opt">(PDF, JPG, or PNG · max 10MB)</span></label>
+          <div class="fupload">
+            <input type="file" id="birth-cert" name="birth_certificate" accept=".pdf,.jpg,.jpeg,.png" aria-label="Upload birth certificate">
+            <div class="fupload-face">
+              <svg viewBox="0 0 24 24" fill="none" style="width:22px;height:22px;margin:0 auto .3rem;stroke:var(--muted)" stroke-width="1.5"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M8 12l4-4m0 0l4 4m-4-4v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div>Click to browse or drag a file here</div>
+            </div>
+            <div class="fupload-name" id="cert-name"></div>
+          </div>
+          <div class="fupload-alt">If you cannot upload now, email it to <strong>purchaselinegridders@gmail.com</strong> with your player's name in the subject line.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 08 PAYMENT ════════════════════════════════════════════ -->
+    <div class="pay-sec" id="pay-section">
+      <div class="pay-sec-head">
+        <div class="pay-sec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor"/><line x1="2" y1="10" x2="22" y2="10" stroke="currentColor"/></svg>
+        </div>
+        <div>
+          <div class="pay-sec-title">Registration Payment</div>
+          <div class="pay-sec-sub">Secured by Stripe · All major cards accepted · Encrypted</div>
+        </div>
+      </div>
+      <div class="pay-body">
+        <div class="pay-summary">
+          <div>
+            <div class="pay-summary-desc">2026 PLG Gridders Registration</div>
+            <div style="font-size:.68rem;color:var(--muted);margin-top:.08rem" id="pay-team-label">Select a team above to continue</div>
+          </div>
+          <div>
+            <div class="pay-summary-amount">$<span id="pay-amount-display">41.50</span></div>
+            <div class="pay-summary-note">per player</div>
+          </div>
+        </div>
+        <!-- Stripe Card Element mounts here -->
+        <div class="ffield">
+          <label class="flabel">Card Details<span class="req">*</span></label>
+          <div id="stripe-element"></div>
+        </div>
+        <div class="pay-error" id="pay-error" role="alert"></div>
+        <div class="pay-secure">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-linecap="round"/></svg>
+          256-bit SSL encryption · Your card data never touches our servers
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-area">
+      <p class="submit-note"><strong>By submitting you confirm all information is accurate</strong> and that you accept the liability waiver above. Payment is processed immediately via Stripe and a receipt will be emailed to you.</p>
+      <button class="btn btn--stripe btn--lg" type="submit" id="submit-btn">
+        <svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Submit Registration &amp; Pay Now
+      </button>
+      <div class="form-err" id="form-err">Please fill in all required fields, sign the waiver, and enter your card details.</div>
+    </div>
+  </form><!-- end #reg-form -->
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2 class="display success-title">You're <span class="accent">Registered!</span></h2>
+    <p class="success-body">
+      <strong id="confirm-player">Your player</strong> is officially registered for the 2026 PLG Gridders season. 
+      Stripe has emailed a payment receipt to <strong id="confirm-email">you</strong>, and our coaches will be in touch soon with practice details.
+    </p>
+    <div class="success-card">
+      <div class="sc-label">Registration Summary</div>
+      <div class="sc-row"><span>Player: </span><strong id="confirm-player-2">—</strong></div>
+      <div class="sc-row"><span>Team: </span><strong id="confirm-team">—</strong></div>
+      <div class="sc-row"><span>Grade: </span><strong id="confirm-grade">—</strong></div>
+      <div class="sc-row"><span>Amount paid: </span><strong>$<span id="confirm-amount">41.50</span></strong></div>
+    </div>
+    <a href="register.html" class="btn btn--red">Register Another Player</a>
+    <a href="index.html" class="btn btn--ghost" style="margin-top:-.3rem">← Back to Home</a>
+  </div>
+
+</div><!-- end .container -->
+
+<footer class="site-footer">
+  <div class="wide">
+    <span>&copy; <span id="yr"></span> Purchase Line Little Gridders · Commodore, PA</span>
+    &nbsp;·&nbsp;
+    <a href="mailto:purchaselinegridders@gmail.com" style="color:var(--red-3)">purchaselinegridders@gmail.com</a>
+    &nbsp;·&nbsp;(814) 241-3237
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+// ════════════════════════════════════════════════════════════════
+// CONFIG — update these two values:
+// 1. Your Stripe PUBLISHABLE key (starts with pk_live_ or pk_test_)
+// 2. Your Web3Forms access key from web3forms.com
+// ════════════════════════════════════════════════════════════════
+var STRIPE_PK   = 'pk_live_51Kr7xTGIoSedh4Bu2w6cBrfq4hhwMksdObFKdOq08a2aU0ufCeL7II3rSBVsCP0tYz8a57OkJm2nuE5zgtl61tI200B7g8oYrH';
+var W3F_KEY     = 'YOUR_WEB3FORMS_KEY';  // get free at web3forms.com
+var REG_FEE     = 41.50;                 // UPDATE each season
+var REG_FEE_CENTS = Math.round(REG_FEE * 100);
+
+document.getElementById('yr').textContent          = new Date().getFullYear();
+document.getElementById('hero-fee').textContent    = REG_FEE.toFixed(2);
+document.getElementById('pay-amount-display').textContent = REG_FEE.toFixed(2);
+document.getElementById('confirm-amount').textContent     = REG_FEE.toFixed(2);
+document.getElementById('w3f-key').value           = W3F_KEY;
+
+// ── STRIPE INIT ────────────────────────────────────────────────
+var stripe, cardElement;
+if(typeof Stripe !== 'undefined'){
+  stripe = Stripe(STRIPE_PK);
+  var elements = stripe.elements({
+    appearance:{
+      theme:'night',
+      variables:{
+        colorPrimary:'#635bff',
+        colorBackground:'#090409',
+        colorText:'#ede9e9',
+        colorDanger:'#f87171',
+        fontFamily:'DM Sans, system-ui, sans-serif',
+        borderRadius:'10px',
+      }
+    }
+  });
+  cardElement = elements.create('card',{
+    style:{
+      base:{fontSize:'14px',fontFamily:'DM Sans, system-ui, sans-serif',color:'#ede9e9','::placeholder':{color:'rgba(120,100,120,.55)'}},
+      invalid:{color:'#f87171'}
+    },
+    hidePostalCode: false
+  });
+  cardElement.mount('#stripe-element');
+  cardElement.on('change', function(e){
+    document.getElementById('pay-error').textContent = e.error ? e.error.message : '';
+  });
+} else {
+  document.getElementById('stripe-element').innerHTML = '<p style="color:#f87171;font-size:.8rem">Stripe failed to load. Please refresh the page.</p>';
+}
+
+// ── TEAM LABEL UPDATE ──────────────────────────────────────────
+document.querySelectorAll('[name="team"]').forEach(function(r){
+  r.addEventListener('change', function(){
+    document.getElementById('pay-team-label').textContent = this.value;
+  });
+});
+
+// ── SIGNATURE PAD ──────────────────────────────────────────────
+var canvas = document.getElementById('sig-canvas');
+var ctx    = canvas.getContext('2d');
+var drawing = false, hasSig = false;
+
+function resizeCanvas(){
+  var w = canvas.offsetWidth;
+  canvas.width = w; canvas.height = 120;
+  ctx.strokeStyle = '#1a0018'; ctx.lineWidth = 2.2;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function getPos(e){
+  var r = canvas.getBoundingClientRect();
+  var src = e.touches ? e.touches[0] : e;
+  return { x:(src.clientX-r.left)*(canvas.width/r.width), y:(src.clientY-r.top)*(canvas.height/r.height) };
+}
+canvas.addEventListener('mousedown',  function(e){ drawing=true; var p=getPos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); });
+canvas.addEventListener('mousemove',  function(e){ if(!drawing)return; var p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; });
+canvas.addEventListener('mouseup',    function(){ drawing=false; });
+canvas.addEventListener('mouseleave', function(){ drawing=false; });
+canvas.addEventListener('touchstart', function(e){ e.preventDefault(); drawing=true; var p=getPos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); },{passive:false});
+canvas.addEventListener('touchmove',  function(e){ e.preventDefault(); if(!drawing)return; var p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); hasSig=true; },{passive:false});
+canvas.addEventListener('touchend',   function(){ drawing=false; });
+document.getElementById('sig-clear-btn').addEventListener('click', function(){ ctx.clearRect(0,0,canvas.width,canvas.height); hasSig=false; });
+
+// ── FILE LABEL ─────────────────────────────────────────────────
+document.getElementById('birth-cert').addEventListener('change', function(){
+  document.getElementById('cert-name').textContent = this.files[0] ? '📎 '+this.files[0].name : '';
+});
+
+// ── PROGRESS BAR ───────────────────────────────────────────────
+var pfill = document.getElementById('prog-fill');
+function updateProgress(){
+  var inputs = document.querySelectorAll('#reg-form input[required]');
+  var done = 0, total = inputs.length + 2; // +1 sig +1 card
+  inputs.forEach(function(el){
+    if(el.type==='radio'||el.type==='checkbox'){
+      if(document.querySelector('[name="'+el.name+'"]:checked')) done++;
+    } else if(el.value.trim()) done++;
+  });
+  if(hasSig) done++;
+  pfill.style.width = Math.min(100, Math.round((done/total)*100))+'%';
+}
+document.getElementById('reg-form').addEventListener('input', updateProgress);
+document.getElementById('reg-form').addEventListener('change', updateProgress);
+canvas.addEventListener('mouseup', updateProgress);
+canvas.addEventListener('touchend', updateProgress);
+
+// ── FORM SUBMIT ────────────────────────────────────────────────
+var form      = document.getElementById('reg-form');
+var submitBtn = document.getElementById('submit-btn');
+var errMsg    = document.getElementById('form-err');
+var payErr    = document.getElementById('pay-error');
+var success   = document.getElementById('success-screen');
+
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  errMsg.style.display = 'none';
+  payErr.textContent   = '';
+
+  // Validate required radio groups
+  var radioGroups = ['player_grade','shirt_size','team','has_insurance','waiver_accepted'];
+  var radioOk = radioGroups.every(function(n){ return !!document.querySelector('[name="'+n+'"]:checked'); });
+
+  if(!form.checkValidity() || !radioOk || !hasSig){
+    errMsg.style.display = 'block';
+    var first = form.querySelector(':invalid');
+    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  if(!stripe || !cardElement){
+    payErr.textContent = 'Stripe is not loaded. Please refresh the page and try again.';
+    return;
+  }
+
+  // Disable submit, show spinner
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<svg class="spin" viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Processing…';
+
+  var playerName = document.getElementById('p-first').value+' '+document.getElementById('p-last').value;
+  var parentEmail = document.getElementById('par1-email').value;
+  var teamVal = document.querySelector('[name="team"]:checked').value;
+
+  try {
+    // ── Step 1: Create PaymentIntent via Cloudflare Pages Function ──
+    var piRes = await fetch('/api/create-payment-intent', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        amount: REG_FEE_CENTS,
+        description: 'PLG Gridders 2026 – '+playerName+' – '+teamVal,
+        email: parentEmail
+      })
+    });
+
+    if(!piRes.ok){ throw new Error('Could not start payment. Please try again.'); }
+    var piData = await piRes.json();
+    if(!piData.clientSecret){ throw new Error(piData.error || 'Payment setup failed.'); }
+
+    // ── Step 2: Confirm card payment with Stripe ──
+    var par1First = document.getElementById('par1-first').value;
+    var par1Last  = document.getElementById('par1-last').value;
+
+    var confirmResult = await stripe.confirmCardPayment(piData.clientSecret, {
+      payment_method:{
+        card: cardElement,
+        billing_details:{ name: par1First+' '+par1Last, email: parentEmail }
+      },
+      receipt_email: parentEmail
+    });
+
+    if(confirmResult.error){
+      payErr.textContent = confirmResult.error.message;
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Submit Registration &amp; Pay Now';
+      return;
+    }
+
+    // ── Step 3: Payment succeeded — send registration data via Web3Forms ──
+    document.getElementById('sig-data').value = canvas.toDataURL('image/png');
+    document.getElementById('w3f-subject').value = 'PLG Gridders 2026 — '+playerName+' Registered · '+teamVal;
+
+    var fd = new FormData(form);
+    fd.set('payment_id',    confirmResult.paymentIntent.id);
+    fd.set('payment_status','PAID — $'+REG_FEE.toFixed(2));
+    // Remove file from Web3Forms (text only)
+    var certFile = form.querySelector('[name="birth_certificate"]');
+    if(certFile && certFile.files[0]) fd.set('birth_certificate_filename', certFile.files[0].name+' (to be emailed separately)');
+    fd.delete('birth_certificate');
+    fd.delete('botcheck');
+
+    if(W3F_KEY && W3F_KEY !== 'YOUR_WEB3FORMS_KEY'){
+      fetch('https://api.web3forms.com/submit', {method:'POST', body:fd}).catch(function(){});
+    }
+
+    // ── Step 4: Show success screen ──
+    var gradeVal = document.querySelector('[name="player_grade"]:checked');
+    document.getElementById('confirm-player').textContent   = playerName+"'s";
+    document.getElementById('confirm-player-2').textContent = playerName;
+    document.getElementById('confirm-email').textContent    = parentEmail;
+    document.getElementById('confirm-team').textContent     = teamVal;
+    document.getElementById('confirm-grade').textContent    = gradeVal ? gradeVal.value : '—';
+
+    form.style.display = 'none';
+    success.classList.add('on');
+    pfill.style.width = '100%';
+    window.scrollTo({top:0, behavior:'smooth'});
+
+  } catch(err){
+    payErr.textContent = err.message || 'An error occurred. Please try again.';
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Submit Registration &amp; Pay Now';
+  }
+});
+
+})();
+</script>
+</body>
+</html>
