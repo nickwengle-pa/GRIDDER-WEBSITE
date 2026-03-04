@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PLG Gridders — Site Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080c18;
+      --card: rgba(12, 18, 40, 0.98);
+      --gold: #f59e0b;
+      --gold-soft: rgba(245,158,11,0.12);
+      --sky: #38bdf8;
+      --text: #e8eaf0;
+      --muted: #7a859a;
+      --border: rgba(148,163,184,0.22);
+      --border-med: rgba(148,163,184,0.38);
+      --green: #22c55e;
+      --red: #ef4444;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .display { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; }
+    a { color: var(--sky); text-decoration: none; }
+
+    /* LOGIN SCREEN */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .login-box {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--border-med);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .login-logo {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold), #92400e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 12px 30px rgba(245,158,11,0.4);
+    }
+    .login-logo svg { width: 28px; height: 28px; fill: #080c18; }
+    .login-title { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .login-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.75rem; }
+    .login-input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border-med);
+      background: rgba(8,12,24,0.98);
+      padding: 0.65rem 0.8rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      margin-bottom: 0.75rem;
+      text-align: center;
+      letter-spacing: 0.15em;
+      transition: border-color 0.15s;
+    }
+    .login-input:focus { border-color: rgba(245,158,11,0.6); }
+    .login-btn {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #080c18;
+      font-weight: 700;
+      font-family: inherit;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .login-btn:hover { opacity: 0.9; }
+    .login-error { font-size: 0.78rem; color: #f87171; margin-top: 0.6rem; display: none; }
+
+    /* MAIN ADMIN */
+    #admin-screen { display: none; }
+
+    .admin-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8,12,24,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.8rem 0;
+    }
+    .admin-nav {
+      width: min(1100px, 100% - 2rem);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .admin-brand { display: flex; align-items: center; gap: 0.6rem; }
+    .admin-brand-mark {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), #92400e);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .admin-brand-mark svg { width: 17px; height: 17px; fill: #080c18; }
+    .admin-brand-name { font-size: 0.9rem; font-weight: 600; }
+    .admin-brand-sub { font-size: 0.62rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; }
+    .admin-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .admin-btn {
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-med);
+      background: transparent;
+      color: var(--text);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .admin-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .admin-btn--gold {
+      background: linear-gradient(135deg, var(--gold), #d97706);
+      color: #080c18;
+      border-color: transparent;
+    }
+    .admin-btn--gold:hover { opacity: 0.9; color: #080c18; border-color: transparent; }
+    .admin-btn--red { border-color: rgba(239,68,68,0.4); color: #fca5a5; }
+    .admin-btn--red:hover { border-color: var(--red); color: var(--red); }
+
+    .admin-body {
+      width: min(1100px, 100% - 2rem);
+      margin-inline: auto;
+      padding-block: 2.5rem;
+      display: grid;
+      grid-template-columns: 220px minmax(0,1fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    /* Sidebar tabs */
+    .admin-sidebar { position: sticky; top: 4.5rem; }
+    .sidebar-label {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      padding: 0 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 0.2rem; margin-bottom: 1.5rem; }
+    .sidebar-btn {
+      padding: 0.5rem 0.75rem;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      font-size: 0.82rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .sidebar-btn:hover { background: var(--gold-soft); color: var(--text); }
+    .sidebar-btn--active { background: var(--gold-soft); color: var(--gold); font-weight: 500; }
+    .sidebar-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .status-box {
+      border-radius: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.85rem;
+      font-size: 0.76rem;
+    }
+    .status-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 0.4rem; }
+    .status-item { display: flex; align-items: center; gap: 0.4rem; color: var(--muted); padding-block: 0.18rem; }
+    .status-dot { width: 7px; height: 7px; border-radius: 999px; flex-shrink: 0; }
+    .dot-green { background: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,0.2); }
+    .dot-yellow { background: var(--gold); box-shadow: 0 0 0 3px rgba(245,158,11,0.2); }
+    .dot-red { background: var(--red); box-shadow: 0 0 0 3px rgba(239,68,68,0.2); }
+
+    /* Panels */
+    .admin-panel { display: none; }
+    .admin-panel--active { display: block; }
+
+    .panel-title { font-size: 1.4rem; margin-bottom: 0.25rem; }
+    .panel-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.75rem; line-height: 1.6; }
+
+    .form-section {
+      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .form-section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .form-section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.85rem; }
+    .field-grid--3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .field-full { grid-column: 1 / -1; }
+
+    .field { display: flex; flex-direction: column; gap: 0.22rem; }
+    .field-label { font-size: 0.72rem; color: rgba(209,213,219,0.85); }
+    .field-hint { font-size: 0.67rem; color: var(--muted); margin-top: 0.1rem; line-height: 1.4; }
+    .field-input, .field-select, .field-textarea {
+      border-radius: 10px;
+      border: 1px solid var(--border-med);
+      background: rgba(8,12,24,0.96);
+      padding: 0.55rem 0.7rem;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      border-color: rgba(245,158,11,0.6);
+      box-shadow: 0 0 0 1px rgba(245,158,11,0.3);
+    }
+    .field-textarea { min-height: 80px; resize: vertical; }
+    .field-input::placeholder, .field-textarea::placeholder { color: rgba(122,133,154,0.6); }
+    .field-select option { background: #0a0e1a; }
+
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .toggle-info .toggle-name { font-size: 0.88rem; font-weight: 500; }
+    .toggle-info .toggle-desc { font-size: 0.74rem; color: var(--muted); margin-top: 0.1rem; }
+    .toggle-switch {
+      position: relative;
+      width: 42px; height: 24px;
+      flex-shrink: 0;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: rgba(30,40,70,0.9);
+      border: 1px solid var(--border-med);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toggle-track::before {
+      content: "";
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      border-radius: 999px;
+      background: var(--muted);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .toggle-switch input:checked + .toggle-track {
+      background: rgba(34,197,94,0.2);
+      border-color: rgba(34,197,94,0.5);
+    }
+    .toggle-switch input:checked + .toggle-track::before {
+      transform: translateX(18px);
+      background: var(--green);
+    }
+
+    /* Division cards in admin */
+    .div-cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+    .div-card {
+      border-radius: 14px;
+      background: rgba(8,12,24,0.96);
+      border: 1px solid var(--border);
+      padding: 1.1rem;
+    }
+    .div-card-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Sheets guide */
+    .guide-step {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(245,158,11,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .step-body { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+    .step-body strong { color: var(--text); }
+    .step-body code {
+      padding: 0.1rem 0.35rem;
+      border-radius: 5px;
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.3);
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-family: monospace;
+    }
+
+    .col-table {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+    }
+    .col-table thead { background: rgba(8,12,24,0.99); }
+    .col-table th, .col-table td { padding: 0.55rem 0.85rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .col-table th { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
+    .col-table td { color: var(--muted); }
+    .col-table td:first-child { color: var(--gold); font-family: monospace; }
+    .col-table tr:last-child td { border-bottom: none; }
+
+    /* Output box */
+    .output-box {
+      border-radius: 14px;
+      background: rgba(8,12,24,0.99);
+      border: 1px solid var(--border-med);
+      padding: 1.25rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: #a5b4fc;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 420px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .output-title { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: 0.7rem 1.2rem;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.15);
+      border: 1px solid rgba(34,197,94,0.5);
+      color: #86efac;
+      font-size: 0.82rem;
+      font-weight: 500;
+      z-index: 100;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .toast--visible { transform: none; opacity: 1; }
+
+    @media (max-width: 860px) {
+      .admin-body { grid-template-columns: 1fr; }
+      .admin-sidebar { position: static; }
+      .sidebar-nav { flex-direction: row; flex-wrap: wrap; }
+      .div-cards { grid-template-columns: 1fr; }
+      .field-grid--3 { grid-template-columns: 1fr; }
+      .field-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+  LOGIN
+============================================================ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="6.5"/><line x1="2" y1="12" x2="22" y2="12" stroke="#fff" stroke-width="1.2" stroke-dasharray="3 2" fill="none"/><line x1="12" y1="5.5" x2="12" y2="18.5" stroke="#fff" stroke-width="1.2" fill="none"/></svg>
+    </div>
+    <div class="display login-title">Site Admin</div>
+    <div class="login-sub">PLG Gridders · plgridders.com<br>Enter the admin password to continue.</div>
+    <input class="login-input" type="password" id="pw-input" placeholder="••••••••" autocomplete="current-password">
+    <button class="login-btn" id="pw-submit">Enter Admin</button>
+    <div class="login-error" id="pw-error">Incorrect password. Please try again.</div>
+    <p style="margin-top:1.25rem; font-size:0.7rem; color:var(--muted);">
+      Default password: <strong style="color:var(--text);">gridders2026</strong><br>
+      Change it in admin.html line ~400.
+    </p>
+  </div>
+</div>
+
+<!-- ============================================================
+  ADMIN SCREEN
+============================================================ -->
+<div id="admin-screen">
+  <header class="admin-header">
+    <div class="admin-nav">
+      <div class="admin-brand">
+        <div class="admin-brand-mark">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="6.5"/></svg>
+        </div>
+        <div>
+          <div class="admin-brand-name">PLG Gridders</div>
+          <div class="admin-brand-sub">Site Admin</div>
+        </div>
+      </div>
+      <div class="admin-actions">
+        <a href="index.html" class="admin-btn" target="_blank">View Site ↗</a>
+        <button class="admin-btn admin-btn--gold" id="generate-btn">Generate Config Code</button>
+        <button class="admin-btn admin-btn--red" id="logout-btn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-body">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-label">Sections</div>
+      <div class="sidebar-nav">
+        <button class="sidebar-btn sidebar-btn--active" data-panel="org">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          Organization
+        </button>
+        <button class="sidebar-btn" data-panel="hero">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L10 6l4.5.7-3.25 3.15.77 4.5L8 12.25 3.98 14.35l.77-4.5L1.5 6.7 6 6z"/></svg>
+          Hero Section
+        </button>
+        <button class="sidebar-btn" data-panel="registration">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M5 3V2M11 3V2M2 7h12"/></svg>
+          Registration
+        </button>
+        <button class="sidebar-btn" data-panel="stripe">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="14" height="10" rx="2"/><path d="M1 8h14"/><path d="M4 12h2M9 12h3"/></svg>
+          Stripe Links
+        </button>
+        <button class="sidebar-btn" data-panel="sheets">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M2 6h12M6 6v8"/></svg>
+          Google Sheets
+        </button>
+        <button class="sidebar-btn" data-panel="forms">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/><path d="M5 6h6M5 9h6M5 12h3"/></svg>
+          Forms (Formspree)
+        </button>
+        <button class="sidebar-btn" data-panel="output">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l-3 4 3 4M12 4l3 4-3 4M9 2l-2 12"/></svg>
+          Generate Code
+        </button>
+      </div>
+
+      <div class="status-box">
+        <div class="status-label">Connection Status</div>
+        <div class="status-item"><span class="status-dot dot-yellow"></span><span id="sheets-status">Google Sheets: Not configured</span></div>
+        <div class="status-item"><span class="status-dot dot-yellow"></span><span id="formspree-status">Formspree: Not configured</span></div>
+        <div class="status-item"><span class="status-dot dot-yellow"></span><span id="stripe-status">Stripe: Not configured</span></div>
+      </div>
+    </aside>
+
+    <!-- MAIN PANELS -->
+    <main>
+
+      <!-- ORG PANEL -->
+      <div class="admin-panel admin-panel--active" id="panel-org">
+        <h1 class="display panel-title">Organization Info</h1>
+        <p class="panel-sub">Basic details about your club. These appear in the site header, footer, contact section, and page title.</p>
+
+        <div class="form-section">
+          <div class="form-section-title">Club Details</div>
+          <div class="field-grid">
+            <div class="field">
+              <label class="field-label">Club Name (short)</label>
+              <input class="field-input" id="org-name" value="PLG Gridders" placeholder="PLG Gridders">
+            </div>
+            <div class="field">
+              <label class="field-label">Full Name</label>
+              <input class="field-input" id="org-fullname" value="PLG Gridders Youth Football">
+            </div>
+            <div class="field">
+              <label class="field-label">Season</label>
+              <input class="field-input" id="org-season" value="Fall 2026" placeholder="Fall 2026">
+            </div>
+            <div class="field">
+              <label class="field-label">Home Field / Location Name</label>
+              <input class="field-input" id="org-location" value="PLG Community Fields">
+            </div>
+            <div class="field field-full">
+              <label class="field-label">Full Address</label>
+              <input class="field-input" id="org-address" value="123 Fieldhouse Drive, Your City, ST 00000">
+            </div>
+            <div class="field">
+              <label class="field-label">Contact Email</label>
+              <input class="field-input" id="org-email" type="email" value="info@plgridders.com">
+            </div>
+            <div class="field">
+              <label class="field-label">Phone Number</label>
+              <input class="field-input" id="org-phone" value="(555) 000-0000">
+            </div>
+            <div class="field">
+              <label class="field-label">Facebook URL</label>
+              <input class="field-input" id="org-facebook" value="https://facebook.com/plgridders" placeholder="https://facebook.com/...">
+            </div>
+            <div class="field">
+              <label class="field-label">Instagram URL</label>
+              <input class="field-input" id="org-instagram" value="https://instagram.com/plgridders" placeholder="https://instagram.com/...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO PANEL -->
+      <div class="admin-panel" id="panel-hero">
+        <h1 class="display panel-title">Hero Section</h1>
+        <p class="panel-sub">The big banner at the top of the homepage. Update each season with current details.</p>
+
+        <div class="form-section">
+          <div class="form-section-title">Headlines</div>
+          <div class="field-grid">
+            <div class="field">
+              <label class="field-label">Kicker Text (top pill)</label>
+              <input class="field-input" id="hero-kicker" value="Fall 2026 · Tryouts Open Now">
+              <div class="field-hint">e.g. "Fall 2026 · Tryouts Open Now"</div>
+            </div>
+            <div class="field"><label class="field-label">Headline Line 1 (Gold)</label><input class="field-input" id="hero-line1" value="Play Hard."></div>
+            <div class="field"><label class="field-label">Headline Line 2 (Blue)</label><input class="field-input" id="hero-line2" value="Lead Loud."></div>
+            <div class="field"><label class="field-label">Headline Line 3 (White)</label><input class="field-input" id="hero-line3" value="Be a Gridder."></div>
+            <div class="field field-full">
+              <label class="field-label">Subtitle Text</label>
+              <textarea class="field-textarea" id="hero-subtitle">PLG Gridders gives youth athletes ages 8–14 a home to develop skills, build character, and compete at the highest local level.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Next Game Card</div>
+          <div class="field-grid">
+            <div class="field field-full"><label class="field-label">Opponent Text</label><input class="field-input" id="next-opponent" value="PLG U12 vs. River City Rams"></div>
+            <div class="field"><label class="field-label">Date / Time / Location</label><input class="field-input" id="next-time" value="Saturday · September 14 · 3:30 PM · Field 2"></div>
+            <div class="field"><label class="field-label">Badge (e.g. Home · Week 1)</label><input class="field-input" id="next-badge" value="Home · Week 1"></div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Stats Strip (4 boxes)</div>
+          <div class="field-grid field-grid--3" style="grid-template-columns: repeat(4,1fr)">
+            <div class="field"><label class="field-label">Stat 1 Number</label><input class="field-input" id="stat1-num" value="3"></div>
+            <div class="field"><label class="field-label">Stat 1 Label</label><input class="field-input" id="stat1-label" value="Age Divisions"></div>
+            <div class="field"><label class="field-label">Stat 2 Number</label><input class="field-input" id="stat2-num" value="8–14"></div>
+            <div class="field"><label class="field-label">Stat 2 Label</label><input class="field-input" id="stat2-label" value="Player Ages"></div>
+            <div class="field"><label class="field-label">Stat 3 Number</label><input class="field-input" id="stat3-num" value="USA"></div>
+            <div class="field"><label class="field-label">Stat 3 Label</label><input class="field-input" id="stat3-label" value="Certified Coaches"></div>
+            <div class="field"><label class="field-label">Stat 4 Number</label><input class="field-input" id="stat4-num" value="20+"></div>
+            <div class="field"><label class="field-label">Stat 4 Label</label><input class="field-input" id="stat4-label" value="Games Per Season"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REGISTRATION PANEL -->
+      <div class="admin-panel" id="panel-registration">
+        <h1 class="display panel-title">Registration Settings</h1>
+        <p class="panel-sub">Control registration fees, tryout dates, and whether the Register buttons are visible. Stripe links are on the next page.</p>
+
+        <div class="form-section">
+          <div class="form-section-title">Status</div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-name">Registration Open</div>
+              <div class="toggle-desc">When OFF, the "Register & Pay" buttons are hidden and replaced with "Coming Soon".</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="reg-open" checked>
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Dates</div>
+          <div class="field-grid">
+            <div class="field"><label class="field-label">Tryout Dates</label><input class="field-input" id="tryout-dates" value="August 10–13, 2026"></div>
+            <div class="field"><label class="field-label">Parent Meeting</label><input class="field-input" id="parent-meeting" value="August 3, 2026 · 7:00 PM · PLG Community Center"></div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Division Fees & Tryout Times</div>
+          <div class="div-cards">
+            <div class="div-card">
+              <div class="div-card-name">U10 · Rookie</div>
+              <div class="field" style="margin-bottom:0.6rem;"><label class="field-label">Fee (e.g. $125)</label><input class="field-input" id="u10-fee" value="$125"></div>
+              <div class="field" style="margin-bottom:0.6rem;"><label class="field-label">Fee Note</label><input class="field-input" id="u10-fee-note" value="Payment plans available"></div>
+              <div class="field"><label class="field-label">Tryout Time</label><input class="field-input" id="u10-tryout" value="5:00–6:15 PM"></div>
+            </div>
+            <div class="div-card">
+              <div class="div-card-name">U12 · Storm</div>
+              <div class="field" style="margin-bottom:0.6rem;"><label class="field-label">Fee</label><input class="field-input" id="u12-fee" value="$150"></div>
+              <div class="field" style="margin-bottom:0.6rem;"><label class="field-label">Fee Note</label><input class="field-input" id="u12-fee-note" value="Payment plans available"></div>
+              <div class="field"><label class="field-label">Tryout Time</label><input class="field-input" id="u12-tryout" value="6:30–7:45 PM"></div>
+            </div>
+            <div class="div-card">
+              <div class="div-card-name">U14 · Elite</div>
+              <div class="field" style="margin-bottom:0.6rem;"><label class="field-label">Fee</label><input class="field-input" id="u14-fee" value="$175"></div>
+              <div class="field" style="margin-bottom:0.6rem;"><label class="field-label">Fee Note</label><input class="field-input" id="u14-fee-note" value="Includes travel & playoffs"></div>
+              <div class="field"><label class="field-label">Tryout Time</label><input class="field-input" id="u14-tryout" value="8:00–9:15 PM"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STRIPE PANEL -->
+      <div class="admin-panel" id="panel-stripe">
+        <h1 class="display panel-title">Stripe Payment Links</h1>
+        <p class="panel-sub">
+          Stripe automatically emails a PDF receipt to the parent after each payment. You see all registrations in your Stripe dashboard.
+          <br><br>
+          <strong style="color:var(--text);">How to get your links:</strong> Log in to stripe.com → <strong style="color:var(--text);">Payment Links</strong> → Create a new link for each division → paste the URL below.
+        </p>
+
+        <div class="form-section">
+          <div class="form-section-title">Payment Link URLs</div>
+          <div class="field-grid">
+            <div class="field">
+              <label class="field-label">U10 · Rookie Gridders Stripe Link</label>
+              <input class="field-input" id="stripe-u10" value="https://buy.stripe.com/REPLACE_THIS_U10" placeholder="https://buy.stripe.com/...">
+              <div class="field-hint">Paste the full URL from Stripe Payment Links</div>
+            </div>
+            <div class="field">
+              <label class="field-label">U12 · Storm Gridders Stripe Link</label>
+              <input class="field-input" id="stripe-u12" value="https://buy.stripe.com/REPLACE_THIS_U12" placeholder="https://buy.stripe.com/...">
+            </div>
+            <div class="field">
+              <label class="field-label">U14 · Elite Gridders Stripe Link</label>
+              <input class="field-input" id="stripe-u14" value="https://buy.stripe.com/REPLACE_THIS_U14" placeholder="https://buy.stripe.com/...">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section" style="background:rgba(245,158,11,0.05); border-color:rgba(245,158,11,0.25);">
+          <div class="form-section-title" style="color:var(--gold);">Stripe Setup Checklist</div>
+          <div style="font-size:0.82rem; color:var(--muted); display:flex; flex-direction:column; gap:0.5rem; line-height:1.6;">
+            <div>☐ <strong style="color:var(--text);">Create Stripe account</strong> at stripe.com (free to sign up)</div>
+            <div>☐ <strong style="color:var(--text);">Create 3 Payment Links</strong> — one per division, set the correct price</div>
+            <div>☐ <strong style="color:var(--text);">Enable email receipts</strong> in Stripe: Settings → Emails → turn on "Successful payments"</div>
+            <div>☐ <strong style="color:var(--text);">Add custom fields</strong> (optional) in the Payment Link: player name, age, position</div>
+            <div>☐ <strong style="color:var(--text);">Set up Stripe → Google Sheets</strong> via Zapier or Stripe's built-in export for your records</div>
+            <div>☐ <strong style="color:var(--text);">Paste the links above</strong> and generate the config code</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GOOGLE SHEETS PANEL -->
+      <div class="admin-panel" id="panel-sheets">
+        <h1 class="display panel-title">Google Sheets CMS</h1>
+        <p class="panel-sub">
+          Your schedule, news, and team info are managed in a Google Sheet. When you update the sheet, the website updates automatically — no code needed.
+        </p>
+
+        <div class="form-section">
+          <div class="form-section-title">Your Sheet ID</div>
+          <div class="field">
+            <label class="field-label">Google Sheet ID</label>
+            <input class="field-input" id="sheet-id" value="YOUR_GOOGLE_SHEET_ID" placeholder="e.g. 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms">
+            <div class="field-hint">Found in the URL: docs.google.com/spreadsheets/d/<strong>SHEET_ID</strong>/edit</div>
+          </div>
+          <div class="field-grid" style="margin-top:0.85rem;">
+            <div class="field"><label class="field-label">Schedule Tab Name</label><input class="field-input" id="sheet-schedule" value="Schedule"></div>
+            <div class="field"><label class="field-label">News Tab Name</label><input class="field-input" id="sheet-news" value="News"></div>
+            <div class="field"><label class="field-label">Teams Tab Name</label><input class="field-input" id="sheet-teams" value="Teams"></div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Setup Steps</div>
+          <div class="guide-step"><div class="step-num">1</div><div class="step-body"><strong>Create a new Google Sheet</strong> at sheets.google.com. Name it "PLG Gridders Site".</div></div>
+          <div class="guide-step"><div class="step-num">2</div><div class="step-body">Create <strong>3 tabs</strong> named exactly: <code>Schedule</code>, <code>News</code>, and <code>Teams</code>.</div></div>
+          <div class="guide-step"><div class="step-num">3</div><div class="step-body">Go to <strong>File → Share → Publish to web</strong>. Choose "Entire Document", select "Comma-separated values (.csv)", then click <strong>Publish</strong>.</div></div>
+          <div class="guide-step"><div class="step-num">4</div><div class="step-body">Copy the Sheet ID from the URL bar and paste it in the field above. It looks like: <code>1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms</code></div></div>
+          <div class="guide-step"><div class="step-num">5</div><div class="step-body"><strong>Generate config code</strong> below and paste it into index.html. After that, just update the Sheet and the site refreshes automatically.</div></div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Required Column Names</div>
+          <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;">Row 1 of each tab must have these exact column names (copy/paste them):</p>
+
+          <p style="font-size:0.75rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.15em; margin-bottom:0.3rem;">📋 Schedule tab</p>
+          <table class="col-table">
+            <thead><tr><th>Column</th><th>Example value</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Opponent</td><td>PLG U12 vs. Harbor Hawks</td><td>Full matchup text</td></tr>
+              <tr><td>Week</td><td>Week 1</td><td>Week or label (Preseason, Scrimmage)</td></tr>
+              <tr><td>Team</td><td>U12 · Storm Gridders</td><td>Which team is playing</td></tr>
+              <tr><td>Result</td><td>W 21–14 or TBD</td><td>Start with W, L, or TBD</td></tr>
+              <tr><td>Date</td><td>Sat · Sep 14 · 1:00 PM</td><td>Display text for date/time</td></tr>
+              <tr><td>Location</td><td>Home · Field 1</td><td>Location description</td></tr>
+              <tr><td>Status</td><td>upcoming</td><td>Must be: upcoming OR final</td></tr>
+              <tr><td>Home</td><td>true</td><td>Must be: true OR false</td></tr>
+            </tbody>
+          </table>
+
+          <p style="font-size:0.75rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.15em; margin-top:1rem; margin-bottom:0.3rem;">📋 News tab</p>
+          <table class="col-table">
+            <thead><tr><th>Column</th><th>Example</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Title</td><td>2026 Fall Registration Open</td><td>Article headline</td></tr>
+              <tr><td>Date</td><td>July 26</td><td>Posted date (display only)</td></tr>
+              <tr><td>Badge</td><td>New</td><td>Optional tag. Leave blank for none.</td></tr>
+              <tr><td>Body</td><td>Tryouts will be held...</td><td>Full article text</td></tr>
+              <tr><td>Link</td><td>#contact</td><td>Optional link URL</td></tr>
+              <tr><td>LinkText</td><td>Reserve a spot</td><td>Optional link label</td></tr>
+            </tbody>
+          </table>
+
+          <p style="font-size:0.75rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.15em; margin-top:1rem; margin-bottom:0.3rem;">📋 Teams tab</p>
+          <table class="col-table">
+            <thead><tr><th>Column</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Name</td><td>Storm Gridders</td></tr>
+              <tr><td>Level</td><td>U12 · Ages 10–12</td></tr>
+              <tr><td>Coach</td><td>Coach Williams</td></tr>
+              <tr><td>Practice</td><td>Tue &amp; Thu · 6:00–7:45 PM</td></tr>
+              <tr><td>Focus</td><td>Position skills, playbook, leadership.</td></tr>
+              <tr><td>Badge</td><td>Now Forming</td></tr>
+              <tr><td>Chip</td><td>Development &amp; competition</td></tr>
+              <tr><td>Roster</td><td>QB • Mason D., RB • Aiden F., WR • Logan P.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- FORMS PANEL -->
+      <div class="admin-panel" id="panel-forms">
+        <h1 class="display panel-title">Contact Form (Formspree)</h1>
+        <p class="panel-sub">Formspree handles your inquiry form. When a parent submits, you get an email notification, and all submissions are logged in your Formspree dashboard (exportable to Google Sheets via Zapier).</p>
+
+        <div class="form-section">
+          <div class="form-section-title">Formspree ID</div>
+          <div class="field">
+            <label class="field-label">Your Formspree Form ID</label>
+            <input class="field-input" id="formspree-id" value="YOUR_FORMSPREE_ID" placeholder="e.g. xkgwozap">
+            <div class="field-hint">Found in your Formspree dashboard URL or form settings. Just the ID part (8 characters).</div>
+          </div>
+        </div>
+
+        <div class="form-section" style="background:rgba(56,189,248,0.05); border-color:rgba(56,189,248,0.25);">
+          <div class="form-section-title" style="color:var(--sky);">Formspree Setup Steps</div>
+          <div style="font-size:0.82rem; color:var(--muted); display:flex; flex-direction:column; gap:0.5rem; line-height:1.6;">
+            <div>1. Go to <strong style="color:var(--text);">formspree.io</strong> and create a free account</div>
+            <div>2. Click <strong style="color:var(--text);">"New Form"</strong> → give it a name (e.g. "PLG Inquiry")</div>
+            <div>3. Set the <strong style="color:var(--text);">notification email</strong> to whoever should receive inquiries</div>
+            <div>4. Copy your <strong style="color:var(--text);">Form ID</strong> (8-character code) from the form settings</div>
+            <div>5. Paste it above, then generate the config</div>
+            <div>6. Optional: Connect Formspree → Google Sheets via <strong style="color:var(--text);">Zapier</strong> to auto-log all submissions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OUTPUT PANEL -->
+      <div class="admin-panel" id="panel-output">
+        <h1 class="display panel-title">Generate Config Code</h1>
+        <p class="panel-sub">After filling in all sections, click <strong style="color:var(--gold);">Generate Config Code</strong>. Then copy the code and paste it into the <code style="color:var(--gold); font-size:0.85rem;">index.html</code> file, replacing everything between the two <code style="font-size:0.8rem; color:var(--gold);">&lt;!-- SITE CONFIGURATION --&gt;</code> comment lines.</p>
+
+        <div class="form-section">
+          <div class="output-header">
+            <div class="output-title" id="output-status">Click "Generate Config Code" to build your config.</div>
+            <button class="admin-btn admin-btn--gold" id="copy-btn" style="display:none;">Copy to Clipboard</button>
+          </div>
+          <div class="output-box" id="output-box">// Your generated config will appear here after you click Generate.</div>
+        </div>
+
+        <div class="form-section" style="background:rgba(34,197,94,0.05); border-color:rgba(34,197,94,0.25);">
+          <div class="form-section-title" style="color:var(--green);">How to update the site</div>
+          <div style="font-size:0.82rem; color:var(--muted); display:flex; flex-direction:column; gap:0.6rem; line-height:1.6;">
+            <div><strong style="color:var(--text);">For schedule, news, and team info:</strong> Just update your Google Sheet. The site updates within minutes automatically. No code needed at all.</div>
+            <div><strong style="color:var(--text);">For fees, Stripe links, contact info, tryout dates:</strong> Update the fields in this admin panel → Generate Config → Copy the code → Open index.html on GitHub → Paste and save.</div>
+            <div><strong style="color:var(--text);">On GitHub:</strong> Open your repo → click index.html → click the pencil (Edit) icon → find the SITE_CONFIG section → paste → click "Commit changes". Site updates in ~30 seconds.</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast">✓ Copied to clipboard!</div>
+
+<script>
+// ── PASSWORD ────────────────────────────────────────────────────
+// CHANGE THIS PASSWORD before deploying!
+const ADMIN_PASSWORD = 'gridders2026';
+
+const loginScreen = document.getElementById('login-screen');
+const adminScreen  = document.getElementById('admin-screen');
+const pwInput      = document.getElementById('pw-input');
+const pwSubmit     = document.getElementById('pw-submit');
+const pwError      = document.getElementById('pw-error');
+
+function tryLogin() {
+  if (pwInput.value === ADMIN_PASSWORD) {
+    loginScreen.style.display = 'none';
+    adminScreen.style.display = 'block';
+  } else {
+    pwError.style.display = 'block';
+    pwInput.value = '';
+    pwInput.focus();
+  }
+}
+
+pwSubmit.addEventListener('click', tryLogin);
+pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+document.getElementById('logout-btn').addEventListener('click', () => {
+  adminScreen.style.display = 'none';
+  loginScreen.style.display = 'flex';
+  pwInput.value = '';
+});
+
+// ── SIDEBAR TABS ─────────────────────────────────────────────────
+document.querySelectorAll('.sidebar-btn[data-panel]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('sidebar-btn--active'));
+    document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('admin-panel--active'));
+    btn.classList.add('sidebar-btn--active');
+    document.getElementById('panel-' + btn.dataset.panel).classList.add('admin-panel--active');
+  });
+});
+
+// ── STATUS INDICATORS ────────────────────────────────────────────
+function updateStatus() {
+  const sheetId = document.getElementById('sheet-id').value.trim();
+  const formId  = document.getElementById('formspree-id').value.trim();
+  const u10     = document.getElementById('stripe-u10').value.trim();
+
+  const sheetsOk = sheetId && !sheetId.includes('YOUR_GOOGLE');
+  const formsOk  = formId  && !formId.includes('YOUR_');
+  const stripeOk = u10     && !u10.includes('REPLACE_');
+
+  function setStatus(elId, ok, label, okText, badText) {
+    const el = document.getElementById(elId);
+    el.textContent = label + ': ' + (ok ? okText : badText);
+    const dot = el.previousElementSibling;
+    dot.className = 'status-dot ' + (ok ? 'dot-green' : 'dot-yellow');
+  }
+
+  setStatus('sheets-status',    sheetsOk, 'Google Sheets', 'Connected ✓', 'Not configured');
+  setStatus('formspree-status', formsOk,  'Formspree',     'Connected ✓', 'Not configured');
+  setStatus('stripe-status',    stripeOk, 'Stripe',        'Links set ✓', 'Not configured');
+}
+
+['sheet-id','formspree-id','stripe-u10','stripe-u12','stripe-u14'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updateStatus);
+});
+
+// ── GENERATE CONFIG ──────────────────────────────────────────────
+function g(id) { return (document.getElementById(id) || {}).value || ''; }
+function gChecked(id) { return document.getElementById(id).checked; }
+
+document.getElementById('generate-btn').addEventListener('click', () => {
+  document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('sidebar-btn--active'));
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('admin-panel--active'));
+  document.querySelector('.sidebar-btn[data-panel="output"]').classList.add('sidebar-btn--active');
+  document.getElementById('panel-output').classList.add('admin-panel--active');
+  generateConfig();
+});
+
+function generateConfig() {
+  const config = `// ============================================================
+//  PLG GRIDDERS — SITE CONFIGURATION
+//  Generated by admin.html on ${new Date().toLocaleDateString()}
+//  Non-technical updates? Use admin.html
+// ============================================================
+const SITE_CONFIG = {
+
+  // ── ORGANIZATION ───────────────────────────────────────────
+  org: {
+    name:      "${g('org-name')}",
+    fullName:  "${g('org-fullname')}",
+    tagline:   "Play Hard. Lead Loud.",
+    season:    "${g('org-season')}",
+    location:  "${g('org-location')}",
+    address:   "${g('org-address')}",
+    email:     "${g('org-email')}",
+    phone:     "${g('org-phone')}",
+    facebook:  "${g('org-facebook')}",
+    instagram: "${g('org-instagram')}",
+  },
+
+  // ── HERO SECTION ────────────────────────────────────────────
+  hero: {
+    kicker:    "${g('hero-kicker')}",
+    headLine1: "${g('hero-line1')}",
+    headLine2: "${g('hero-line2')}",
+    headLine3: "${g('hero-line3')}",
+    subtitle:  "${g('hero-subtitle').replace(/\n/g,' ')}",
+    nextGame: {
+      opponent: "${g('next-opponent')}",
+      time:     "${g('next-time')}",
+      label:    "${g('next-badge')}",
+    },
+  },
+
+  // ── STATS STRIP ─────────────────────────────────────────────
+  stats: [
+    { num: "${g('stat1-num')}",  label: "${g('stat1-label')}" },
+    { num: "${g('stat2-num')}",  label: "${g('stat2-label')}" },
+    { num: "${g('stat3-num')}",  label: "${g('stat3-label')}" },
+    { num: "${g('stat4-num')}",  label: "${g('stat4-label')}" },
+  ],
+
+  // ── REGISTRATION & STRIPE ───────────────────────────────────
+  registration: {
+    isOpen:        ${gChecked('reg-open')},
+    tryoutDates:   "${g('tryout-dates')}",
+    parentMeeting: "${g('parent-meeting')}",
+    divisions: [
+      {
+        id:         "u10",
+        level:      "U10 · Ages 8–10",
+        name:       "Rookie Gridders",
+        ages:       "Ages 8–10",
+        fee:        "${g('u10-fee')}",
+        feeNote:    "${g('u10-fee-note')}",
+        stripeLink: "${g('stripe-u10')}",
+        tryoutTime: "${g('u10-tryout')}",
+        featured:   false,
+      },
+      {
+        id:         "u12",
+        level:      "U12 · Ages 10–12",
+        name:       "Storm Gridders",
+        ages:       "Ages 10–12",
+        fee:        "${g('u12-fee')}",
+        feeNote:    "${g('u12-fee-note')}",
+        stripeLink: "${g('stripe-u12')}",
+        tryoutTime: "${g('u12-tryout')}",
+        featured:   true,
+      },
+      {
+        id:         "u14",
+        level:      "U14 · Ages 12–14",
+        name:       "Elite Gridders",
+        ages:       "Ages 12–14",
+        fee:        "${g('u14-fee')}",
+        feeNote:    "${g('u14-fee-note')}",
+        stripeLink: "${g('stripe-u14')}",
+        tryoutTime: "${g('u14-tryout')}",
+        featured:   false,
+      },
+    ],
+    perks: [
+      "Full equipment checklist",
+      "USA Football certified coaching",
+      "League game schedule",
+      "Stripe receipt emailed to you",
+    ],
+  },
+
+  // ── FORMSPREE ───────────────────────────────────────────────
+  formspreeId: "${g('formspree-id')}",
+
+  // ── GOOGLE SHEETS ───────────────────────────────────────────
+  sheets: {
+    id:       "${g('sheet-id')}",
+    schedule: "${g('sheet-schedule')}",
+    news:     "${g('sheet-news')}",
+    teams:    "${g('sheet-teams')}",
+  },
+};`;
+
+  document.getElementById('output-box').textContent = config;
+  document.getElementById('output-status').textContent = '✓ Config generated — copy and paste into index.html';
+  document.getElementById('copy-btn').style.display = 'inline-flex';
+  updateStatus();
+}
+
+// ── COPY ─────────────────────────────────────────────────────────
+document.getElementById('copy-btn').addEventListener('click', () => {
+  const text = document.getElementById('output-box').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('toast--visible');
+    setTimeout(() => toast.classList.remove('toast--visible'), 2500);
+  });
+});
+
+updateStatus();
+</script>
+</body>
+</html>

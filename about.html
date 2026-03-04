@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About | Purchase Line Little Gridders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About the Purchase Line Little Gridders — our mission, values, and commitment to youth football and cheerleading in Commodore, PA.">
+  <meta name="theme-color" content="#0a0608">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#09060a;--bg-card:rgba(15,8,14,0.97);--red:#dc2626;--red-2:#ef4444;--red-3:#fca5a5;--red-soft:rgba(220,38,38,0.12);--red-glow:rgba(220,38,38,0.32);--red-border:rgba(220,38,38,0.42);--text:#ede9e9;--muted:#7a7080;--border:rgba(160,110,110,0.18);--border-med:rgba(180,120,120,0.3);--radius:16px;--radius-lg:24px;--shadow:0 20px 50px rgba(0,0,0,0.85);--t:200ms ease-out}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    body::after{content:"";position:fixed;top:0;left:0;right:0;height:500px;background:radial-gradient(ellipse at 50% -10%,rgba(220,38,38,0.1),transparent 65%);pointer-events:none;z-index:0}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;cursor:pointer}
+    .no-scroll{overflow:hidden}
+    .container{width:min(1140px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
+    .display{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.95}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.5rem;border-radius:999px;border:1px solid transparent;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:all var(--t);line-height:1}
+    .btn--red{background:linear-gradient(135deg,var(--red),#991b1b);color:#fff;box-shadow:0 10px 28px var(--red-glow)}
+    .btn--red:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(220,38,38,.5)}
+    .btn--ghost{background:transparent;border-color:var(--border-med);color:var(--text)}
+    .btn--ghost:hover{border-color:var(--red-border);color:var(--red-3);transform:translateY(-1px)}
+    .btn--sm{padding:.38rem .95rem;font-size:.72rem}
+    .btn--lg{padding:.75rem 2rem;font-size:.88rem}
+    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(9,6,10,0.91);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding-block:.82rem;gap:1.5rem}
+    .brand{display:flex;align-items:center;gap:.7rem}
+    .brand-logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--red),#7f1d1d);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px var(--red-glow);flex-shrink:0}
+    .brand-logo svg{width:22px;height:22px}
+    .brand-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+    .brand-sub{font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-top:.05rem}
+    .nav-links{display:flex;align-items:center;gap:1.75rem;font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+    .nav-links a{transition:color var(--t);position:relative}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-.38rem;width:0;height:2px;border-radius:999px;background:var(--red);transition:width var(--t)}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .nav-actions{display:flex;align-items:center;gap:.7rem}
+    .nav-toggle{display:none;width:38px;height:38px;border-radius:999px;border:1px solid var(--border-med);background:rgba(15,8,14,.9);align-items:center;justify-content:center}
+    .hamburger{width:18px;height:2px;background:var(--text);border-radius:999px;position:relative;transition:transform var(--t)}
+    .hamburger::before,.hamburger::after{content:"";position:absolute;left:0;width:18px;height:2px;background:inherit;border-radius:inherit;transition:transform var(--t),top var(--t),opacity var(--t)}
+    .hamburger::before{top:-6px}
+    .hamburger::after{top:6px}
+    .nav-toggle--open .hamburger{transform:rotate(45deg)}
+    .nav-toggle--open .hamburger::before{top:0;transform:rotate(-90deg)}
+    .nav-toggle--open .hamburger::after{top:0;opacity:0}
+
+    /* PAGE HERO */
+    .page-hero{padding:5rem 0 4rem;position:relative;overflow:hidden}
+    .page-hero::before{content:"";position:absolute;top:-30%;right:-8%;width:55%;height:160%;background:linear-gradient(155deg,rgba(220,38,38,0.07) 0%,transparent 55%);clip-path:polygon(22% 0%,100% 0%,100% 100%,0% 100%);pointer-events:none}
+    .page-hero::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent,transparent 59px,rgba(220,38,38,0.04) 60px);pointer-events:none}
+    .page-hero-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.55fr);gap:4rem;align-items:end}
+    .page-kicker{display:inline-flex;align-items:center;gap:.45rem;padding:.25rem .75rem .25rem .35rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--red-3);margin-bottom:1.1rem}
+    .kicker-dot{width:8px;height:8px;border-radius:999px;background:var(--red);box-shadow:0 0 0 4px rgba(220,38,38,.3);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(220,38,38,.3)}50%{box-shadow:0 0 0 8px rgba(220,38,38,.1)}  }
+    .page-title{font-size:clamp(3.2rem,7vw + 1rem,6.5rem);margin-bottom:1rem}
+    .page-title .line-red{color:var(--red);display:block}
+    .page-title .line-dim{color:rgba(237,233,233,0.35);display:block;font-size:0.7em;letter-spacing:0.04em}
+    .page-tagline{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.65rem;margin-bottom:1.5rem}
+    .page-tagline::before{content:"";display:block;width:32px;height:1.5px;background:var(--red);flex-shrink:0}
+    .page-hero-right{align-self:stretch;display:flex;align-items:flex-end;justify-content:flex-end}
+    .hero-crest{position:relative;width:220px;height:220px;display:flex;align-items:center;justify-content:center}
+    .crest-ring{position:absolute;inset:0;border-radius:999px;border:1.5px dashed rgba(220,38,38,0.22);animation:slowspin 30s linear infinite}
+    .crest-ring-inner{position:absolute;inset:18px;border-radius:999px;border:1px solid rgba(220,38,38,0.14);animation:slowspin 20s linear infinite reverse}
+    @keyframes slowspin{to{transform:rotate(360deg)}}
+    .crest-core{width:130px;height:130px;border-radius:999px;background:radial-gradient(circle at 30% 25%,rgba(220,38,38,0.18),rgba(127,29,29,0.35));border:1px solid var(--red-border);box-shadow:0 0 40px rgba(220,38,38,0.18),inset 0 0 20px rgba(220,38,38,0.06);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.1rem}
+    .crest-year{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:.04em;color:var(--red-3)}
+    .crest-org{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.5}
+    .crest-dot{position:absolute;width:6px;height:6px;border-radius:999px;background:var(--red);box-shadow:0 0 8px rgba(220,38,38,0.6)}
+    .crest-dot--n{top:8px;left:50%;transform:translateX(-50%)}
+    .crest-dot--s{bottom:8px;left:50%;transform:translateX(-50%)}
+    .crest-dot--e{right:8px;top:50%;transform:translateY(-50%)}
+    .crest-dot--w{left:8px;top:50%;transform:translateY(-50%)}
+
+    /* MISSION */
+    .mission-section{padding-block:5rem}
+    .mission-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:5rem;align-items:start}
+    .mission-left{position:sticky;top:6rem}
+    .mission-eyebrow{font-size:.65rem;text-transform:uppercase;letter-spacing:.28em;color:var(--red-3);font-weight:600;margin-bottom:.5rem}
+    .mission-heading{font-size:clamp(2rem,4vw,3rem);line-height:1;margin-bottom:1rem}
+    .mission-rule{width:48px;height:3px;background:linear-gradient(90deg,var(--red),transparent);border-radius:999px;margin-bottom:1.2rem}
+    .mission-meta{font-size:.78rem;color:var(--muted);line-height:1.7;max-width:18rem}
+    .mission-meta strong{color:var(--text);font-weight:500}
+    .mission-statement-card{border-radius:var(--radius-lg);background:var(--bg-card);border:1px solid var(--border-med);padding:3rem 3.5rem;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+    .mission-statement-card::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(220,38,38,0.07),transparent 55%);pointer-events:none}
+    .mission-statement-card::after{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--red),transparent)}
+    .ms-quote-mark{font-family:'Barlow Condensed',sans-serif;font-size:8rem;line-height:0.7;color:rgba(220,38,38,0.18);margin-bottom:.5rem;display:block;user-select:none}
+    .ms-text{font-size:clamp(1rem,1.5vw,1.17rem);line-height:1.85;color:rgba(237,233,233,0.9);margin-bottom:2rem}
+    .ms-text strong{color:#fff;font-weight:600}
+    .ms-text .hi{color:var(--red-3);font-style:italic}
+    .ms-motto{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border-radius:14px;background:rgba(220,38,38,0.08);border:1px solid var(--red-border)}
+    .ms-motto-bar{width:3px;min-height:40px;background:linear-gradient(to bottom,var(--red),var(--red-2));border-radius:999px;flex-shrink:0;align-self:stretch}
+    .ms-motto-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.22em;color:var(--muted);margin-bottom:.3rem}
+    .ms-motto-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
+
+    /* PILLARS */
+    .pillars-section{padding-block:1rem 5rem}
+    .section-eyebrow{font-size:.65rem;text-transform:uppercase;letter-spacing:.28em;color:var(--red-3);font-weight:600;margin-bottom:.5rem}
+    .section-heading{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:2.5rem}
+    .pillars-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+    .pillar{border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);padding:2rem 1.75rem;display:flex;flex-direction:column;gap:.75rem;position:relative;overflow:hidden;transition:border-color var(--t),transform var(--t),box-shadow var(--t)}
+    .pillar:hover{border-color:var(--red-border);transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,0,0,.7)}
+    .pillar::before{content:"";position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--red),transparent);opacity:0;transition:opacity var(--t)}
+    .pillar:hover::before{opacity:1}
+    .pillar-num{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:3.5rem;line-height:1;color:rgba(220,38,38,0.15);margin-bottom:.25rem;transition:color var(--t)}
+    .pillar:hover .pillar-num{color:rgba(220,38,38,0.3)}
+    .pillar-icon{width:40px;height:40px;border-radius:10px;background:var(--red-soft);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;margin-bottom:.25rem}
+    .pillar-icon svg{width:20px;height:20px;stroke:var(--red-3)}
+    .pillar-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;letter-spacing:.04em}
+    .pillar-body{font-size:.84rem;color:var(--muted);line-height:1.75}
+
+    /* PROGRAMS */
+    .programs-section{padding-block:5rem}
+    .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .prog-card{border-radius:var(--radius-lg);background:var(--bg-card);border:1px solid var(--border);padding:2.25rem;position:relative;overflow:hidden;transition:border-color var(--t),transform var(--t)}
+    .prog-card:hover{border-color:var(--red-border);transform:translateY(-2px)}
+    .prog-card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at bottom right,rgba(220,38,38,0.05),transparent 60%);pointer-events:none}
+    .prog-icon{width:52px;height:52px;border-radius:14px;background:var(--red-soft);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+    .prog-icon svg{width:26px;height:26px;stroke:var(--red-3)}
+    .prog-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.6rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem}
+    .prog-desc{font-size:.87rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+    .prog-levels{display:flex;flex-direction:column;gap:.45rem}
+    .prog-level{display:flex;align-items:center;gap:.65rem;font-size:.78rem}
+    .pl-badge{padding:.2rem .65rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--red-3);white-space:nowrap;flex-shrink:0}
+    .pl-desc{color:var(--muted)}
+
+    /* CTA STRIP */
+    .commit-strip{margin-block:2rem;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(220,38,38,0.1) 0%,rgba(127,29,29,0.08) 50%,rgba(220,38,38,0.05) 100%);border:1px solid var(--red-border);padding:3rem 3.5rem;position:relative;overflow:hidden}
+    .commit-strip::before{content:"";position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(to bottom,var(--red),#7f1d1d)}
+    .commit-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:center}
+    .commit-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2.2rem);text-transform:uppercase;letter-spacing:.03em;margin-bottom:.5rem}
+    .commit-title span{color:var(--red)}
+    .commit-sub{font-size:.87rem;color:var(--muted);max-width:36rem;line-height:1.7}
+    .commit-actions{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
+
+    /* FOOTER */
+    .site-footer{padding-block:1.75rem;border-top:1px solid var(--border);font-size:.74rem;color:var(--muted)}
+    .fi-r{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .f-links{display:flex;gap:1rem;flex-wrap:wrap}
+    .f-links a{transition:color var(--t)}
+    .f-links a:hover{color:var(--text)}
+    .f-soc{display:flex;gap:.5rem;align-items:center}
+    .soc-btn{width:30px;height:30px;border-radius:999px;border:1px solid var(--border);background:rgba(15,8,14,.95);display:flex;align-items:center;justify-content:center;transition:all var(--t)}
+    .soc-btn svg{width:13px;height:13px;stroke:var(--muted)}
+    .soc-btn:hover{border-color:var(--red-border);background:var(--red-soft)}
+    .soc-btn:hover svg{stroke:var(--red-3)}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity 440ms ease-out,transform 440ms ease-out}
+    .revealed{opacity:1;transform:none}
+
+    @media(max-width:960px){
+      .page-hero-inner{grid-template-columns:1fr}
+      .page-hero-right{display:none}
+      .mission-layout{grid-template-columns:1fr;gap:2.5rem}
+      .mission-left{position:static}
+      .prog-grid{grid-template-columns:1fr}
+      .pillars-grid{grid-template-columns:1fr 1fr}
+      .commit-inner{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      .nav-links{position:fixed;inset:0 0 auto;padding:4.5rem 1.75rem 1.5rem;flex-direction:column;align-items:flex-start;background:rgba(9,4,9,.99);backdrop-filter:blur(20px);transform:translateY(-100%);opacity:0;pointer-events:none;transition:transform 260ms ease-out,opacity 220ms ease-out;gap:1.25rem;font-size:1rem;z-index:49}
+      .nav-links--open{transform:none;opacity:1;pointer-events:auto}
+      .nav-actions{display:none}
+      .nav-toggle{display:flex}
+      .pillars-grid{grid-template-columns:1fr}
+      .mission-statement-card{padding:2rem 1.75rem}
+      .commit-strip{padding:2rem 1.75rem}
+    }
+    @media(max-width:520px){
+      .fi-r{flex-direction:column;align-items:flex-start}
+      .page-title{font-size:3rem}
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none">
+            <ellipse cx="12" cy="12" rx="9" ry="5.8" fill="rgba(255,255,255,0.92)"/>
+            <line x1="3" y1="12" x2="21" y2="12" stroke="#7f1d1d" stroke-width="1.2" stroke-dasharray="3 2"/>
+            <line x1="12" y1="6.2" x2="12" y2="17.8" stroke="#7f1d1d" stroke-width="1.2"/>
+            <line x1="7.5" y1="8" x2="7.5" y2="16" stroke="#7f1d1d" stroke-width="0.9"/>
+            <line x1="16.5" y1="8" x2="16.5" y2="16" stroke="#7f1d1d" stroke-width="0.9"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">PLG Gridders</div>
+          <div class="brand-sub">Victory Through Character</div>
+        </div>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span class="hamburger"></span></button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#teams">Teams</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="index.html#register">Register</a>
+        <a href="about.html" class="active">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn--ghost btn--sm" onclick="window.location='index.html#register'">Register</button>
+        <button class="btn btn--red btn--sm" onclick="window.location='index.html#contact'">Contact Us</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div>
+        <div class="page-kicker"><span class="kicker-dot"></span>Who We Are</div>
+        <h1 class="display page-title">
+          <span class="line-red">Our</span>
+          <span>Mission</span>
+          <span class="line-dim">&amp; Purpose</span>
+        </h1>
+        <div class="page-tagline">Victory Through Character</div>
+      </div>
+      <div class="page-hero-right">
+        <div class="hero-crest">
+          <div class="crest-ring"></div>
+          <div class="crest-ring-inner"></div>
+          <div class="crest-dot crest-dot--n"></div>
+          <div class="crest-dot crest-dot--s"></div>
+          <div class="crest-dot crest-dot--e"></div>
+          <div class="crest-dot crest-dot--w"></div>
+          <div class="crest-core">
+            <div class="crest-year">PLG</div>
+            <div class="crest-org">Purchase Line<br>Little Gridders</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mission-section">
+  <div class="container">
+    <div class="mission-layout">
+      <div class="mission-left reveal">
+        <div class="mission-eyebrow">Mission Statement</div>
+        <h2 class="display mission-heading">Built for the<br><span style="color:var(--red)">Community.</span></h2>
+        <div class="mission-rule"></div>
+        <p class="mission-meta">The Purchase Line Little Gridders Corporation serves the <strong>Purchase Line School District</strong> in Commodore, PA — providing youth football and cheerleading rooted in safety, skill development, and character.</p>
+      </div>
+      <div class="mission-body reveal">
+        <div class="mission-statement-card">
+          <span class="ms-quote-mark">"</span>
+          <p class="ms-text">
+            The purpose of the <strong>Purchase Line Little Gridders Corporation</strong> is to <strong>sponsor and promote youth football and youth cheerleading</strong> in the Purchase Line School District.<br><br>
+            It is our goal to provide our students with the <strong>safest equipment</strong> as they develop their skills on the field and work their way through our programs.<br><br>
+            <span class="hi">Victory through character</span> is our motto as we encourage our athletes to be <strong>leaders on the field, in the classroom, and in our community.</strong>
+          </p>
+          <div class="ms-motto">
+            <div class="ms-motto-bar"></div>
+            <div>
+              <div class="ms-motto-label">Our Motto</div>
+              <div class="ms-motto-text">Victory Through Character</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pillars-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">What We Stand For</div>
+      <h2 class="display section-heading">Three Pillars of the Program.</h2>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar reveal">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11 4.5-.85 8-5.75 8-11V6L12 2z"/>
+          </svg>
+        </div>
+        <div class="display pillar-title">Safety First</div>
+        <p class="pillar-body">We provide the safest equipment available and prioritize proper technique — ensuring every athlete can develop their skills with confidence and protection.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div class="display pillar-title">Skill Development</div>
+        <p class="pillar-body">From first-year FLAG players to Varsity athletes, our coaches build real skills at every level and guide athletes through our programs on and off the field.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div class="display pillar-title">Character &amp; Leadership</div>
+        <p class="pillar-body">We develop leaders — on the field, in the classroom, and in the community. Victory through character means winning the right way and being someone teammates can count on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programs-section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2rem">
+      <div class="section-eyebrow">Our Programs</div>
+      <h2 class="display section-heading">Football &amp; Cheerleading.</h2>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-card reveal">
+        <div class="prog-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="12" rx="9" ry="5.5"/>
+            <line x1="3" y1="12" x2="21" y2="12" stroke-dasharray="3 2"/>
+            <line x1="12" y1="6.5" x2="12" y2="17.5"/>
+          </svg>
+        </div>
+        <div class="display prog-title">Football</div>
+        <p class="prog-desc">Tackle and flag football in the Purchase Line School District. Three competitive divisions, each designed to grow athletes at their current level and prepare them for the next step.</p>
+        <div class="prog-levels">
+          <div class="prog-level"><span class="pl-badge">FLAG</span><span class="pl-desc">Kindergarten – 2nd Grade · Introduction to the game</span></div>
+          <div class="prog-level"><span class="pl-badge">JV</span><span class="pl-desc">3rd – 4th Grade · Fundamentals &amp; position skills</span></div>
+          <div class="prog-level"><span class="pl-badge">Varsity</span><span class="pl-desc">5th – 6th Grade · Advanced schemes &amp; competitive play</span></div>
+        </div>
+      </div>
+      <div class="prog-card reveal">
+        <div class="prog-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div class="display prog-title">Cheerleading</div>
+        <p class="prog-desc">Our cheerleading squads perform alongside every football division, bringing energy, teamwork, and school spirit to every game day. All skill levels welcome from kindergarten through 6th grade.</p>
+        <div class="prog-levels">
+          <div class="prog-level"><span class="pl-badge">FLAG</span><span class="pl-desc">Kindergarten – 2nd Grade · Spirit, chants &amp; teamwork</span></div>
+          <div class="prog-level"><span class="pl-badge">JV</span><span class="pl-desc">3rd – 4th Grade · Choreography &amp; sideline performance</span></div>
+          <div class="prog-level"><span class="pl-badge">Varsity</span><span class="pl-desc">5th – 6th Grade · Advanced routines &amp; game day performance</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="commit-strip reveal">
+    <div class="commit-inner">
+      <div>
+        <div class="display commit-title">We <span>never cut</span> a player<br>for ability.</div>
+        <p class="commit-sub">If your child wants to play and be a good teammate, we will find them a home in our program. Reach out and let us get your athlete on the field this season.</p>
+      </div>
+      <div class="commit-actions">
+        <a href="index.html#register" class="btn btn--red btn--lg">Register Now</a>
+        <a href="index.html#contact" class="btn btn--ghost btn--lg">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer" style="margin-top:3rem">
+  <div class="container fi-r">
+    <div>&#169; <span id="yr"></span> Purchase Line Little Gridders &middot; Commodore, PA. All rights reserved.</div>
+    <div class="f-links">
+      <a href="index.html#schedule">Schedule</a>
+      <a href="index.html#teams">Teams</a>
+      <a href="index.html#register">Register</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="about.html" style="color:var(--red-3)">About</a>
+    </div>
+    <div class="f-soc">
+      <span style="font-size:.7rem;color:var(--muted)">Follow:</span>
+      <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" class="soc-btn" aria-label="Facebook" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15.5 3H13a4 4 0 0 0-4 4v2H6.5v3H9v9h3v-9h2.5L15 9H12V7a1 1 0 0 1 1-1h2.5V3Z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const nt = document.getElementById('nav-toggle');
+  const nl = document.getElementById('nav-links');
+  if (nt) {
+    nt.addEventListener('click', () => {
+      const o = nl.classList.toggle('nav-links--open');
+      nt.classList.toggle('nav-toggle--open', o);
+      document.body.classList.toggle('no-scroll', o);
+    });
+    nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nl.classList.remove('nav-links--open');
+      nt.classList.remove('nav-toggle--open');
+      document.body.classList.remove('no-scroll');
+    }));
+  }
+  const revs = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries, o) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const sibs = e.target.parentElement.querySelectorAll('.reveal:not(.revealed)');
+          sibs.forEach((s, i) => setTimeout(() => s.classList.add('revealed'), i * 90));
+          e.target.classList.add('revealed');
+          o.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revs.forEach(r => obs.observe(r));
+  } else {
+    revs.forEach(r => r.classList.add('revealed'));
+  }
+</script>
+</body>
+</html>
