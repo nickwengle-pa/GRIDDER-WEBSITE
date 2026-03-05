@@ -324,7 +324,7 @@ const SITE_CONFIG = {
   // Get your free key at https://web3forms.com → enter purchaselinegridders@gmail.com
   web3formsKey: "YOUR_WEB3FORMS_KEY",
   sheets: {
-    id:       "YOUR_GOOGLE_SHEET_ID",
+    id:       "1uf_RiluRt0-WLpasKP8bmxPfMWNPgERO0pxbxk_4xcQ",
     schedule: "Schedule",
     news:     "News",
     teams:    "Teams",
@@ -789,7 +789,7 @@ const SITE_CONFIG = {
     }).filter(r=>Object.values(r).some(v=>v));
   }
 
-  function sheetsReady(){const id=SITE_CONFIG.sheets.id;return id&&id!=='YOUR_GOOGLE_SHEET_ID';}
+  function sheetsReady(){const id=SITE_CONFIG.sheets.id;return id&&id!=='1uf_RiluRt0-WLpasKP8bmxPfMWNPgERO0pxbxk_4xcQ';}
   async function fetchSheet(name){
     if(!sheetsReady())return null;
     try{
