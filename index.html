@@ -167,22 +167,13 @@
     /* HOW IT WORKS */
     /* REGISTRATION */
     .rc{border-radius:var(--radius);background:rgba(9,4,9,.98);border:1px solid var(--border);padding:1.5rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color var(--t),transform var(--t),box-shadow var(--t);position:relative;overflow:hidden}
-    .rc--f{border-color:var(--red-border);box-shadow:0 0 28px rgba(220,38,38,.1)}
-    .rc--f::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--red-2))}
     .rc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-    .rc-level{font-size:.65rem;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
-    .rc-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;letter-spacing:.04em}
     .rc-grades{font-size:.77rem;color:var(--muted)}
-    .rc-fee{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.9rem;color:var(--red);letter-spacing:-.02em;margin-top:.2rem}
     .rc-note{font-size:.68rem;color:var(--muted)}
     .rc-perks{display:flex;flex-direction:column;gap:.28rem;margin-block:.5rem}
     .rc-perk{display:flex;align-items:center;gap:.42rem;font-size:.75rem;color:var(--muted)}
-    .pchk{width:14px;height:14px;border-radius:999px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.45);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .pchk svg{width:8px;height:8px;stroke:#4ade80}
     .reg-info h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
-    .t-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
     .ti{border-radius:10px;background:var(--bg-card);border:1px solid var(--border);padding:.65rem .75rem;font-size:.77rem}
-    .ti-div{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;text-transform:uppercase;letter-spacing:.06em;color:var(--red);margin-bottom:.15rem}
     .ti-time{color:var(--muted)}
 
     /* GALLERY */
@@ -251,7 +242,6 @@
       .hero-inner{grid-template-columns:1fr;gap:2rem}
       .hero-right{max-width:460px}
       .teams-cols{grid-template-columns:1fr;gap:2rem}
-      .t-grid{grid-template-columns:1fr}
       .con-grid{grid-template-columns:1fr}
       .s-head,.s-row{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)}
       .s-head span:nth-child(2),.s-row>span:nth-child(2){display:none}
@@ -334,7 +324,7 @@ const SITE_CONFIG = {
   // Get your free key at https://web3forms.com → enter purchaselinegridders@gmail.com
   web3formsKey: "YOUR_WEB3FORMS_KEY",
   sheets: {
-    id:       "1uf_RiluRt0-WLpasKP8bmxPfMWNPgERO0pxbxk_4xcQ",
+    id:       "YOUR_GOOGLE_SHEET_ID",
     schedule: "Schedule",
     news:     "News",
     teams:    "Teams",
@@ -776,38 +766,8 @@ const SITE_CONFIG = {
     g('yr').textContent=new Date().getFullYear();
     document.title=C.org.fullName+' · '+C.org.tagline;
 
-    renderReg(C.registration);
   }
 
-  function renderReg(r){
-    g('t-dates').textContent=r.tryoutDates;
-    g('p-meeting').textContent=r.parentMeeting;
-      <div class="rc ${d.featured?'rc--f':''}">
-        <div class="rc-level">${d.level}</div>
-        <div class="display rc-name">${d.name}</div>
-        <div class="rc-grades">${d.grades}</div>
-        <div class="rc-fee">${d.fee}</div>
-        <div class="rc-note">${d.feeNote}</div>
-        <div class="rc-perks">${r.perks.map(p=>`
-          <div class="rc-perk"><span class="pchk"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>${p}</div>
-        `).join('')}</div>
-        ${r.isOpen&&d.stripeLink&&!d.stripeLink.includes('REPLACE')
-          ?`<a class="btn btn--red" href="${d.stripeLink}" target="_blank" rel="noopener" style="margin-top:.5rem">
-              <svg viewBox="0 0 20 20" fill="none" width="13" height="13"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Register &amp; Pay Now
-            </a>`
-          :r.isOpen
-          ?`<button class="btn btn--outline" onclick="goTo('contact')" style="margin-top:.5rem">Contact Us to Register</button>`
-          :`<div class="chip" style="margin-top:.5rem">Registration coming soon</div>`
-        }
-      </div>`).join('');
-    g('t-grid').innerHTML=r.divisions.map(d=>`
-      <div class="ti">
-        <div class="ti-div">${d.level.split(' ')[0]}</div>
-        <div class="ti-time">${d.grades}</div>
-        <div class="ti-time" style="color:var(--red-3);font-size:.68rem;margin-top:.12rem">${d.tryoutTime}</div>
-      </div>`).join('');
-  }
 
   function parseCSV(text){
     const lines=text.split('\n').filter(l=>l.trim());
