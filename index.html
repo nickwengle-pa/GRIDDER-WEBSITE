@@ -823,7 +823,7 @@ const SITE_CONFIG = {
   function sheetsReady(){const id=SITE_CONFIG.sheets.id;return id&&id!=='YOUR_GOOGLE_SHEET_ID';}
   async function fetchSheet(name){
     if(!sheetsReady())return null;
-    const url='https://docs.google.com/spreadsheets/d/'+SITE_CONFIG.sheets.id+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(name);
+    const url='https://docs.google.com/spreadsheets/d/'+SITE_CONFIG.sheets.id+'/gviz/tq?tqx=out:csv&headers=1&sheet='+encodeURIComponent(name);
     try{
       const r=await fetch(url);
       if(!r.ok)return null;
