@@ -745,8 +745,40 @@ const SITE_CONFIG = {
   function goTo(id){const t=g(id);if(t)t.scrollIntoView({behavior:'smooth'})}
   window.goTo=goTo;
 
-  function applyConfig(){
+  // Map Settings tab rows to key→value
+  function settingVal(rows,key){const r=rows.find(x=>x.Setting===key);return r?r.Value:'';}
+
+  async function applyConfig(){
     const C=SITE_CONFIG;
+
+    if(sheetsReady()){
+      try{
+        const rows=await fetchSheet('Settings');
+        if(rows&&rows.length){
+          const sv=k=>{const v=settingVal(rows,k);return v||null;};
+          if(sv('Org Name'))          {C.org.name=C.org.fullName=sv('Org Name');}
+          if(sv('Tagline'))           {C.org.tagline=sv('Tagline');}
+          if(sv('Season Year'))       {C.org.season=sv('Season Year');}
+          if(sv('Location'))          {C.org.location=sv('Location');}
+          if(sv('Full Address'))      {C.org.address=sv('Full Address');}
+          if(sv('Email'))             {C.org.email=sv('Email');}
+          if(sv('Phone'))             {C.org.phone=sv('Phone');}
+          if(sv('Facebook URL'))      {C.org.facebook=sv('Facebook URL');}
+          if(sv('Hero Kicker'))       {C.hero.kicker=sv('Hero Kicker');}
+          if(sv('Hero Headline 1'))   {C.hero.headLine1=sv('Hero Headline 1');}
+          if(sv('Hero Headline 2'))   {C.hero.headLine2=sv('Hero Headline 2');}
+          if(sv('Hero Subtitle'))     {C.hero.subtitle=sv('Hero Subtitle');}
+          if(sv('Next Game Opponent')){C.hero.nextGame.opponent=sv('Next Game Opponent');}
+          if(sv('Next Game Time'))    {C.hero.nextGame.time=sv('Next Game Time');}
+          if(sv('Next Game Label'))   {C.hero.nextGame.label=sv('Next Game Label');}
+          if(sv('Registration Open')) {C.registration.isOpen=(sv('Registration Open')||'').toUpperCase()==='TRUE';}
+          if(sv('Registration Fee'))  {C.registration.fee=sv('Registration Fee');}
+          if(sv('Tryout Dates'))      {C.registration.tryoutDates=sv('Tryout Dates');}
+          if(sv('Parent Meeting'))    {C.registration.parentMeeting=sv('Parent Meeting');}
+        }
+      }catch(e){console.warn('Settings load failed:',e);}
+    }
+
     g('brand-name').textContent=C.org.name;
     g('brand-sub').textContent=C.org.tagline;
     g('hero-kicker').textContent=C.hero.kicker;
@@ -762,10 +794,9 @@ const SITE_CONFIG = {
     g('c-email').textContent=C.org.email;
     g('c-email').href='mailto:'+C.org.email;
     g('c-phone').textContent=C.org.phone;
-    g('fb-btn').href=C.org.facebook;
+    if(g('fb-btn'))g('fb-btn').href=C.org.facebook;
     g('yr').textContent=new Date().getFullYear();
     document.title=C.org.fullName+' · '+C.org.tagline;
-
   }
 
 
@@ -955,10 +986,12 @@ const SITE_CONFIG = {
   // Field is now a static SVG — no JS needed
 
   // ── INIT ──────────────────────────────────────────────────
-  applyConfig();
-  loadTeams();
-  loadSched();
-  loadNews();
+  (async()=>{
+    await applyConfig();
+    loadTeams();
+    loadSched();
+    loadNews();
+  })();
 
 })();
 </script>
