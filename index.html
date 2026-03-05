@@ -822,12 +822,19 @@ const SITE_CONFIG = {
 
   function sheetsReady(){const id=SITE_CONFIG.sheets.id;return id&&id!=='YOUR_GOOGLE_SHEET_ID';}
   async function fetchSheet(name){
-    if(!sheetsReady())return null;
+    if(!sheetsReady()){console.warn('[Sheet] Not ready - check sheet ID');return null;}
+    const url='https://docs.google.com/spreadsheets/d/'+SITE_CONFIG.sheets.id+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(name);
+    console.log('[Sheet] Fetching tab:',name,'URL:',url);
     try{
-      const r=await fetch('https://docs.google.com/spreadsheets/d/'+SITE_CONFIG.sheets.id+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(name));
+      const r=await fetch(url);
+      console.log('[Sheet]',name,'status:',r.status,r.ok?'OK':'FAIL');
       if(!r.ok)return null;
-      return parseCSV(await r.text());
-    }catch{return null;}
+      const text=await r.text();
+      console.log('[Sheet]',name,'raw preview:',text.slice(0,200));
+      const parsed=parseCSV(text);
+      console.log('[Sheet]',name,'rows:',parsed.length,'first row:',parsed[0]);
+      return parsed;
+    }catch(e){console.error('[Sheet] fetch error:',e);return null;}
   }
 
   const FB_FALLBACK=[
