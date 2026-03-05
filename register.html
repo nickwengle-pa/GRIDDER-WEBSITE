@@ -642,8 +642,15 @@ setFee(REG_FEE);
     const text=await r.text();
     const lines=text.split('\n').filter(l=>l.trim());
     const parse=line=>{const res=[];let q=false,cur='';for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(q&&line[i+1]==='"'){cur+='"';i++;}else{q=!q;}}else if(ch===','&&!q){res.push(cur.trim());cur='';}else{cur+=ch;}}res.push(cur.trim());return res;};
-    const rows=lines.slice(1).map(line=>{const v=parse(line).map(x=>x.replace(/^"|"$/g,''));return{Setting:v[0].trim(),Value:v[1]};}).filter(r=>r.Setting);
-    const sv=k=>{const r=rows.find(x=>x.Setting===k);return r?r.Value:null;};
+    // First line is header row — skip it, parse rest as Setting/Value pairs
+    const hdrs=parse(lines[0]).map(h=>h.replace(/^"|"$/g,'').trim());
+    const settingIdx=hdrs.indexOf('Setting');
+    const valueIdx=hdrs.indexOf('Value');
+    const rows=lines.slice(1).map(line=>{
+      const v=parse(line).map(x=>x.replace(/^"|"$/g,'').trim());
+      return{Setting:v[settingIdx]||'',Value:v[valueIdx]||''};
+    }).filter(r=>r.Setting);
+    const sv=k=>{const r=rows.find(x=>x.Setting.trim()===k.trim());return r?r.Value:null;};
     if(sv('Registration Fee')) setFee(sv('Registration Fee'));
     if(sv('Web3Forms Key') && sv('Web3Forms Key')!=='YOUR_WEB3FORMS_KEY'){
       W3F_KEY=sv('Web3Forms Key');
