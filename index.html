@@ -933,8 +933,9 @@ const SITE_CONFIG = {
       </article>`).join('');
   }
   async function loadNews(){
-    if(!sheetsReady()){renderNews(NEWS_FALLBACK);return;}
+    if(!sheetsReady()){console.log('[News] sheet not ready');renderNews(NEWS_FALLBACK);return;}
     const d=await fetchSheet(SITE_CONFIG.sheets.news);
+    console.log('[News] rows:',d?d.length:0,'first:',d&&d[0]?JSON.stringify(d[0]):'none');
     renderNews(d&&d.length?d:NEWS_FALLBACK);
   }
 
