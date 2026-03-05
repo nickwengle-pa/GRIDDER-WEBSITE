@@ -651,6 +651,9 @@ setFee(REG_FEE);
       return{Setting:v[settingIdx]||'',Value:v[valueIdx]||''};
     }).filter(r=>r.Setting);
     const sv=k=>{const r=rows.find(x=>x.Setting.trim()===k.trim());return r?r.Value:null;};
+    console.log('[Fee] hdrs:',hdrs,'settingIdx:',settingIdx,'valueIdx:',valueIdx);
+    console.log('[Fee] first 3 rows:',JSON.stringify(rows.slice(0,3)));
+    console.log('[Fee] Registration Fee lookup:',sv('Registration Fee'));
     if(sv('Registration Fee')) setFee(sv('Registration Fee'));
     if(sv('Web3Forms Key') && sv('Web3Forms Key')!=='YOUR_WEB3FORMS_KEY'){
       W3F_KEY=sv('Web3Forms Key');
