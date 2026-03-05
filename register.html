@@ -615,16 +615,42 @@
 // 1. Your Stripe PUBLISHABLE key (starts with pk_live_ or pk_test_)
 // 2. Your Web3Forms access key from web3forms.com
 // ════════════════════════════════════════════════════════════════
-var STRIPE_PK   = 'pk_live_51Kr7xTGIoSedh4Bu2w6cBrfq4hhwMksdObFKdOq08a2aU0ufCeL7II3rSBVsCP0tYz8a57OkJm2nuE5zgtl61tI200B7g8oYrH';
-var W3F_KEY     = 'YOUR_WEB3FORMS_KEY';  // get free at web3forms.com
-var REG_FEE     = 41.50;                 // UPDATE each season
+var STRIPE_PK     = 'pk_live_51Kr7xTGIoSedh4Bu2w6cBrfq4hhwMksdObFKdOq08a2aU0ufCeL7II3rSBVsCP0tYz8a57OkJm2nuE5zgtl61tI200B7g8oYrH';
+var W3F_KEY       = 'YOUR_WEB3FORMS_KEY';
+var SHEET_ID      = '1uf_RiluRt0-WLpasKP8bmxPfMWNPgERO0pxbxk_4xcQ';
+var REG_FEE       = 41.50;
 var REG_FEE_CENTS = Math.round(REG_FEE * 100);
 
-document.getElementById('yr').textContent          = new Date().getFullYear();
-document.getElementById('hero-fee').textContent    = REG_FEE.toFixed(2);
-document.getElementById('pay-amount-display').textContent = REG_FEE.toFixed(2);
-document.getElementById('confirm-amount').textContent     = REG_FEE.toFixed(2);
-document.getElementById('w3f-key').value           = W3F_KEY;
+function setFee(fee){
+  REG_FEE = parseFloat(fee) || 41.50;
+  REG_FEE_CENTS = Math.round(REG_FEE * 100);
+  document.getElementById('hero-fee').textContent           = REG_FEE.toFixed(2);
+  document.getElementById('pay-amount-display').textContent = REG_FEE.toFixed(2);
+  document.getElementById('confirm-amount').textContent     = REG_FEE.toFixed(2);
+}
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('w3f-key').value  = W3F_KEY;
+setFee(REG_FEE);
+
+// Load fee + web3forms key from Settings sheet
+(async function loadSettings(){
+  try{
+    const url='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:csv&headers=1&sheet=Settings';
+    const r=await fetch(url);
+    if(!r.ok)return;
+    const text=await r.text();
+    const lines=text.split('\n').filter(l=>l.trim());
+    const parse=line=>{const res=[];let q=false,cur='';for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(q&&line[i+1]==='"'){cur+='"';i++;}else{q=!q;}}else if(ch===','&&!q){res.push(cur.trim());cur='';}else{cur+=ch;}}res.push(cur.trim());return res;};
+    const rows=lines.slice(1).map(line=>{const v=parse(line).map(x=>x.replace(/^"|"$/g,''));return{Setting:v[0],Value:v[1]};}).filter(r=>r.Setting);
+    const sv=k=>{const r=rows.find(x=>x.Setting&&x.Setting.trim()===k);return r?r.Value:null;};
+    if(sv('Registration Fee')) setFee(sv('Registration Fee'));
+    if(sv('Web3Forms Key') && sv('Web3Forms Key')!=='YOUR_WEB3FORMS_KEY'){
+      W3F_KEY=sv('Web3Forms Key');
+      document.getElementById('w3f-key').value=W3F_KEY;
+    }
+  }catch(e){}
+})();
 
 // ── STRIPE INIT ────────────────────────────────────────────────
 var stripe, cardElement;
