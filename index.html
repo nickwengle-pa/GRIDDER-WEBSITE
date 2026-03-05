@@ -754,8 +754,12 @@ const SITE_CONFIG = {
     if(sheetsReady()){
       try{
         const rows=await fetchSheet('Settings');
+        console.log('[Settings] rows received:',rows?rows.length:0);
         if(rows&&rows.length){
-          const sv=k=>{const v=settingVal(rows,k);return v||null;};
+          console.log('[Settings] row[0] keys:',Object.keys(rows[0]));
+          console.log('[Settings] row[0] values:',Object.values(rows[0]));
+          console.log('[Settings] all Setting values:',rows.map(r=>JSON.stringify(r.Setting)));
+          const sv=k=>{const v=settingVal(rows,k);console.log('[Settings] lookup "'+k+'" =',JSON.stringify(v));return v||null;};
           if(sv('Org Name'))          {C.org.name=C.org.fullName=sv('Org Name');}
           if(sv('Tagline'))           {C.org.tagline=sv('Tagline');}
           if(sv('Season Year'))       {C.org.season=sv('Season Year');}
