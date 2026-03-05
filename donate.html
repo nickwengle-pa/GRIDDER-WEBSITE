@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Support the Gridders | PL Gridders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Support PL Gridders — your donation funds equipment, uniforms, and opportunities for every kid in our community.">
+  <meta name="theme-color" content="#09060a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/" defer></script>
+  <style>
+    :root{
+      --bg:#09060a;--card:rgba(14,7,13,.97);
+      --red:#dc2626;--red-2:#ef4444;--red-3:#fca5a5;
+      --red-soft:rgba(220,38,38,.1);--red-glow:rgba(220,38,38,.28);--red-border:rgba(220,38,38,.4);
+      --gold:#f59e0b;--gold-soft:rgba(245,158,11,.1);--gold-border:rgba(245,158,11,.4);--gold-3:#fde68a;
+      --green:#22c55e;--green-soft:rgba(34,197,94,.12);--green-border:rgba(34,197,94,.45);
+      --stripe:#635bff;--stripe-border:rgba(99,91,255,.38);
+      --text:#ede9e9;--muted:#7a7080;--border:rgba(155,105,115,.18);--border-med:rgba(175,120,130,.26);
+      --radius:13px;--radius-lg:22px;--t:170ms ease-out;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none} button{font-family:inherit;cursor:pointer} img{max-width:100%;display:block}
+    .container{width:min(860px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
+    .wide{width:min(1140px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
+    .display{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+
+    /* ── HEADER ── */
+    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(9,6,10,.92);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding-block:.82rem;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.7rem}
+    .brand-logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--red),#7f1d1d);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px var(--red-glow);flex-shrink:0}
+    .brand-logo svg{width:20px;height:20px}
+    .brand-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+    .brand-sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-top:.05rem}
+    .nav-links{display:flex;align-items:center;gap:1.5rem;font-size:.76rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+    .nav-links a{transition:color var(--t)}.nav-links a:hover{color:var(--text)}
+
+    /* ── HERO ── */
+    .hero{padding:3rem 0;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% -10%,rgba(220,38,38,.09),transparent 65%),radial-gradient(ellipse at 90% 90%,rgba(245,158,11,.06),transparent 55%);pointer-events:none}
+    .hero-inner{display:grid;grid-template-columns:1fr 1.05fr;gap:3rem;align-items:start;position:relative;z-index:1}
+    .hero-kicker{display:inline-flex;align-items:center;gap:.45rem;padding:.2rem .65rem .2rem .28rem;border-radius:999px;background:var(--gold-soft);border:1px solid var(--gold-border);font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-3);margin-bottom:.85rem}
+    .kicker-dot{width:7px;height:7px;border-radius:999px;background:var(--gold);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(245,158,11,.3)}50%{box-shadow:0 0 0 7px rgba(245,158,11,.07)}}
+    .hero-title{font-size:clamp(2rem,4.5vw,3.2rem);line-height:.92;margin-bottom:.85rem}
+    .hero-title .red{color:var(--red)}.hero-title .gold{color:var(--gold)}
+    .hero-sub{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+    .hero-sub strong{color:var(--text)}
+    .hero-contact{font-size:.76rem;color:var(--muted);line-height:1.7;padding:.85rem 1rem;border-radius:var(--radius);border:1px solid var(--border);background:var(--card)}
+    .hero-contact strong{color:var(--text);display:block;margin-bottom:.2rem}
+
+    /* ── WHERE IT GOES ── */
+    .funds-section{padding-block:3rem;border-bottom:1px solid var(--border)}
+    .sec-kicker{font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-bottom:.4rem;font-weight:600}
+    .sec-title{font-size:clamp(1.6rem,3vw,2.1rem);line-height:1;margin-bottom:.5rem}
+    .sec-sub{font-size:.86rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.65;max-width:520px}
+    .funds-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+    .fund-card{border-radius:var(--radius);background:var(--card);border:1px solid var(--border);padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color var(--t)}
+    .fund-card:hover{border-color:var(--red-border)}
+    .fund-icon{font-size:1.6rem;line-height:1}
+    .fund-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:.05em}
+    .fund-body{font-size:.78rem;color:var(--muted);line-height:1.6}
+
+    /* ── DONATE FORM (now lives in hero) ── */
+    .donate-form-wrap{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--border);overflow:hidden}
+    .df-head{padding:1rem 1.3rem;background:rgba(9,4,9,.98);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem}
+    .df-icon{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--red),#991b1b);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .df-icon svg{width:16px;height:16px;stroke:#fff}
+    .df-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;text-transform:uppercase;letter-spacing:.06em}
+    .df-sub{font-size:.68rem;color:var(--muted);margin-top:.06rem}
+    .df-body{padding:1.25rem 1.3rem;display:flex;flex-direction:column;gap:1rem}
+
+    /* Custom amount only */
+    .amount-wrap{display:flex;flex-direction:column;gap:.3rem}
+    .amount-input-row{display:flex;align-items:center;border-radius:10px;border:1px solid var(--gold-border);background:rgba(9,4,9,.95);overflow:hidden;transition:box-shadow var(--t)}
+    .amount-input-row:focus-within{box-shadow:0 0 0 2px rgba(245,158,11,.15)}
+    .amount-prefix{padding:.55rem .6rem .55rem .85rem;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.3rem;color:var(--gold);line-height:1;user-select:none}
+    .amount-input{flex:1;padding:.55rem .75rem .55rem 0;background:transparent;border:none;outline:none;color:var(--text);font-size:1.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700}
+    .amount-input::placeholder{color:rgba(120,100,120,.5)}
+    .amount-hint{font-size:.7rem;color:var(--muted)}
+
+    /* Fields */
+    .ffield{display:flex;flex-direction:column;gap:.26rem}
+    .flabel{font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(200,180,185,.82)}
+    .flabel .opt{font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:.64rem;margin-left:.3rem}
+    .flabel .req{color:var(--red-3);margin-left:.1rem}
+    .finput{border-radius:10px;border:1px solid var(--border-med);background:rgba(9,4,9,.95);padding:.52rem .72rem;color:var(--text);font-size:.83rem;font-family:inherit;outline:none;width:100%;transition:border-color var(--t),box-shadow var(--t)}
+    .finput::placeholder{color:rgba(120,100,120,.55)}
+    .finput:focus{border-color:rgba(245,158,11,.5);box-shadow:0 0 0 2px rgba(245,158,11,.1)}
+    .frow--2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+
+    /* Summary */
+    .pay-summary{border-radius:10px;background:rgba(245,158,11,.06);border:1px solid var(--gold-border);padding:.7rem .9rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+    .ps-desc{font-size:.78rem;color:rgba(245,158,11,.85)}
+    .ps-amount{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;color:var(--gold);line-height:1}
+
+    /* Stripe */
+    #stripe-element{border-radius:10px;border:1px solid var(--border-med);background:rgba(9,4,9,.95);padding:.6rem .72rem;min-height:44px;transition:border-color var(--t)}
+    #stripe-element.StripeElement--focus{border-color:rgba(245,158,11,.5);box-shadow:0 0 0 2px rgba(245,158,11,.1)}
+    #stripe-element.StripeElement--invalid{border-color:#f87171}
+    .pay-error{font-size:.74rem;color:#f87171;min-height:1rem}
+    .pay-secure{display:flex;align-items:center;gap:.4rem;font-size:.66rem;color:var(--muted)}
+    .pay-secure svg{width:12px;height:12px;stroke:var(--muted)}
+
+    /* Checkbox */
+    .fcheck{display:flex;align-items:flex-start;gap:.65rem}
+    .fcheck input{position:absolute;opacity:0;width:0;height:0}
+    .fcheck label{display:flex;align-items:flex-start;gap:.65rem;font-size:.78rem;color:var(--muted);cursor:pointer;line-height:1.55;padding-top:.05rem}
+    .fcheck label::before{content:"";width:16px;height:16px;min-width:16px;border-radius:4px;border:1.5px solid var(--border-med);background:rgba(9,4,9,.95);transition:all var(--t);margin-top:.14rem}
+    .fcheck input:checked+label::before{background:var(--red);border-color:var(--red);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 7L5.5 10L11.5 4' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:11px}
+    .fcheck label:hover::before{border-color:var(--red-border)}
+    .fcheck-wrap{position:relative}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.65rem 1.6rem;border-radius:999px;border:1px solid transparent;font-size:.82rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:all var(--t);line-height:1;font-family:inherit}
+    .btn--gold{background:linear-gradient(135deg,var(--gold),#b45309);color:#09060a;box-shadow:0 10px 28px rgba(245,158,11,.3)}
+    .btn--gold:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 38px rgba(245,158,11,.4)}
+    .btn--gold:disabled{opacity:.45;cursor:not-allowed}
+    .btn--ghost{background:transparent;border-color:var(--border-med);color:var(--text)}
+    .btn--ghost:hover{border-color:var(--red-border);color:var(--red-3);transform:translateY(-1px)}
+    .btn--full{width:100%}
+
+    /* Success */
+    .success-screen{display:none;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;padding:3rem 1rem 4rem}
+    .success-screen.on{display:flex}
+    .success-icon{width:70px;height:70px;border-radius:999px;background:var(--gold-soft);border:1.5px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem}
+    .success-title{font-size:clamp(1.8rem,5vw,2.8rem);line-height:.95}
+    .success-title .accent{color:var(--gold)}
+    .success-body{font-size:.9rem;color:var(--muted);max-width:440px;line-height:1.7}
+    .success-body strong{color:var(--text)}
+    .success-card{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--gold-border);padding:1.2rem 1.5rem;width:100%;max-width:360px;text-align:left;display:flex;flex-direction:column;gap:.4rem}
+    .sc-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,158,11,.7);margin-bottom:.15rem}
+    .sc-row{font-size:.83rem;color:var(--text)}.sc-row span{color:var(--muted)}
+
+    /* Footer */
+    .site-footer{padding-block:1.5rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--muted);text-align:center}
+
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .spin{animation:spin .8s linear infinite}
+
+    @media(max-width:760px){
+      .hero-inner{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .funds-grid{grid-template-columns:1fr 1fr}
+      .nav-links{display:none}
+      .frow--2{grid-template-columns:1fr}
+    }
+    @media(max-width:400px){.funds-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wide">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none">
+            <ellipse cx="12" cy="12" rx="9" ry="5.8" fill="rgba(255,255,255,.92)"/>
+            <line x1="3" y1="12" x2="21" y2="12" stroke="#7f1d1d" stroke-width="1.2" stroke-dasharray="3 2"/>
+            <line x1="12" y1="6.2" x2="12" y2="17.8" stroke="#7f1d1d" stroke-width="1.2"/>
+            <line x1="7.5" y1="8" x2="7.5" y2="16" stroke="#7f1d1d" stroke-width=".9"/>
+            <line x1="16.5" y1="8" x2="16.5" y2="16" stroke="#7f1d1d" stroke-width=".9"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">PL Gridders</div>
+          <div class="brand-sub">Victory Through Character</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="register.html">Register</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="about.html">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO + FORM -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- LEFT: headline + context -->
+      <div>
+        <div class="hero-kicker"><span class="kicker-dot"></span>PL Gridders</div>
+        <h1 class="display hero-title">
+          Support Our<br>Kids. Support<br>Our <span class="red">Community.</span>
+        </h1>
+        <p class="hero-sub">
+          PL Gridders is a <strong>100% community-funded</strong> program. Whether you're a local family or a supporter from out of town, every donation goes directly to giving our kids the best possible experience on the field.
+        </p>
+        <div class="hero-contact">
+          <strong>Questions about donating?</strong>
+          <a href="/cdn-cgi/l/email-protection#8ffffafdece7eefceae3e6e1eae8fde6ebebeafdfccfe8e2eee6e3a1ece0e2" style="color:var(--red-3)"><span class="__cf_email__" data-cfemail="a4d4d1d6c7ccc5d7c1c8cdcac1c3d6cdc0c0c1d6d7e4c3c9c5cdc88ac7cbc9">[email&#160;protected]</span></a><br>
+          (814) 241-3237
+        </div>
+      </div>
+
+      <!-- RIGHT: donation form -->
+      <div>
+        <form id="donate-form" novalidate>
+          <input type="hidden" name="access_key"  id="w3f-key"     value="YOUR_WEB3FORMS_KEY">
+          <input type="hidden" name="subject"      id="w3f-subject" value="PL Gridders — New Donation">
+          <input type="hidden" name="from_name"    value="PL Gridders Donation Page">
+          <input type="hidden" name="botcheck"     value="">
+
+          <div class="donate-form-wrap">
+            <div class="df-head">
+              <div class="df-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor"/></svg>
+              </div>
+              <div>
+                <div class="df-title">Make a Donation</div>
+                <div class="df-sub">Secured by Stripe · All major cards accepted</div>
+              </div>
+            </div>
+
+            <div class="df-body">
+
+              <!-- AMOUNT -->
+              <div class="ffield">
+                <label class="flabel" for="custom-amount">Donation Amount<span class="req">*</span></label>
+                <div class="amount-wrap">
+                  <div class="amount-input-row">
+                    <span class="amount-prefix">$</span>
+                    <input class="amount-input" id="custom-amount" name="donation_amount_input" type="number" min="1" max="100000" step="1" placeholder="Enter amount" required>
+                  </div>
+                  <div class="amount-hint">Enter any amount you'd like to give</div>
+                </div>
+              </div>
+
+              <!-- SUMMARY -->
+              <div class="pay-summary">
+                <div class="ps-desc">PL Gridders Donation</div>
+                <div class="ps-amount">$<span id="amount-display">—</span></div>
+              </div>
+
+              <!-- DONOR INFO -->
+              <div class="frow--2">
+                <div class="ffield">
+                  <label class="flabel" for="d-first">First Name<span class="req">*</span></label>
+                  <input class="finput" id="d-first" name="donor_first" type="text" placeholder="Jamie" required autocomplete="given-name">
+                </div>
+                <div class="ffield">
+                  <label class="flabel" for="d-last">Last Name<span class="req">*</span></label>
+                  <input class="finput" id="d-last" name="donor_last" type="text" placeholder="Smith" required autocomplete="family-name">
+                </div>
+              </div>
+
+              <div class="ffield">
+                <label class="flabel" for="d-email">Email Address <span class="opt">(for your receipt)</span><span class="req">*</span></label>
+                <input class="finput" id="d-email" name="donor_email" type="email" placeholder="you@example.com" required autocomplete="email">
+              </div>
+
+              <div class="ffield">
+                <label class="flabel" for="d-note">Message or Dedication <span class="opt">(optional)</span></label>
+                <input class="finput" id="d-note" name="donation_note" type="text" placeholder="Go Gridders! / In honor of…">
+              </div>
+
+              <!-- ANON -->
+              <div class="fcheck-wrap">
+                <div class="fcheck">
+                  <input type="checkbox" id="d-anon" name="anonymous" value="Yes">
+                  <label for="d-anon">Make this donation anonymous</label>
+                </div>
+              </div>
+
+              <!-- STRIPE CARD -->
+              <div class="ffield">
+                <label class="flabel">Card Details<span class="req">*</span></label>
+                <div id="stripe-element"></div>
+              </div>
+              <div class="pay-error" id="pay-error" role="alert"></div>
+              <div class="pay-secure">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-linecap="round"/></svg>
+                256-bit SSL encryption · Your card data never touches our servers
+              </div>
+
+              <button class="btn btn--gold btn--full" type="submit" id="donate-btn">
+                <svg viewBox="0 0 24 24" fill="none" width="16" height="16" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor"/></svg>
+                Donate $<span id="btn-amount">—</span>
+              </button>
+              <div id="form-err" style="color:#f87171;font-size:.74rem;text-align:center;display:none">Please fill in your name, email, a donation amount, and your card details.</div>
+
+            </div><!-- df-body -->
+          </div><!-- donate-form-wrap -->
+        </form>
+
+        <!-- SUCCESS -->
+        <div class="success-screen" id="success-screen">
+          <div class="success-icon">🏆</div>
+          <h2 class="display success-title">Thank You,<br><span class="accent" id="confirm-name">Champion!</span></h2>
+          <p class="success-body">
+            Your generosity means the world to the kids of Purchase Line. <strong>Stripe has emailed your receipt</strong> to <strong id="confirm-email">you</strong>.<br><br>
+            Victory through character — on and off the field.
+          </p>
+          <div class="success-card">
+            <div class="sc-label">Donation Summary</div>
+            <div class="sc-row"><span>Amount: </span><strong>$<span id="confirm-amount">—</span></strong></div>
+            <div class="sc-row"><span>Receipt sent to: </span><strong id="confirm-email-2">—</strong></div>
+            <div class="sc-row" id="confirm-note-row" style="display:none"><span>Message: </span><strong id="confirm-note">—</strong></div>
+          </div>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center">
+            <button onclick="location.reload()" class="btn btn--gold">Donate Again</button>
+            <a href="index.html" class="btn btn--ghost">← Back to Home</a>
+          </div>
+        </div>
+
+      </div><!-- right col -->
+    </div><!-- hero-inner -->
+  </div><!-- container -->
+</div>
+
+<!-- WHERE YOUR MONEY GOES -->
+<div class="funds-section">
+  <div class="container">
+    <div class="sec-kicker">Where your money goes</div>
+    <h2 class="display sec-title">Every Dollar Stays<br>With the Kids.</h2>
+    <p class="sec-sub">100% of donations go directly to the program — we cover our own administrative costs so your gift goes as far as possible.</p>
+    <div class="funds-grid">
+      <div class="fund-card">
+        <div class="fund-icon">⛑️</div>
+        <div class="fund-title">Helmets &amp; Pads</div>
+        <div class="fund-body">Safety-certified equipment for every player, properly fitted before the season begins.</div>
+      </div>
+      <div class="fund-card">
+        <div class="fund-icon">👕</div>
+        <div class="fund-title">Uniforms</div>
+        <div class="fund-body">Game jerseys, practice gear, and cheer uniforms for all six of our divisions.</div>
+      </div>
+      <div class="fund-card">
+        <div class="fund-icon">🏟️</div>
+        <div class="fund-title">Field &amp; Facilities</div>
+        <div class="fund-body">Field permits, lighting for night games, and equipment we use on game day.</div>
+      </div>
+      <div class="fund-card">
+        <div class="fund-icon">🚌</div>
+        <div class="fund-title">Travel &amp; Away Games</div>
+        <div class="fund-body">Transportation so every team can compete at away games regardless of distance.</div>
+      </div>
+      <div class="fund-card">
+        <div class="fund-icon">🏆</div>
+        <div class="fund-title">End-of-Season Awards</div>
+        <div class="fund-body">A banquet and trophies to celebrate every player's hard work at the end of the year.</div>
+      </div>
+      <div class="fund-card">
+        <div class="fund-icon">🤝</div>
+        <div class="fund-title">Player Scholarships</div>
+        <div class="fund-body">Assistance for families who need it, so no child misses out because of finances.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="site-footer">
+  <div class="wide">
+    <span>&copy; <span id="yr"></span> PL Gridders · Commodore, PA</span>
+    &nbsp;·&nbsp;
+    <a href="/cdn-cgi/l/email-protection#b6c6c3c4d5ded7c5d3dadfd8d3d1c4dfd2d2d3c4c5f6d1dbd7dfda98d5d9db" style="color:var(--red-3)"><span class="__cf_email__" data-cfemail="dfafaaadbcb7beacbab3b6b1bab8adb6bbbbbaadac9fb8b2beb6b3f1bcb0b2">[email&#160;protected]</span></a>
+    &nbsp;·&nbsp; (814) 241-3237
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+'use strict';
+
+var STRIPE_PK = 'pk_live_51Kr7xTGIoSedh4Bu2w6cBrfq4hhwMksdObFKdOq08a2aU0ufCeL7II3rSBVsCP0tYz8a57OkJm2nuE5zgtl61tI200B7g8oYrH';
+var W3F_KEY   = 'YOUR_WEB3FORMS_KEY';
+
+document.getElementById('yr').textContent    = new Date().getFullYear();
+document.getElementById('w3f-key').value     = W3F_KEY;
+
+// ── STRIPE ──────────────────────────────────────────────
+var stripe, cardElement;
+if(typeof Stripe !== 'undefined'){
+  stripe = Stripe(STRIPE_PK);
+  var elements = stripe.elements({
+    appearance:{
+      theme:'night',
+      variables:{colorPrimary:'#f59e0b',colorBackground:'#090409',colorText:'#ede9e9',colorDanger:'#f87171',fontFamily:'DM Sans, system-ui, sans-serif',borderRadius:'10px'}
+    }
+  });
+  cardElement = elements.create('card',{
+    style:{base:{fontSize:'14px',fontFamily:'DM Sans, system-ui, sans-serif',color:'#ede9e9','::placeholder':{color:'rgba(120,100,120,.55)'}},invalid:{color:'#f87171'}},
+    hidePostalCode:false
+  });
+  cardElement.mount('#stripe-element');
+  cardElement.on('change',function(e){ document.getElementById('pay-error').textContent = e.error ? e.error.message : ''; });
+} else {
+  document.getElementById('stripe-element').innerHTML = '<p style="color:#f87171;font-size:.8rem">Stripe failed to load. Please refresh the page.</p>';
+}
+
+// ── AMOUNT DISPLAY ───────────────────────────────────────
+var amtInput = document.getElementById('custom-amount');
+function updateDisplay(){
+  var v = parseFloat(amtInput.value);
+  var str = (!isNaN(v) && v > 0) ? v.toFixed(2) : '—';
+  document.getElementById('amount-display').textContent = str;
+  document.getElementById('btn-amount').textContent = str;
+}
+amtInput.addEventListener('input', updateDisplay);
+updateDisplay();
+
+// ── SUBMIT ───────────────────────────────────────────────
+var form     = document.getElementById('donate-form');
+var btn      = document.getElementById('donate-btn');
+var errMsg   = document.getElementById('form-err');
+var payErr   = document.getElementById('pay-error');
+var success  = document.getElementById('success-screen');
+var formWrap = document.querySelector('.donate-form-wrap');
+
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  errMsg.style.display = 'none';
+  payErr.textContent   = '';
+
+  var amt   = parseFloat(amtInput.value);
+  var first = document.getElementById('d-first').value.trim();
+  var last  = document.getElementById('d-last').value.trim();
+  var email = document.getElementById('d-email').value.trim();
+
+  if(!first || !last || !email || isNaN(amt) || amt < 1){
+    errMsg.style.display = 'block';
+    return;
+  }
+
+  if(!stripe || !cardElement){
+    payErr.textContent = 'Stripe is not loaded. Please refresh and try again.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<svg class="spin" viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Processing…';
+
+  var note    = document.getElementById('d-note').value.trim();
+  var anon    = document.getElementById('d-anon').checked;
+  var donorName = first + ' ' + last;
+  var amtCents  = Math.round(amt * 100);
+
+  try {
+    var piRes = await fetch('/api/create-payment-intent', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        amount: amtCents,
+        description: 'PL Gridders Donation — '+(anon?'Anonymous':donorName)+(note?' — '+note:''),
+        email: email
+      })
+    });
+
+    if(!piRes.ok) throw new Error('Could not start payment. Please try again.');
+    var piData = await piRes.json();
+    if(!piData.clientSecret) throw new Error(piData.error || 'Payment setup failed.');
+
+    var result = await stripe.confirmCardPayment(piData.clientSecret,{
+      payment_method:{ card:cardElement, billing_details:{ name:donorName, email:email } },
+      receipt_email: email
+    });
+
+    if(result.error){
+      payErr.textContent = result.error.message;
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" width="16" height="16" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor"/></svg> Donate $'+amt.toFixed(2);
+      return;
+    }
+
+    // Send to Web3Forms
+    document.getElementById('w3f-subject').value = 'PL Gridders Donation — $'+amt.toFixed(2)+' from '+(anon?'Anonymous':donorName);
+    var fd = new FormData(form);
+    fd.set('donation_amount', '$'+amt.toFixed(2));
+    fd.set('payment_id', result.paymentIntent.id);
+    fd.delete('botcheck');
+    if(W3F_KEY && W3F_KEY !== 'YOUR_WEB3FORMS_KEY'){
+      fetch('https://api.web3forms.com/submit',{method:'POST',body:fd}).catch(function(){});
+    }
+
+    // Success screen
+    document.getElementById('confirm-name').textContent    = anon ? 'Donor!' : first+'!';
+    document.getElementById('confirm-amount').textContent  = amt.toFixed(2);
+    document.getElementById('confirm-email').textContent   = email;
+    document.getElementById('confirm-email-2').textContent = email;
+    if(note){
+      document.getElementById('confirm-note').textContent = note;
+      document.getElementById('confirm-note-row').style.display = 'flex';
+    }
+    formWrap.style.display = 'none';
+    success.classList.add('on');
+    window.scrollTo({top: success.offsetTop - 80, behavior:'smooth'});
+
+  } catch(err){
+    payErr.textContent =

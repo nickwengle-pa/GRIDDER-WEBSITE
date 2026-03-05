@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Player & Parent Resources | PL Gridders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Player and parent resources for PL Gridders — join your team's BAND group and download important forms.">
+  <meta name="theme-color" content="#09060a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#09060a;--card:rgba(14,7,13,.97);
+      --red:#dc2626;--red-2:#ef4444;--red-3:#fca5a5;
+      --red-soft:rgba(220,38,38,.1);--red-glow:rgba(220,38,38,.28);--red-border:rgba(220,38,38,.4);
+      --gold:#f59e0b;--gold-soft:rgba(245,158,11,.1);--gold-border:rgba(245,158,11,.4);--gold-3:#fde68a;
+      --text:#ede9e9;--muted:#7a7080;--border:rgba(155,105,115,.18);--border-med:rgba(175,120,130,.26);
+      --radius:13px;--radius-lg:22px;--t:170ms ease-out;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none} button{font-family:inherit;cursor:pointer}
+    .container{width:min(900px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
+    .wide{width:min(1140px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
+    .display{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+
+    /* ── HEADER ── */
+    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(9,6,10,.92);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding-block:.82rem;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.7rem}
+    .brand-logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--red),#7f1d1d);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px var(--red-glow);flex-shrink:0}
+    .brand-logo svg{width:20px;height:20px}
+    .brand-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+    .brand-sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-top:.05rem}
+    .nav-links{display:flex;align-items:center;gap:1.5rem;font-size:.76rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+    .nav-links a{transition:color var(--t)}.nav-links a:hover{color:var(--text)}
+    .nav-toggle{display:none;width:36px;height:36px;border-radius:999px;border:1px solid var(--border-med);background:rgba(9,4,9,.9);align-items:center;justify-content:center;cursor:pointer;transition:all var(--t)}
+    .nav-toggle-bars{width:17px;height:1.5px;background:var(--text);border-radius:999px;position:relative;transition:all var(--t)}
+    .nav-toggle-bars::before,.nav-toggle-bars::after{content:"";position:absolute;left:0;width:17px;height:1.5px;border-radius:inherit;background:inherit;transition:all var(--t)}
+    .nav-toggle-bars::before{top:-5px}.nav-toggle-bars::after{top:5px}
+    .nav-toggle--open .nav-toggle-bars{transform:rotate(45deg)}
+    .nav-toggle--open .nav-toggle-bars::before{top:0;transform:rotate(-90deg)}
+    .nav-toggle--open .nav-toggle-bars::after{top:0;opacity:0}
+
+    /* ── PAGE HERO ── */
+    .page-hero{padding:2.75rem 0 2.5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .page-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(220,38,38,.08),transparent 60%);pointer-events:none}
+    .ph-kicker{display:inline-flex;align-items:center;gap:.45rem;padding:.2rem .65rem .2rem .28rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--red-3);margin-bottom:.75rem}
+    .kicker-dot{width:7px;height:7px;border-radius:999px;background:var(--red);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(220,38,38,.3)}50%{box-shadow:0 0 0 7px rgba(220,38,38,.07)}}
+    .ph-title{font-size:clamp(2rem,5vw,3.2rem);line-height:.95;margin-bottom:.6rem}
+    .ph-title .accent{color:var(--red)}
+    .ph-sub{font-size:.88rem;color:var(--muted);line-height:1.65;max-width:520px}
+
+    /* ── SECTIONS ── */
+    .sec{padding-block:2.75rem;border-bottom:1px solid var(--border)}
+    .sec:last-of-type{border-bottom:none}
+    .sec-kicker{font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-bottom:.35rem;font-weight:600}
+    .sec-title{font-size:clamp(1.4rem,3vw,1.85rem);line-height:1;margin-bottom:.4rem}
+    .sec-sub{font-size:.84rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.65}
+
+    /* ── BAND CARDS ── */
+    .band-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .band-card{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--border);padding:1.25rem 1.35rem;display:flex;align-items:center;gap:1.1rem;transition:border-color var(--t),transform var(--t),box-shadow var(--t)}
+    .band-card:hover{border-color:var(--red-border);transform:translateY(-2px);box-shadow:0 14px 32px rgba(220,38,38,.12)}
+    .band-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.4rem;line-height:1}
+    .band-icon--fb{background:linear-gradient(135deg,rgba(220,38,38,.2),rgba(127,29,29,.3));border:1px solid var(--red-border)}
+    .band-icon--ch{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(120,53,15,.25));border:1px solid var(--gold-border)}
+    .band-info{flex:1;min-width:0}
+    .band-division{font-size:.65rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:.15rem}
+    .band-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;text-transform:uppercase;letter-spacing:.04em;line-height:1.1;margin-bottom:.35rem}
+    .band-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.32rem .85rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid transparent;transition:all var(--t);white-space:nowrap}
+    .band-btn--fb{background:var(--red-soft);border-color:var(--red-border);color:var(--red-3)}
+    .band-btn--fb:hover{background:rgba(220,38,38,.18);box-shadow:0 6px 18px rgba(220,38,38,.25)}
+    .band-btn--ch{background:var(--gold-soft);border-color:var(--gold-border);color:var(--gold-3)}
+    .band-btn--ch:hover{background:rgba(245,158,11,.2);box-shadow:0 6px 18px rgba(245,158,11,.2)}
+    .band-arrow{width:14px;height:14px;flex-shrink:0}
+
+    /* ── BAND NOTE ── */
+    .band-note{margin-top:1.1rem;padding:.8rem 1rem;border-radius:var(--radius);border:1px solid var(--border);background:rgba(9,4,9,.8);display:flex;align-items:flex-start;gap:.65rem;font-size:.78rem;color:var(--muted);line-height:1.6}
+    .band-note-icon{font-size:1rem;flex-shrink:0;margin-top:.05rem}
+
+    /* ── FORMS GRID ── */
+    .forms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .form-card{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--border);padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color var(--t),transform var(--t),box-shadow var(--t)}
+    .form-card:hover{border-color:rgba(175,120,130,.45);transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.4)}
+    .form-card-icon{width:42px;height:42px;border-radius:10px;background:rgba(14,7,13,.98);border:1px solid var(--border-med);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+    .form-card-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.04em;line-height:1.1}
+    .form-card-desc{font-size:.78rem;color:var(--muted);line-height:1.55;flex:1}
+    .form-card-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.1rem;padding-top:.75rem;border-top:1px solid var(--border)}
+    .form-tag{font-size:.62rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);display:flex;align-items:center;gap:.3rem}
+    .form-tag svg{width:11px;height:11px;stroke:var(--muted);flex-shrink:0}
+    .dl-btn{display:inline-flex;align-items:center;gap:.38rem;padding:.32rem .85rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--red-soft);border:1px solid var(--red-border);color:var(--red-3);transition:all var(--t);white-space:nowrap}
+    .dl-btn:hover{background:rgba(220,38,38,.18);box-shadow:0 6px 18px rgba(220,38,38,.22)}
+    .dl-btn svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0}
+
+    /* ── FOOTER ── */
+    .site-footer{padding-block:1.5rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--muted);text-align:center}
+
+    @media(max-width:640px){
+      .band-grid,.forms-grid{grid-template-columns:1fr}
+      .nav-links{
+        position:fixed;inset:0 0 auto;padding:4rem 1.6rem 1.4rem;
+        flex-direction:column;align-items:flex-start;
+        background:radial-gradient(circle at top,rgba(14,7,13,.99),#09060a);
+        transform:translateY(-100%);opacity:0;pointer-events:none;
+        transition:transform 240ms ease-out,opacity 220ms ease-out;
+        gap:1.1rem;font-size:.95rem;z-index:49;
+      }
+      .nav-links--open{transform:translateY(0);opacity:1;pointer-events:auto}
+      .nav-toggle{display:inline-flex}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wide">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none">
+            <ellipse cx="12" cy="12" rx="9" ry="5.8" fill="rgba(255,255,255,.92)"/>
+            <line x1="3" y1="12" x2="21" y2="12" stroke="#7f1d1d" stroke-width="1.2" stroke-dasharray="3 2"/>
+            <line x1="12" y1="6.2" x2="12" y2="17.8" stroke="#7f1d1d" stroke-width="1.2"/>
+            <line x1="7.5" y1="8" x2="7.5" y2="16" stroke="#7f1d1d" stroke-width=".9"/>
+            <line x1="16.5" y1="8" x2="16.5" y2="16" stroke="#7f1d1d" stroke-width=".9"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">PL Gridders</div>
+          <div class="brand-sub">Victory Through Character</div>
+        </div>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="nav-toggle-bars"></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="register.html">Register</a>
+        <a href="donate.html">Donate</a>
+        <a href="about.html">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="ph-kicker"><span class="kicker-dot"></span>PL Gridders · 2026 Season</div>
+    <h1 class="display ph-title">Player &amp; Parent<br><span class="accent">Resources</span></h1>
+    <p class="ph-sub">Everything you need for the season — join your team's communication group and download required forms below.</p>
+  </div>
+</div>
+
+<main>
+
+  <!-- BAND GROUPS -->
+  <div class="sec">
+    <div class="container">
+      <div class="sec-kicker">Stay connected</div>
+      <h2 class="display sec-title">Join Your Team's Group</h2>
+      <p class="sec-sub">All schedules, updates, and announcements go through the BAND app. Click your team below to join — it's free.</p>
+
+      <div class="band-grid">
+
+        <a class="band-card" href="https://band.us/n/a1ab05Pasdx8e" target="_blank" rel="noopener">
+          <div class="band-icon band-icon--fb">🏈</div>
+          <div class="band-info">
+            <div class="band-division">K – 2nd Grade</div>
+            <div class="band-name">Flag Football</div>
+            <span class="band-btn band-btn--fb">
+              Join Group
+              <svg class="band-arrow" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="band-card" href="https://band.us/n/aea102P2s7Zd4" target="_blank" rel="noopener">
+          <div class="band-icon band-icon--ch">📣</div>
+          <div class="band-info">
+            <div class="band-division">K – 2nd Grade</div>
+            <div class="band-name">Flag Cheer</div>
+            <span class="band-btn band-btn--ch">
+              Join Group
+              <svg class="band-arrow" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="band-card" href="https://band.us/n/aca008P5s6ebW" target="_blank" rel="noopener">
+          <div class="band-icon band-icon--fb">🏈</div>
+          <div class="band-info">
+            <div class="band-division">3rd – 6th Grade</div>
+            <div class="band-name">JV &amp; Varsity Football</div>
+            <span class="band-btn band-btn--fb">
+              Join Group
+              <svg class="band-arrow" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="band-card" href="https://band.us/n/a2ac0aP5t5aeS" target="_blank" rel="noopener">
+          <div class="band-icon band-icon--ch">📣</div>
+          <div class="band-info">
+            <div class="band-division">3rd – 6th Grade</div>
+            <div class="band-name">JV &amp; Varsity Cheer</div>
+            <span class="band-btn band-btn--ch">
+              Join Group
+              <svg class="band-arrow" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="band-note">
+        <span class="band-note-icon">📱</span>
+        <span>BAND is a free app available on iOS and Android. You can also join from a desktop browser — no download required. Once you join your group you'll receive all practice updates, schedule changes, and announcements directly.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMS -->
+  <div class="sec">
+    <div class="container">
+      <div class="sec-kicker">Required documents</div>
+      <h2 class="display sec-title">Forms &amp; Information</h2>
+      <p class="sec-sub">Download, complete, and return these forms before the season starts. Physical forms must be signed by a licensed physician.</p>
+
+      <div class="forms-grid">
+
+        <div class="form-card">
+          <div class="form-card-icon">🩺</div>
+          <div class="form-card-title">Physical Form</div>
+          <div class="form-card-desc">Required for all players. Must be completed and signed by a licensed physician before participation. Return to your coach before the first practice.</div>
+          <div class="form-card-footer">
+            <div class="form-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor"/><polyline points="14,2 14,8 20,8" stroke="currentColor"/></svg>
+              PDF
+            </div>
+            <a class="dl-btn" href="https://www.plgridders.com/_files/ugd/d0a1cf_6b148b5f4bc44970a368d7fc8eb5627d.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download
+            </a>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="form-card-icon">📋</div>
+          <div class="form-card-title">Player – Parent Contract</div>
+          <div class="form-card-desc">Outlines expectations, code of conduct, and commitments for both players and parents throughout the season. Must be signed and returned.</div>
+          <div class="form-card-footer">
+            <div class="form-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor"/><polyline points="14,2 14,8 20,8" stroke="currentColor"/></svg>
+              PDF
+            </div>
+            <a class="dl-btn" href="https://www.plgridders.com/_files/ugd/d0a1cf_f2c91af0bd6b4251a4f12d17d79622cc.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download
+            </a>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="form-card-icon">📣</div>
+          <div class="form-card-title">Cheer Banquet Form</div>
+          <div class="form-card-desc">End-of-season banquet registration for cheerleading families. Complete and return to your coach by the deadline communicated in your BAND group.</div>
+          <div class="form-card-footer">
+            <div class="form-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor"/><polyline points="14,2 14,8 20,8" stroke="currentColor"/></svg>
+              PDF
+            </div>
+            <a class="dl-btn" href="https://www.plgridders.com/_files/ugd/d0a1cf_64f40f646b694c5b8c3652e3f1601b24.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download
+            </a>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="form-card-icon">🏈</div>
+          <div class="form-card-title">Football Banquet Form</div>
+          <div class="form-card-desc">End-of-season banquet registration for Flag and 3rd–6th grade football families. Complete and return to your coach by the announced deadline.</div>
+          <div class="form-card-footer">
+            <div class="form-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor"/><polyline points="14,2 14,8 20,8" stroke="currentColor"/></svg>
+              PDF
+            </div>
+            <a class="dl-btn" href="https://www.plgridders.com/_files/ugd/d0a1cf_e04a46493af94ab7afe419a8ded57f1a.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="band-note" style="margin-top:1.1rem">
+        <span class="band-note-icon">📌</span>
+        <span>Forms are currently linked from the 2025 season. When new forms are available for 2026, replace the PDF links in this page with the updated files. If you need to upload new PDFs, add them to your GitHub repo and update the <code style="font-size:.75rem;background:rgba(255,255,255,.06);padding:.1rem .3rem;border-radius:4px">href</code> links accordingly.</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wide">
+    <span>&copy; <span id="yr"></span> PL Gridders · Commodore, PA</span>
+    &nbsp;·&nbsp;
+    <a href="/cdn-cgi/l/email-protection#9dede8effef5fceef8f1f4f3f8faeff4f9f9f8efeeddfaf0fcf4f1b3fef2f0" style="color:var(--red-3)"><span class="__cf_email__" data-cfemail="c7b7b2b5a4afa6b4a2abaea9a2a0b5aea3a3a2b5b487a0aaa6aeabe9a4a8aa">[email&#160;protected]</span></a>
+    &nbsp;·&nbsp; (814) 241-3237
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Mobile nav toggle
+  var toggle = document.querySelector('.nav-toggle');
+  var links  = document.querySelector('.nav-links');
+  if(toggle){
+    toggle.addEventListener('click', function(){
+      var open = links.classList.toggle('nav-links--open');
+      toggle.classList.toggle('nav-toggle--open', o

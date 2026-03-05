@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Purchase Line Little Gridders | Victory Through Character</title>
+  <title>PL Gridders | Victory Through Character</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Purchase Line Little Gridders – youth football and cheerleading in Commodore, PA. FLAG, JV, and Varsity squads for K–6th grade.">
+  <meta name="description" content="PL Gridders – youth football and cheerleading in Commodore, PA. FLAG, JV, and Varsity squads for K–6th grade.">
   <meta name="theme-color" content="#0a0608">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,25 +94,9 @@
     /* Hero panel */
     .hero-panel{border-radius:var(--radius-lg);border:1px solid var(--border-med);background:var(--bg-card);padding:1.5rem;box-shadow:var(--shadow);position:relative;overflow:hidden}
     .hero-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(220,38,38,.07),transparent 60%);pointer-events:none}
-    .hero-field{border-radius:14px;background:linear-gradient(160deg,#166534,#14532d,#052e16);min-height:185px;position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+    .hero-field{border-radius:14px;overflow:hidden;box-shadow:0 18px 48px rgba(0,0,0,.7);position:relative;line-height:0}
+    .hero-field svg{display:block;width:100%;height:auto}
     /* End zones — left and right strips */
-    .hero-field::before{content:"";position:absolute;top:0;bottom:0;left:0;width:13%;background:rgba(0,0,0,.22);border-right:2px solid rgba(255,255,255,.55)}
-    .hero-field::after{content:"";position:absolute;top:0;bottom:0;right:0;width:13%;background:rgba(0,0,0,.22);border-left:2px solid rgba(255,255,255,.55)}
-    /* Yard lines — drawn as child spans via JS, but we use box shadows on a helper div */
-    .field-lines{position:absolute;inset:0;pointer-events:none}
-    .field-yardline{position:absolute;top:0;bottom:0;width:1.5px;background:rgba(255,255,255,.3)}
-    /* Hash marks row top */
-    .field-hashes-top,.field-hashes-bot{position:absolute;left:13%;right:13%;display:flex;justify-content:space-between;padding-inline:0}
-    .field-hashes-top{top:30%}
-    .field-hashes-bot{bottom:30%}
-    .hash{width:1.5px;height:8px;background:rgba(255,255,255,.45)}
-    /* 50-yard line */
-    .field-fifty{position:absolute;top:0;bottom:0;left:50%;width:2px;background:rgba(255,255,255,.55);transform:translateX(-50%)}
-    /* Midfield logo circle — small, like NFL midfield */
-    .field-mid-mark{position:absolute;top:50%;left:50%;width:22px;height:22px;border-radius:999px;border:1.5px solid rgba(255,255,255,.4);transform:translate(-50%,-50%)}
-    .field-badge{position:absolute;top:.7rem;left:.8rem;display:flex;align-items:center;gap:.4rem;padding:.2rem .6rem;border-radius:999px;background:rgba(9,6,10,.9);border:1px solid var(--border-med);font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em}
-    .field-badge-dot{width:6px;height:6px;border-radius:999px;background:var(--red);animation:pulse 1.5s infinite}
-    .field-ball{position:absolute;bottom:.9rem;right:1.1rem;width:64px;height:64px}
     .hero-next{margin-top:1rem;border-radius:14px;border:1px solid var(--border-med);background:rgba(9,6,10,.92);padding:.85rem 1rem;display:flex;align-items:center;gap:1rem}
     .next-icon{width:36px;height:36px;border-radius:10px;background:var(--red-soft);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .next-icon svg{width:18px;height:18px;stroke:var(--red-3)}
@@ -130,11 +114,7 @@
     .sa{font-size:.76rem;color:var(--muted);text-align:right;flex-shrink:0}
     .sa a{color:var(--red-3);font-weight:500}
 
-    /* STATS */
-    .stats-strip{padding-block:2rem;background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-    .stats-row{display:flex;justify-content:space-around;gap:2rem;flex-wrap:wrap;text-align:center}
-    .sn{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.3rem;line-height:1;color:var(--red)}
-    .sl{font-size:.68rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-top:.28rem}
+
 
     /* TEAMS */
     .teams-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
@@ -184,9 +164,8 @@
     .s-empty{padding:1.5rem 1rem;font-size:.8rem;color:var(--muted);display:none}
     .s-empty.on{display:block}
 
+    /* HOW IT WORKS */
     /* REGISTRATION */
-    .reg-bg{background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-    .reg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem;margin-bottom:2rem}
     .rc{border-radius:var(--radius);background:rgba(9,4,9,.98);border:1px solid var(--border);padding:1.5rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color var(--t),transform var(--t),box-shadow var(--t);position:relative;overflow:hidden}
     .rc--f{border-color:var(--red-border);box-shadow:0 0 28px rgba(220,38,38,.1)}
     .rc--f::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--red-2))}
@@ -200,7 +179,6 @@
     .rc-perk{display:flex;align-items:center;gap:.42rem;font-size:.75rem;color:var(--muted)}
     .pchk{width:14px;height:14px;border-radius:999px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.45);display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .pchk svg{width:8px;height:8px;stroke:#4ade80}
-    .reg-info{border-radius:var(--radius);background:rgba(9,4,9,.9);border:1px solid var(--border);padding:1.25rem 1.5rem}
     .reg-info h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
     .t-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
     .ti{border-radius:10px;background:var(--bg-card);border:1px solid var(--border);padding:.65rem .75rem;font-size:.77rem}
@@ -208,13 +186,6 @@
     .ti-time{color:var(--muted)}
 
     /* GALLERY */
-    .gal-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
-    .gi{border-radius:14px;overflow:hidden;border:1px solid var(--border);cursor:pointer;position:relative;min-height:120px;background:rgba(15,8,14,.9);transition:transform var(--t),border-color var(--t),box-shadow var(--t)}
-    .gi img{width:100%;height:100%;object-fit:cover;transition:transform 300ms ease-out}
-    .gi::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(9,6,10,.82),transparent 55%)}
-    .gi-cap{position:absolute;bottom:.6rem;left:.75rem;right:.75rem;font-size:.7rem;color:var(--text);z-index:1}
-    .gi:hover{transform:translateY(-4px);border-color:var(--red-border);box-shadow:0 18px 36px rgba(0,0,0,.85)}
-    .gi:hover img{transform:scale(1.05)}
 
     /* NEWS */
     .news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem}
@@ -280,9 +251,7 @@
       .hero-inner{grid-template-columns:1fr;gap:2rem}
       .hero-right{max-width:460px}
       .teams-cols{grid-template-columns:1fr;gap:2rem}
-      .reg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .t-grid{grid-template-columns:1fr}
-      .gal-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
       .con-grid{grid-template-columns:1fr}
       .s-head,.s-row{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)}
       .s-head span:nth-child(2),.s-row>span:nth-child(2){display:none}
@@ -292,9 +261,7 @@
       .nav-links--open{transform:none;opacity:1;pointer-events:auto}
       .nav-actions{display:none}
       .nav-toggle{display:flex}
-      .reg-grid{grid-template-columns:1fr}
       .news-grid{grid-template-columns:1fr}
-      .gal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .sh{flex-direction:column;align-items:flex-start}
       .sa{text-align:left}
       .fg{grid-template-columns:1fr}
@@ -302,7 +269,6 @@
       .s-head span:nth-child(4),.s-row>span:nth-child(4){display:none}
     }
     @media(max-width:520px){
-      .gal-grid{grid-template-columns:1fr}
       .s-head,.s-row{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
       .s-head span:nth-child(3),.s-row>span:nth-child(3){display:none}
       .fi-r{flex-direction:column;align-items:flex-start}
@@ -317,8 +283,8 @@
 <script>
 const SITE_CONFIG = {
   org: {
-    name:      "PLG Gridders",
-    fullName:  "Purchase Line Little Gridders",
+    name:      "PL Gridders",
+    fullName:  "PL Gridders",
     tagline:   "Victory Through Character",
     season:    "2026",
     location:  "Commodore, PA",
@@ -350,18 +316,23 @@ const SITE_CONFIG = {
     tryoutDates:   "Dates TBD – check back soon",
     parentMeeting: "TBD – details sent via email",
     divisions: [
-      { id:"flag",    level:"FLAG Division",    name:"Flag Gridders",    grades:"Kindergarten – 2nd Grade",  fee:"TBD", feeNote:"Contact us for details", stripeLink:"https://buy.stripe.com/REPLACE_FLAG",    tryoutTime:"TBD", featured:false },
-      { id:"jv",      level:"JV Division",      name:"JV Gridders",      grades:"3rd – 4th Grade",           fee:"TBD", feeNote:"Contact us for details", stripeLink:"https://buy.stripe.com/REPLACE_JV",      tryoutTime:"TBD", featured:true  },
-      { id:"varsity", level:"Varsity Division",  name:"Varsity Gridders", grades:"5th – 6th Grade",           fee:"TBD", feeNote:"Contact us for details", stripeLink:"https://buy.stripe.com/REPLACE_VARSITY", tryoutTime:"TBD", featured:false },
+      // stripeLink: paste your Stripe Payment Link URL for each division
+      // Create at: dashboard.stripe.com → Payment Links → + New
+      // Add custom fields in Stripe: Player Name, Phone, Grade, Jersey Size
+      { id:"flag",    level:"FLAG Division",    name:"Flag Gridders",    grades:"Kindergarten – 2nd Grade",  fee:"$--",  feeNote:"Paid securely via Stripe", stripeLink:"https://buy.stripe.com/REPLACE_FLAG",    tryoutTime:"TBD", featured:false },
+      { id:"jv",      level:"JV Division",      name:"JV Gridders",      grades:"3rd – 4th Grade",           fee:"$--",  feeNote:"Paid securely via Stripe", stripeLink:"https://buy.stripe.com/REPLACE_JV",      tryoutTime:"TBD", featured:true  },
+      { id:"varsity", level:"Varsity Division",  name:"Varsity Gridders", grades:"5th – 6th Grade",           fee:"$--",  feeNote:"Paid securely via Stripe", stripeLink:"https://buy.stripe.com/REPLACE_VARSITY", tryoutTime:"TBD", featured:false },
     ],
     perks:[
       "Football & cheerleading squads",
       "Experienced local coaches",
       "Full season schedule",
-      "Stripe receipt emailed instantly",
+      "Instant receipt emailed to you",
     ],
   },
-  formspreeId: "YOUR_FORMSPREE_ID",
+  // ── CONTACT FORM (Web3Forms — free, 250/mo) ─────────────────
+  // Get your free key at https://web3forms.com → enter purchaselinegridders@gmail.com
+  web3formsKey: "YOUR_WEB3FORMS_KEY",
   sheets: {
     id:       "YOUR_GOOGLE_SHEET_ID",
     schedule: "Schedule",
@@ -386,7 +357,7 @@ const SITE_CONFIG = {
           </svg>
         </div>
         <div>
-          <div class="brand-name" id="brand-name">PLG Gridders</div>
+          <div class="brand-name" id="brand-name">PL Gridders</div>
           <div class="brand-sub" id="brand-sub">Victory Through Character</div>
         </div>
       </a>
@@ -395,15 +366,14 @@ const SITE_CONFIG = {
         <a href="#home">Home</a>
         <a href="#teams">Teams</a>
         <a href="#schedule">Schedule</a>
-        <a href="#register">Register</a>
-        <a href="#news">News</a>
+        <a href="resources.html">Resources</a>
+        <a href="donate.html">Donate</a>
         <a href="about.html">About</a>
         <a href="#contact">Contact</a>
-        <a href="about.html">About</a>
       </div>
       <div class="nav-actions">
         <button class="btn btn--ghost btn--sm" onclick="goTo('schedule')">Schedule</button>
-        <button class="btn btn--red btn--sm" onclick="goTo('register')">Register Now</button>
+        <button class="btn btn--red btn--sm" onclick="location.href='register.html'">Register Now</button>
       </div>
     </nav>
   </div>
@@ -421,7 +391,7 @@ const SITE_CONFIG = {
       </h1>
       <p class="hero-subtitle" id="hero-sub">Youth football and cheerleading in Commodore, PA. FLAG, JV, and Varsity squads for Kindergarten through 6th grade — building champions on and off the field.</p>
       <div class="hero-ctas">
-        <button class="btn btn--red btn--lg" onclick="goTo('register')">
+        <button class="btn btn--red btn--lg" onclick="location.href='register.html'">
           <svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Register Now
         </button>
@@ -432,24 +402,161 @@ const SITE_CONFIG = {
     <div class="hero-right">
       <div class="hero-panel">
         <div class="hero-field" id="hero-field">
-          <!-- yard lines injected by JS -->
-          <div class="field-lines" id="field-lines"></div>
-          <div class="field-fifty"></div>
-          <div class="field-mid-mark"></div>
-          <!-- hash marks -->
-          <div class="field-hashes-top" id="hash-top"></div>
-          <div class="field-hashes-bot" id="hash-bot"></div>
           <div class="field-badge"><span class="field-badge-dot"></span>Commodore, PA</div>
-          <div class="field-ball">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="32" cy="32" rx="22" ry="13.5" fill="#7f1d1d" opacity=".9"/>
-              <ellipse cx="32" cy="32" rx="22" ry="13.5" stroke="#fca5a5" stroke-width="1.7" fill="none"/>
-              <line x1="10" y1="32" x2="54" y2="32" stroke="#fef2f2" stroke-width="1.2" stroke-dasharray="4 3"/>
-              <line x1="32" y1="18.5" x2="32" y2="45.5" stroke="#fef2f2" stroke-width="1.2"/>
-              <line x1="23" y1="22" x2="23" y2="42" stroke="#fef2f2" stroke-width="0.9"/>
-              <line x1="41" y1="22" x2="41" y2="42" stroke="#fef2f2" stroke-width="0.9"/>
-            </svg>
-          </div>
+          <svg viewBox="0 0 1200 530" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Football field diagram">
+            <defs>
+              <!-- Alternating grass stripes -->
+              <pattern id="stripe" x="0" y="0" width="100" height="530" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="50" height="530" fill="#15803d"/>
+                <rect x="50" y="0" width="50" height="530" fill="#166534"/>
+              </pattern>
+              <!-- End zone stripes - slightly darker -->
+              <pattern id="ezstripe" x="0" y="0" width="20" height="530" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="10" height="530" fill="#14532d"/>
+                <rect x="10" y="0" width="10" height="530" fill="#166534"/>
+              </pattern>
+            </defs>
+
+            <!-- ── PLAY FIELD (100px–1100px = 1000px wide) ── -->
+            <rect x="100" y="0" width="1000" height="530" fill="url(#stripe)"/>
+
+            <!-- ── LEFT END ZONE ── -->
+            <rect x="0" y="0" width="100" height="530" fill="url(#ezstripe)"/>
+            <!-- End zone border lines -->
+            <line x1="100" y1="0" x2="100" y2="530" stroke="white" stroke-width="3"/>
+            <line x1="0"   y1="0" x2="0"   y2="530" stroke="white" stroke-width="3"/>
+            <!-- Left end zone text -->
+            <text x="50" y="285" font-family="Arial Black, Arial" font-weight="900" font-size="38" fill="rgba(255,255,255,.55)" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90,50,285)" letter-spacing="6">GRIDDERS</text>
+
+            <!-- ── RIGHT END ZONE ── -->
+            <rect x="1100" y="0" width="100" height="530" fill="url(#ezstripe)"/>
+            <line x1="1100" y1="0" x2="1100" y2="530" stroke="white" stroke-width="3"/>
+            <line x1="1200" y1="0" x2="1200" y2="530" stroke="white" stroke-width="3"/>
+            <text x="1150" y="285" font-family="Arial Black, Arial" font-weight="900" font-size="38" fill="rgba(255,255,255,.55)" text-anchor="middle" dominant-baseline="middle" transform="rotate(90,1150,285)" letter-spacing="6">GRIDDERS</text>
+
+            <!-- ── OUTER FIELD BORDER ── -->
+            <rect x="0" y="0" width="1200" height="530" fill="none" stroke="white" stroke-width="3"/>
+
+            <!-- ── 10-YARD LINE BORDERS (sidelines of play field) ── -->
+            <!-- Top & bottom sidelines -->
+            <line x1="100" y1="0"   x2="1100" y2="0"   stroke="white" stroke-width="3"/>
+            <line x1="100" y1="530" x2="1100" y2="530" stroke="white" stroke-width="3"/>
+
+            <!-- ── YARD LINES every 10 yards (9 interior lines) ── -->
+            <!-- Each 10 yards = 100px. Lines at: 200,300,400,500,600,700,800,900,1000 -->
+            <line x1="200"  y1="0" x2="200"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+            <line x1="300"  y1="0" x2="300"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+            <line x1="400"  y1="0" x2="400"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+            <line x1="500"  y1="0" x2="500"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+            <!-- 50 yard line — brighter -->
+            <line x1="600"  y1="0" x2="600"  y2="530" stroke="white" stroke-width="3"/>
+            <line x1="700"  y1="0" x2="700"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+            <line x1="800"  y1="0" x2="800"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+            <line x1="900"  y1="0" x2="900"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+            <line x1="1000" y1="0" x2="1000" y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+
+            <!-- ── 5-YARD LINES (shorter tick marks at sidelines only) ── -->
+            <line x1="150" y1="0" x2="150" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="150" y1="530" x2="150" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="250" y1="0" x2="250" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="250" y1="530" x2="250" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="350" y1="0" x2="350" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="350" y1="530" x2="350" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="450" y1="0" x2="450" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="450" y1="530" x2="450" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="550" y1="0" x2="550" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="550" y1="530" x2="550" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="650" y1="0" x2="650" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="650" y1="530" x2="650" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="750" y1="0" x2="750" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="750" y1="530" x2="750" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="850" y1="0" x2="850" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="850" y1="530" x2="850" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="950" y1="0" x2="950" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="950" y1="530" x2="950" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="1050" y1="0" x2="1050" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+            <line x1="1050" y1="530" x2="1050" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+
+            <!-- ── HASH MARKS (top third and bottom third, every 10 yards) ── -->
+            <!-- Top hashes at y=170 -->
+            <line x1="200"  y1="165" x2="200"  y2="178" stroke="white" stroke-width="2"/>
+            <line x1="300"  y1="165" x2="300"  y2="178" stroke="white" stroke-width="2"/>
+            <line x1="400"  y1="165" x2="400"  y2="178" stroke="white" stroke-width="2"/>
+            <line x1="500"  y1="165" x2="500"  y2="178" stroke="white" stroke-width="2"/>
+            <line x1="600"  y1="165" x2="600"  y2="178" stroke="white" stroke-width="2"/>
+            <line x1="700"  y1="165" x2="700"  y2="178" stroke="white" stroke-width="2"/>
+            <line x1="800"  y1="165" x2="800"  y2="178" stroke="white" stroke-width="2"/>
+            <line x1="900"  y1="165" x2="900"  y2="178" stroke="white" stroke-width="2"/>
+            <line x1="1000" y1="165" x2="1000" y2="178" stroke="white" stroke-width="2"/>
+            <!-- 5-yard top hashes -->
+            <line x1="150"  y1="165" x2="150"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="250"  y1="165" x2="250"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="350"  y1="165" x2="350"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="450"  y1="165" x2="450"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="550"  y1="165" x2="550"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="650"  y1="165" x2="650"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="750"  y1="165" x2="750"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="850"  y1="165" x2="850"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="950"  y1="165" x2="950"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="1050" y1="165" x2="1050" y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <!-- Bottom hashes at y=352 -->
+            <line x1="200"  y1="352" x2="200"  y2="365" stroke="white" stroke-width="2"/>
+            <line x1="300"  y1="352" x2="300"  y2="365" stroke="white" stroke-width="2"/>
+            <line x1="400"  y1="352" x2="400"  y2="365" stroke="white" stroke-width="2"/>
+            <line x1="500"  y1="352" x2="500"  y2="365" stroke="white" stroke-width="2"/>
+            <line x1="600"  y1="352" x2="600"  y2="365" stroke="white" stroke-width="2"/>
+            <line x1="700"  y1="352" x2="700"  y2="365" stroke="white" stroke-width="2"/>
+            <line x1="800"  y1="352" x2="800"  y2="365" stroke="white" stroke-width="2"/>
+            <line x1="900"  y1="352" x2="900"  y2="365" stroke="white" stroke-width="2"/>
+            <line x1="1000" y1="352" x2="1000" y2="365" stroke="white" stroke-width="2"/>
+            <!-- 5-yard bottom hashes -->
+            <line x1="150"  y1="355" x2="150"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="250"  y1="355" x2="250"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="350"  y1="355" x2="350"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="450"  y1="355" x2="450"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="550"  y1="355" x2="550"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="650"  y1="355" x2="650"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="750"  y1="355" x2="750"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="850"  y1="355" x2="850"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="950"  y1="355" x2="950"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+            <line x1="1050" y1="355" x2="1050" y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+
+            <!-- ── YARD NUMBERS ── -->
+            <!-- Top row numbers -->
+            <text x="200"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">10</text>
+            <text x="300"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">20</text>
+            <text x="400"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">30</text>
+            <text x="500"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">40</text>
+            <text x="600"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">50</text>
+            <text x="700"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">40</text>
+            <text x="800"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">30</text>
+            <text x="900"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">20</text>
+            <text x="1000" y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">10</text>
+            <!-- Bottom row numbers (upside down, as on real field) -->
+            <text x="200"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,200,405)">10</text>
+            <text x="300"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,300,405)">20</text>
+            <text x="400"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,400,405)">30</text>
+            <text x="500"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,500,405)">40</text>
+            <text x="600"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,600,405)">50</text>
+            <text x="700"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,700,405)">40</text>
+            <text x="800"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,800,405)">30</text>
+            <text x="900"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,900,405)">20</text>
+            <text x="1000" y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,1000,405)">10</text>
+
+            <!-- ── GOAL POSTS (simple top-down silhouette) ── -->
+            <!-- Left goal post -->
+            <line x1="18" y1="205" x2="18" y2="325" stroke="rgba(255,220,50,.8)" stroke-width="5" stroke-linecap="round"/>
+            <line x1="18" y1="265" x2="60" y2="265" stroke="rgba(255,220,50,.8)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="60" y1="205" x2="60" y2="325" stroke="rgba(255,220,50,.8)" stroke-width="4" stroke-linecap="round"/>
+            <!-- Right goal post -->
+            <line x1="1182" y1="205" x2="1182" y2="325" stroke="rgba(255,220,50,.8)" stroke-width="5" stroke-linecap="round"/>
+            <line x1="1182" y1="265" x2="1140" y2="265" stroke="rgba(255,220,50,.8)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="1140" y1="205" x2="1140" y2="325" stroke="rgba(255,220,50,.8)" stroke-width="4" stroke-linecap="round"/>
+
+            <!-- ── MIDFIELD CIRCLE ── -->
+            <circle cx="600" cy="265" r="40" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2.5"/>
+            <circle cx="600" cy="265" r="4"  fill="rgba(255,255,255,.5)"/>
+          </svg>
         </div>
         <div class="hero-next">
           <div class="next-icon">
@@ -466,11 +573,6 @@ const SITE_CONFIG = {
     </div>
   </div>
 </section>
-
-<!-- STATS STRIP -->
-<div class="stats-strip">
-  <div class="container"><div class="stats-row" id="stats-row"></div></div>
-</div>
 
 <!-- TEAMS -->
 <section class="section reveal" id="teams">
@@ -511,7 +613,7 @@ const SITE_CONFIG = {
         <h2 class="display st">2026 Game Day Calendar.</h2>
         <p class="ss">Times and locations subject to change. Updates via email and Facebook.</p>
       </div>
-      <div class="sa">Purchase Line Little Gridders</div>
+      <div class="sa">PL Gridders</div>
     </div>
     <div class="sched-filters">
       <button class="fb fb--on" data-f="all">All Games</button>
@@ -527,57 +629,6 @@ const SITE_CONFIG = {
 </section>
 
 <!-- REGISTRATION -->
-<section class="section reveal reg-bg" id="register">
-  <div class="container">
-    <div class="sh">
-      <div>
-        <div class="sk">Registration</div>
-        <h2 class="display st">Join the Gridders.</h2>
-        <p class="ss">Select your division and register securely through Stripe. A receipt is emailed to you instantly after payment.</p>
-      </div>
-      <div class="sa">Payment plans available.<br><a href="#contact">Questions? Contact us →</a></div>
-    </div>
-    <div class="reg-grid" id="reg-grid"></div>
-    <div class="reg-info">
-      <h3 class="display">Evaluation Schedule — <span id="t-dates">Dates TBD</span></h3>
-      <div class="t-grid" id="t-grid"></div>
-      <p style="margin-top:.85rem;font-size:.75rem;color:var(--muted);">📋 Check in 15 minutes before your window. &nbsp;|&nbsp; Parent meeting: <strong id="p-meeting" style="color:var(--text)">TBD</strong></p>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section class="section reveal" id="gallery">
-  <div class="container">
-    <div class="sh">
-      <div>
-        <div class="sk">Gallery</div>
-        <h2 class="display st">Moments on the field.</h2>
-        <p class="ss">From first touchdowns to cheer performances — memories your kids will carry for life.</p>
-      </div>
-      <div class="sa">Tap any photo to expand.</div>
-    </div>
-    <div class="gal-grid">
-      <figure class="gi" data-src="https://images.pexels.com/photos/399187/pexels-photo-399187.jpeg?auto=compress&cs=tinysrgb&w=1200" data-cap="Pre-game warmups at Purchase Line fields.">
-        <img src="https://images.pexels.com/photos/399187/pexels-photo-399187.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Warmups" loading="lazy">
-        <figcaption class="gi-cap">Pre-game warmups</figcaption>
-      </figure>
-      <figure class="gi" data-src="https://images.pexels.com/photos/1618200/pexels-photo-1618200.jpeg?auto=compress&cs=tinysrgb&w=1200" data-cap="Gridders breaking the huddle.">
-        <img src="https://images.pexels.com/photos/1618200/pexels-photo-1618200.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Huddle" loading="lazy">
-        <figcaption class="gi-cap">Game day huddle</figcaption>
-      </figure>
-      <figure class="gi" data-src="https://images.pexels.com/photos/1615526/pexels-photo-1615526.jpeg?auto=compress&cs=tinysrgb&w=1200" data-cap="Varsity defense at the goal line.">
-        <img src="https://images.pexels.com/photos/1615526/pexels-photo-1615526.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Goal line" loading="lazy">
-        <figcaption class="gi-cap">Goal-line stand</figcaption>
-      </figure>
-      <figure class="gi" data-src="https://images.pexels.com/photos/1733341/pexels-photo-1733341.jpeg?auto=compress&cs=tinysrgb&w=1200" data-cap="Team celebrates after a win.">
-        <img src="https://images.pexels.com/photos/1733341/pexels-photo-1733341.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Celebration" loading="lazy">
-        <figcaption class="gi-cap">Post-game celebration</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
 <!-- NEWS -->
 <section class="section reveal" id="news">
   <div class="container">
@@ -619,7 +670,7 @@ const SITE_CONFIG = {
         </div>
         <div>
           <div class="cl">Follow Us</div>
-          <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener" style="color:var(--red-3);font-size:.84rem;font-weight:500">Purchase Line Little Gridders on Facebook →</a>
+          <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener" style="color:var(--red-3);font-size:.84rem;font-weight:500">PL Gridders on Facebook →</a>
         </div>
         <div class="c-hi">We never cut players for ability at the youth level. If your child wants to play and be a good teammate, we will find them a place in our program.</div>
       </aside>
@@ -656,7 +707,7 @@ const SITE_CONFIG = {
         </div>
         <div class="ff" style="margin-bottom:.85rem"><label class="fl" for="msg">Questions or Details</label><textarea class="fta" id="msg" name="message" placeholder="Tell us about your child, any questions about equipment, schedule, or costs…"></textarea></div>
         <div class="cf-foot">
-          <p class="cf-fn">By submitting you agree to be contacted about PLG Gridders programs. We never share your info.</p>
+          <p class="cf-fn">By submitting you agree to be contacted about PL Gridders programs. We never share your info.</p>
           <button type="submit" class="btn btn--red">
             <svg viewBox="0 0 20 20" fill="none" width="14" height="14"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Submit Inquiry
@@ -679,11 +730,13 @@ const SITE_CONFIG = {
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="container fi-r">
-    <div>© <span id="yr"></span> Purchase Line Little Gridders · Commodore, PA. All rights reserved.</div>
+    <div>© <span id="yr"></span> PL Gridders · Commodore, PA. All rights reserved.</div>
     <div class="f-links">
       <a href="#schedule">Schedule</a>
       <a href="#teams">Teams</a>
-      <a href="#register">Register</a>
+      <a href="register.html">Register</a>
+      <a href="resources.html">Resources</a>
+      <a href="donate.html">Donate</a>
       <a href="#contact">Contact</a>
       <a href="admin.html" style="color:rgba(120,80,80,.5);font-size:.65rem">Admin</a>
     </div>
@@ -722,14 +775,13 @@ const SITE_CONFIG = {
     g('fb-btn').href=C.org.facebook;
     g('yr').textContent=new Date().getFullYear();
     document.title=C.org.fullName+' · '+C.org.tagline;
-    g('stats-row').innerHTML=C.stats.map(s=>`<div><div class="sn">${s.num}</div><div class="sl">${s.label}</div></div>`).join('');
+
     renderReg(C.registration);
   }
 
   function renderReg(r){
     g('t-dates').textContent=r.tryoutDates;
     g('p-meeting').textContent=r.parentMeeting;
-    g('reg-grid').innerHTML=r.divisions.map(d=>`
       <div class="rc ${d.featured?'rc--f':''}">
         <div class="rc-level">${d.level}</div>
         <div class="display rc-name">${d.name}</div>
@@ -739,9 +791,14 @@ const SITE_CONFIG = {
         <div class="rc-perks">${r.perks.map(p=>`
           <div class="rc-perk"><span class="pchk"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>${p}</div>
         `).join('')}</div>
-        ${r.isOpen&&!d.stripeLink.includes('REPLACE')
-          ?`<a class="btn btn--red" href="${d.stripeLink}" target="_blank" rel="noopener" style="margin-top:.5rem">Register — ${d.fee}</a>`
-          :`<button class="btn btn--outline" onclick="goTo('contact')" style="margin-top:.5rem">Inquire to Register</button>`
+        ${r.isOpen&&d.stripeLink&&!d.stripeLink.includes('REPLACE')
+          ?`<a class="btn btn--red" href="${d.stripeLink}" target="_blank" rel="noopener" style="margin-top:.5rem">
+              <svg viewBox="0 0 20 20" fill="none" width="13" height="13"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Register &amp; Pay Now
+            </a>`
+          :r.isOpen
+          ?`<button class="btn btn--outline" onclick="goTo('contact')" style="margin-top:.5rem">Contact Us to Register</button>`
+          :`<div class="chip" style="margin-top:.5rem">Registration coming soon</div>`
         }
       </div>`).join('');
     g('t-grid').innerHTML=r.divisions.map(d=>`
@@ -772,11 +829,11 @@ const SITE_CONFIG = {
     }).filter(r=>Object.values(r).some(v=>v));
   }
 
+  function sheetsReady(){const id=SITE_CONFIG.sheets.id;return id&&id!=='YOUR_GOOGLE_SHEET_ID';}
   async function fetchSheet(name){
-    const id=SITE_CONFIG.sheets.id;
-    if(!id||id==='YOUR_GOOGLE_SHEET_ID')return null;
+    if(!sheetsReady())return null;
     try{
-      const r=await fetch(`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`);
+      const r=await fetch('https://docs.google.com/spreadsheets/d/'+SITE_CONFIG.sheets.id+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(name));
       if(!r.ok)return null;
       return parseCSV(await r.text());
     }catch{return null;}
@@ -822,6 +879,7 @@ const SITE_CONFIG = {
   }
 
   async function loadTeams(){
+    if(!sheetsReady()){renderCards(FB_FALLBACK,'fb-grid');renderCards(CH_FALLBACK,'ch-grid');return;}
     const data=await fetchSheet(SITE_CONFIG.sheets.teams);
     if(data&&data.length){
       const fb=data.filter(r=>(r.Type||'').toLowerCase()!=='cheer');
@@ -856,7 +914,7 @@ const SITE_CONFIG = {
       </div>`).join('');
   }
 
-  async function loadSched(){const d=await fetchSheet(SITE_CONFIG.sheets.schedule);renderSched(d&&d.length?d:SCHED_FALLBACK);}
+  async function loadSched(){if(!sheetsReady()){renderSched(SCHED_FALLBACK);return;}const d=await fetchSheet(SITE_CONFIG.sheets.schedule);renderSched(d&&d.length?d:SCHED_FALLBACK);}
 
   document.querySelectorAll('.fb[data-f]').forEach(btn=>{
     btn.addEventListener('click',()=>{
@@ -866,12 +924,10 @@ const SITE_CONFIG = {
   });
 
   const NEWS_FALLBACK=[
-    {Title:"2026 Season Info Coming Soon",Date:"2026",Badge:"Update",Body:"Registration and schedule details for the 2026 season will be posted here soon. Follow us on Facebook for real-time announcements from Purchase Line Little Gridders.",Link:"https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597",LinkText:"Follow us on Facebook"},
+    {Title:"2026 Season Info Coming Soon",Date:"2026",Badge:"Update",Body:"Registration and schedule details for the 2026 season will be posted here soon. Follow us on Facebook for real-time announcements from PL Gridders.",Link:"https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597",LinkText:"Follow us on Facebook"},
     {Title:"Questions? We're Here to Help",Date:"",Badge:"",Body:"Reach out via email or phone for any questions about registration, equipment, schedules, or how to get your child involved in football or cheerleading with the Gridders.",Link:"#contact",LinkText:"Contact us"},
   ];
-  async function loadNews(){
-    const d=await fetchSheet(SITE_CONFIG.sheets.news);
-    const items=d&&d.length?d:NEWS_FALLBACK;
+  function renderNews(items){
     g('news-grid').innerHTML=items.map(n=>`
       <article class="nc">
         <div class="n-meta">${n.Badge?`<span class="nbadge">${n.Badge}</span>`:''}<span>${n.Date||''}</span></div>
@@ -880,14 +936,30 @@ const SITE_CONFIG = {
         ${n.Link?`<a class="n-link" href="${n.Link}" ${n.Link.startsWith('http')?'target="_blank" rel="noopener"':''}>${n.LinkText||'Read more'}<svg viewBox="0 0 20 20" fill="none" width="13" height="13"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`:''}
       </article>`).join('');
   }
+  async function loadNews(){
+    if(!sheetsReady()){renderNews(NEWS_FALLBACK);return;}
+    const d=await fetchSheet(SITE_CONFIG.sheets.news);
+    renderNews(d&&d.length?d:NEWS_FALLBACK);
+  }
 
   const form=g('cform');
   if(form){form.addEventListener('submit',async function(e){
     e.preventDefault();if(!form.checkValidity()){form.reportValidity();return;}
-    const btn=form.querySelector('[type="submit"]');btn.disabled=true;btn.textContent='Sending…';
-    const fid=SITE_CONFIG.formspreeId;
-    if(fid&&fid!=='YOUR_FORMSPREE_ID'){try{await fetch(`https://formspree.io/f/${fid}`,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});}catch{}}
-    form.reset();g('f-ok').classList.add('on');btn.disabled=false;btn.innerHTML='✓ Sent';
+    const btn=form.querySelector('[type="submit"]');
+    btn.disabled=true;btn.textContent='Sending…';
+    const key=SITE_CONFIG.web3formsKey;
+    try{
+      const fd=new FormData(form);
+      if(key&&key!=='YOUR_WEB3FORMS_KEY'){
+        fd.append('access_key',key);
+        fd.append('subject','PL Gridders – New Inquiry from '+fd.get('parent-name'));
+        fd.append('from_name','PL Gridders Website');
+        await fetch('https://api.web3forms.com/submit',{method:'POST',body:fd});
+      }
+    }catch(err){console.warn('Form submit error:',err);}
+    form.reset();
+    g('f-ok').classList.add('on');
+    btn.disabled=false;btn.innerHTML='✓ Sent';
   });}
 
   const lb=g('lb'),lbImg=g('lb-img'),lbCap=g('lb-cap'),lbX=g('lb-close');
@@ -920,25 +992,13 @@ const SITE_CONFIG = {
     revs.forEach(r=>obs.observe(r));
   }else{revs.forEach(r=>r.classList.add('revealed'));}
 
-  // ── FOOTBALL FIELD ────────────────────────────────────────
-  (function buildField(){
-    const linesEl = document.getElementById('field-lines');
-    const hashTop = document.getElementById('hash-top');
-    const hashBot = document.getElementById('hash-bot');
-    if(!linesEl) return;
-    // 7 interior yard lines across the playable area
-    [21,29,37,50,63,71,79].forEach(pct=>{
-      const d=document.createElement('div');
-      d.className='field-yardline';
-      d.style.left=pct+'%';
-      linesEl.appendChild(d);
-    });
-    // Hash marks aligned with yard lines + goal lines
-    [13,21,29,37,50,63,71,79,87].forEach(()=>{
-      if(hashTop) hashTop.insertAdjacentHTML('beforeend','<span class="hash"></span>');
-      if(hashBot) hashBot.insertAdjacentHTML('beforeend','<span class="hash"></span>');
-    });
-  })();
+  // Field is now a static SVG — no JS needed
+
+  // ── INIT ──────────────────────────────────────────────────
+  applyConfig();
+  loadTeams();
+  loadSched();
+  loadNews();
 
 })();
 </script>

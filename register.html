@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>2026 Player Registration | Purchase Line Little Gridders</title>
+  <title>2026 Player Registration | PL Gridders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#09060a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -214,7 +214,7 @@
           </svg>
         </div>
         <div>
-          <div class="brand-name">PLG Gridders</div>
+          <div class="brand-name">PL Gridders</div>
           <div class="brand-sub">Victory Through Character</div>
         </div>
       </a>
@@ -232,7 +232,7 @@
 <!-- PAGE HERO -->
 <div class="reg-hero">
   <div class="container">
-    <div class="rh-kicker"><span class="kicker-dot"></span>Purchase Line Little Gridders · 2026 Season</div>
+    <div class="rh-kicker"><span class="kicker-dot"></span>PL Gridders · 2026 Season</div>
     <h1 class="display rh-title"><span class="accent">Player</span><br>Registration</h1>
     <p class="rh-sub">Complete all fields, sign the liability waiver, then pay your registration fee — all on one page.</p>
     <div class="fee-badge">
@@ -253,8 +253,8 @@
 
     <!-- Web3Forms hidden fields — fill in your key in SETUP -->
     <input type="hidden" name="access_key" id="w3f-key" value="YOUR_WEB3FORMS_KEY">
-    <input type="hidden" name="subject" id="w3f-subject" value="PLG Gridders 2026 — New Registration">
-    <input type="hidden" name="from_name" value="PLG Gridders Registration">
+    <input type="hidden" name="subject" id="w3f-subject" value="PL Gridders 2026 — New Registration">
+    <input type="hidden" name="from_name" value="PL Gridders Registration">
     <input type="hidden" name="botcheck" value="">
     <input type="hidden" name="signature_data" id="sig-data">
 
@@ -523,7 +523,7 @@
             </div>
             <div class="fupload-name" id="cert-name"></div>
           </div>
-          <div class="fupload-alt">If you cannot upload now, email it to <strong>purchaselinegridders@gmail.com</strong> with your player's name in the subject line.</div>
+          <div class="fupload-alt">If you cannot upload now, email it to <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="62121710010a0311070e0b0c0705100b060607101122050f030b0e4c010d0f">[email&#160;protected]</a></strong> with your player's name in the subject line.</div>
         </div>
       </div>
     </div>
@@ -542,7 +542,7 @@
       <div class="pay-body">
         <div class="pay-summary">
           <div>
-            <div class="pay-summary-desc">2026 PLG Gridders Registration</div>
+            <div class="pay-summary-desc">2026 PL Gridders Registration</div>
             <div style="font-size:.68rem;color:var(--muted);margin-top:.08rem" id="pay-team-label">Select a team above to continue</div>
           </div>
           <div>
@@ -581,7 +581,7 @@
     </div>
     <h2 class="display success-title">You're <span class="accent">Registered!</span></h2>
     <p class="success-body">
-      <strong id="confirm-player">Your player</strong> is officially registered for the 2026 PLG Gridders season. 
+      <strong id="confirm-player">Your player</strong> is officially registered for the 2026 PL Gridders season. 
       Stripe has emailed a payment receipt to <strong id="confirm-email">you</strong>, and our coaches will be in touch soon with practice details.
     </p>
     <div class="success-card">
@@ -599,14 +599,14 @@
 
 <footer class="site-footer">
   <div class="wide">
-    <span>&copy; <span id="yr"></span> Purchase Line Little Gridders · Commodore, PA</span>
+    <span>&copy; <span id="yr"></span> PL Gridders · Commodore, PA</span>
     &nbsp;·&nbsp;
-    <a href="mailto:purchaselinegridders@gmail.com" style="color:var(--red-3)">purchaselinegridders@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#cfbfbabdaca7aebcaaa3a6a1aaa8bda6ababaabdbc8fa8a2aea6a3e1aca0a2" style="color:var(--red-3)"><span class="__cf_email__" data-cfemail="b1c1c4c3d2d9d0c2d4ddd8dfd4d6c3d8d5d5d4c3c2f1d6dcd0d8dd9fd2dedc">[email&#160;protected]</span></a>
     &nbsp;·&nbsp;(814) 241-3237
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
 'use strict';
 
@@ -759,7 +759,7 @@ form.addEventListener('submit', async function(e){
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         amount: REG_FEE_CENTS,
-        description: 'PLG Gridders 2026 – '+playerName+' – '+teamVal,
+        description: 'PL Gridders 2026 – '+playerName+' – '+teamVal,
         email: parentEmail
       })
     });
@@ -789,7 +789,7 @@ form.addEventListener('submit', async function(e){
 
     // ── Step 3: Payment succeeded — send registration data via Web3Forms ──
     document.getElementById('sig-data').value = canvas.toDataURL('image/png');
-    document.getElementById('w3f-subject').value = 'PLG Gridders 2026 — '+playerName+' Registered · '+teamVal;
+    document.getElementById('w3f-subject').value = 'PL Gridders 2026 — '+playerName+' Registered · '+teamVal;
 
     var fd = new FormData(form);
     fd.set('payment_id',    confirmResult.paymentIntent.id);
@@ -818,13 +818,4 @@ form.addEventListener('submit', async function(e){
     window.scrollTo({top:0, behavior:'smooth'});
 
   } catch(err){
-    payErr.textContent = err.message || 'An error occurred. Please try again.';
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Submit Registration &amp; Pay Now';
-  }
-});
-
-})();
-</script>
-</body>
-</html>
+    
