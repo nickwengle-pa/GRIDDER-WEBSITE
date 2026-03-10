@@ -660,20 +660,12 @@
         </p>
 
         <div class="form-section">
-          <div class="form-section-title">Payment Link URLs</div>
+          <div class="form-section-title">Payment Link URL</div>
           <div class="field-grid">
             <div class="field">
-              <label class="field-label">U10 · Rookie Gridders Stripe Link</label>
-              <input class="field-input" id="stripe-u10" value="https://buy.stripe.com/REPLACE_THIS_U10" placeholder="https://buy.stripe.com/...">
-              <div class="field-hint">Paste the full URL from Stripe Payment Links</div>
-            </div>
-            <div class="field">
-              <label class="field-label">U12 · Storm Gridders Stripe Link</label>
-              <input class="field-input" id="stripe-u12" value="https://buy.stripe.com/REPLACE_THIS_U12" placeholder="https://buy.stripe.com/...">
-            </div>
-            <div class="field">
-              <label class="field-label">U14 · Elite Gridders Stripe Link</label>
-              <input class="field-input" id="stripe-u14" value="https://buy.stripe.com/REPLACE_THIS_U14" placeholder="https://buy.stripe.com/...">
+              <label class="field-label">Registration Fee Stripe Link (all divisions)</label>
+              <input class="field-input" id="stripe-link" value="https://buy.stripe.com/bJe28r2Qy5PRcXs5AU2VG03" placeholder="https://buy.stripe.com/...">
+              <div class="field-hint">Paste the full URL from Stripe Payment Links — used for all divisions since the fee is the same</div>
             </div>
           </div>
         </div>
@@ -682,7 +674,7 @@
           <div class="form-section-title" style="color:var(--gold);">Stripe Setup Checklist</div>
           <div style="font-size:0.82rem; color:var(--muted); display:flex; flex-direction:column; gap:0.5rem; line-height:1.6;">
             <div>☐ <strong style="color:var(--text);">Create Stripe account</strong> at stripe.com (free to sign up)</div>
-            <div>☐ <strong style="color:var(--text);">Create 3 Payment Links</strong> — one per division, set the correct price</div>
+            <div>☐ <strong style="color:var(--text);">Create 1 Payment Link</strong> — set the registration fee amount</div>
             <div>☐ <strong style="color:var(--text);">Enable email receipts</strong> in Stripe: Settings → Emails → turn on "Successful payments"</div>
             <div>☐ <strong style="color:var(--text);">Add custom fields</strong> (optional) in the Payment Link: player name, age, position</div>
             <div>☐ <strong style="color:var(--text);">Set up Stripe → Google Sheets</strong> via Zapier or Stripe's built-in export for your records</div>
@@ -870,11 +862,11 @@ document.querySelectorAll('.sidebar-btn[data-panel]').forEach(btn => {
 function updateStatus() {
   const sheetId = document.getElementById('sheet-id').value.trim();
   const formId  = document.getElementById('formspree-id').value.trim();
-  const u10     = document.getElementById('stripe-u10').value.trim();
+  const stripeLink = document.getElementById('stripe-link').value.trim();
 
-  const sheetsOk = sheetId && !sheetId.includes('YOUR_GOOGLE');
-  const formsOk  = formId  && !formId.includes('YOUR_');
-  const stripeOk = u10     && !u10.includes('REPLACE_');
+  const sheetsOk = sheetId    && !sheetId.includes('YOUR_GOOGLE');
+  const formsOk  = formId     && !formId.includes('YOUR_');
+  const stripeOk = stripeLink && !stripeLink.includes('REPLACE_');
 
   function setStatus(elId, ok, label, okText, badText) {
     const el = document.getElementById(elId);
@@ -888,7 +880,7 @@ function updateStatus() {
   setStatus('stripe-status',    stripeOk, 'Stripe',        'Links set ✓', 'Not configured');
 }
 
-['sheet-id','formspree-id','stripe-u10','stripe-u12','stripe-u14'].forEach(id => {
+['sheet-id','formspree-id','stripe-link'].forEach(id => {
   document.getElementById(id).addEventListener('input', updateStatus);
 });
 
@@ -961,7 +953,7 @@ const SITE_CONFIG = {
         ages:       "Ages 8–10",
         fee:        "${g('u10-fee')}",
         feeNote:    "${g('u10-fee-note')}",
-        stripeLink: "${g('stripe-u10')}",
+        stripeLink: "${g('stripe-link')}",
         tryoutTime: "${g('u10-tryout')}",
         featured:   false,
       },
@@ -972,7 +964,7 @@ const SITE_CONFIG = {
         ages:       "Ages 10–12",
         fee:        "${g('u12-fee')}",
         feeNote:    "${g('u12-fee-note')}",
-        stripeLink: "${g('stripe-u12')}",
+        stripeLink: "${g('stripe-link')}",
         tryoutTime: "${g('u12-tryout')}",
         featured:   true,
       },
@@ -983,7 +975,7 @@ const SITE_CONFIG = {
         ages:       "Ages 12–14",
         fee:        "${g('u14-fee')}",
         feeNote:    "${g('u14-fee-note')}",
-        stripeLink: "${g('stripe-u14')}",
+        stripeLink: "${g('stripe-link')}",
         tryoutTime: "${g('u14-tryout')}",
         featured:   false,
       },
