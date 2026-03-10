@@ -189,6 +189,20 @@
     @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
     .spin{animation:spin .8s linear infinite}
 
+    /* ── MULTI-PLAYER ── */
+    .player-roster{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+    .player-tag{display:flex;align-items:center;justify-content:space-between;padding:.55rem .9rem;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:var(--radius);font-size:.82rem}
+    .player-tag-info{display:flex;flex-direction:column;gap:.05rem}
+    .player-tag-name{font-weight:600;color:var(--green)}
+    .player-tag-team{color:var(--muted);font-size:.72rem}
+    .player-tag-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;padding:.1rem .35rem;border-radius:4px;line-height:1;transition:color var(--t)}
+    .player-tag-remove:hover{color:#f87171}
+    .add-player-btn{width:100%;padding:.8rem;background:rgba(255,255,255,.03);border:1.5px dashed var(--border-med);border-radius:var(--radius);color:var(--muted);font-size:.82rem;font-family:inherit;cursor:pointer;transition:all var(--t);display:flex;align-items:center;justify-content:center;gap:.45rem;margin-bottom:1.5rem}
+    .add-player-btn:hover{background:rgba(255,255,255,.06);color:var(--text);border-color:rgba(175,120,130,.5)}
+    .pay-total-row{display:flex;align-items:center;justify-content:space-between;padding:.55rem 0 0;border-top:1px solid rgba(99,91,255,.2);margin-top:.4rem}
+    .pay-total-label{font-size:.74rem;color:rgba(190,185,255,.7)}
+    .pay-total-amount{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;color:#c4c0ff}
+
     @media(max-width:640px){
       .frow--2,.frow--3{grid-template-columns:1fr}
       .fteam{grid-template-columns:1fr 1fr}
@@ -237,7 +251,7 @@
     <p class="rh-sub">Complete all fields, sign the liability waiver, then pay your registration fee — all on one page.</p>
     <div class="fee-badge">
       <svg viewBox="0 0 20 20" fill="none" width="13" height="13"><rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><line x1="2" y1="8" x2="18" y2="8" stroke="currentColor" stroke-width="1.6"/></svg>
-      Registration fee: $<span id="hero-fee">41.50</span> per player · Secure payment via Stripe
+      Registration fee: $<span id="hero-fee">40.00</span> per player · Secure payment via Stripe
     </div>
   </div>
 </div>
@@ -514,9 +528,9 @@
       </div>
       <div class="fsec-body">
         <div class="ffield">
-          <label class="flabel">Upload Birth Certificate <span class="opt">(PDF, JPG, or PNG · max 10MB)</span></label>
+          <label class="flabel">Upload Birth Certificate <span class="opt">(PDF, JPG, or PNG · max 5MB)</span></label>
           <div class="fupload">
-            <input type="file" id="birth-cert" name="birth_certificate" accept=".pdf,.jpg,.jpeg,.png" aria-label="Upload birth certificate">
+            <input type="file" id="birth-cert" name="birth_certificate" accept="image/*,.pdf" aria-label="Upload birth certificate">
             <div class="fupload-face">
               <svg viewBox="0 0 24 24" fill="none" style="width:22px;height:22px;margin:0 auto .3rem;stroke:var(--muted)" stroke-width="1.5"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M8 12l4-4m0 0l4 4m-4-4v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <div>Click to browse or drag a file here</div>
@@ -527,6 +541,22 @@
         </div>
       </div>
     </div>
+
+    <!-- ══ ADDITIONAL PLAYERS ════════════════════════════════════ -->
+    <div id="player-roster-wrap" style="display:none">
+      <div class="fsec-head" style="margin-bottom:.6rem">
+        <div class="fsec-num" style="background:rgba(34,197,94,.12);color:var(--green);border-color:rgba(34,197,94,.25)">+</div>
+        <div>
+          <div class="fsec-title">Players in This Order</div>
+          <div class="fsec-sub">All will be charged together below</div>
+        </div>
+      </div>
+      <div class="player-roster" id="player-roster"></div>
+    </div>
+    <button type="button" class="add-player-btn" id="add-player-btn">
+      <svg viewBox="0 0 20 20" fill="none" width="14" height="14"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Registering another player from the same family? Add them here
+    </button>
 
     <!-- ══ 08 PAYMENT ════════════════════════════════════════════ -->
     <div class="pay-sec" id="pay-section">
@@ -546,9 +576,13 @@
             <div style="font-size:.68rem;color:var(--muted);margin-top:.08rem" id="pay-team-label">Select a team above to continue</div>
           </div>
           <div>
-            <div class="pay-summary-amount">$<span id="pay-amount-display">41.50</span></div>
+            <div class="pay-summary-amount">$<span id="pay-amount-display">40.00</span></div>
             <div class="pay-summary-note">per player</div>
           </div>
+        </div>
+        <div class="pay-total-row" id="pay-total-row" style="display:none">
+          <div class="pay-total-label"><span id="pay-player-count">2</span> players × $<span id="pay-fee-each">40.00</span> each</div>
+          <div class="pay-total-amount">Total: $<span id="pay-total-display">80.00</span></div>
         </div>
         <!-- Stripe Card Element mounts here -->
         <div class="ffield">
@@ -580,18 +614,16 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
     <h2 class="display success-title">You're <span class="accent">Registered!</span></h2>
-    <p class="success-body">
-      <strong id="confirm-player">Your player</strong> is officially registered for the 2026 PL Gridders season. 
+    <p class="success-body" id="confirm-body">
+      Your players are officially registered for the 2026 PL Gridders season.
       Stripe has emailed a payment receipt to <strong id="confirm-email">you</strong>, and our coaches will be in touch soon with practice details.
     </p>
     <div class="success-card">
       <div class="sc-label">Registration Summary</div>
-      <div class="sc-row"><span>Player: </span><strong id="confirm-player-2">—</strong></div>
-      <div class="sc-row"><span>Team: </span><strong id="confirm-team">—</strong></div>
-      <div class="sc-row"><span>Grade: </span><strong id="confirm-grade">—</strong></div>
-      <div class="sc-row"><span>Amount paid: </span><strong>$<span id="confirm-amount">41.50</span></strong></div>
+      <div id="confirm-players-list"></div>
+      <div class="sc-row" style="margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--border)"><span>Amount paid: </span><strong>$<span id="confirm-amount">40.00</span></strong></div>
     </div>
-    <a href="register.html" class="btn btn--red">Register Another Player</a>
+    <a href="register.html" class="btn btn--red">Register Another Family</a>
     <a href="index.html" class="btn btn--ghost" style="margin-top:-.3rem">← Back to Home</a>
   </div>
 
@@ -632,6 +664,87 @@ function setFee(fee){
 document.getElementById('yr').textContent = new Date().getFullYear();
 document.getElementById('w3f-key').value  = W3F_KEY;
 setFee(REG_FEE);
+
+// ── MULTI-PLAYER ────────────────────────────────────────────────
+var players = []; // saved players (all except the current one in the form)
+
+function getPlayerData(){
+  return {
+    first:  document.getElementById('p-first').value.trim(),
+    last:   document.getElementById('p-last').value.trim(),
+    age:    document.getElementById('p-age').value.trim(),
+    bday:   document.getElementById('p-bday').value.trim(),
+    street: document.getElementById('p-street').value.trim(),
+    city:   document.getElementById('p-city').value.trim(),
+    state:  document.getElementById('p-state').value.trim(),
+    zip:    document.getElementById('p-zip').value.trim(),
+    grade:  (document.querySelector('[name="player_grade"]:checked')||{}).value||'',
+    shirt:  (document.querySelector('[name="shirt_size"]:checked')||{}).value||'',
+    team:   (document.querySelector('[name="team"]:checked')||{}).value||'',
+    medical:document.getElementById('medical').value.trim()
+  };
+}
+
+function clearPlayerFields(){
+  ['p-first','p-last','p-age','p-bday','p-street','p-city','p-state','p-zip','medical'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+  ['player_grade','shirt_size','team'].forEach(function(n){
+    var checked=document.querySelector('[name="'+n+'"]:checked');
+    if(checked) checked.checked=false;
+  });
+  document.getElementById('cert-name').textContent='';
+  try{document.getElementById('birth-cert').value='';}catch(e){}
+  document.getElementById('pay-team-label').textContent='Select a team above to continue';
+  window.scrollTo({top:document.querySelector('#reg-form').offsetTop-80,behavior:'smooth'});
+}
+
+function updateRosterUI(){
+  var wrap=document.getElementById('player-roster-wrap');
+  var roster=document.getElementById('player-roster');
+  if(players.length===0){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  roster.innerHTML=players.map(function(p,i){
+    return '<div class="player-tag"><div class="player-tag-info"><div class="player-tag-name">'+p.first+' '+p.last+'</div><div class="player-tag-team">'+p.team+(p.grade?' · Grade '+p.grade:'')+'</div></div><button type="button" class="player-tag-remove" data-idx="'+i+'" title="Remove player">✕</button></div>';
+  }).join('');
+  roster.querySelectorAll('.player-tag-remove').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      players.splice(parseInt(this.getAttribute('data-idx')),1);
+      updateRosterUI(); updateTotal();
+    });
+  });
+}
+
+function updateTotal(){
+  var count=players.length+1;
+  var total=REG_FEE*count;
+  var totalRow=document.getElementById('pay-total-row');
+  document.getElementById('pay-amount-display').textContent=REG_FEE.toFixed(2);
+  if(count>1){
+    totalRow.style.display='flex';
+    document.getElementById('pay-player-count').textContent=count;
+    document.getElementById('pay-fee-each').textContent=REG_FEE.toFixed(2);
+    document.getElementById('pay-total-display').textContent=total.toFixed(2);
+  } else {
+    totalRow.style.display='none';
+  }
+}
+
+document.getElementById('add-player-btn').addEventListener('click',function(){
+  var p=getPlayerData();
+  if(!p.first||!p.last){
+    alert('Please enter the current player\'s first and last name before adding another.');
+    return;
+  }
+  if(!p.grade||!p.team){
+    alert('Please select a grade and a team for '+p.first+' before adding another player.');
+    return;
+  }
+  players.push(p);
+  updateRosterUI();
+  updateTotal();
+  clearPlayerFields();
+});
 
 // Load fee from Settings sheet — same pattern as index.html
 (async function loadSettings(){
@@ -775,8 +888,25 @@ form.addEventListener('submit', async function(e){
 
   if(!form.checkValidity() || !radioOk || !hasSig){
     errMsg.style.display = 'block';
-    var first = form.querySelector(':invalid');
-    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+    // Walk all required fields in DOM order to find first problem
+    var scrollTarget = null;
+    var seenGroups = {};
+    var allRequired = Array.from(form.querySelectorAll('[required]'));
+    for(var ri=0; ri<allRequired.length; ri++){
+      var el = allRequired[ri];
+      if(el.type==='radio'||el.type==='checkbox'){
+        if(seenGroups[el.name]) continue;
+        seenGroups[el.name] = true;
+        if(!document.querySelector('[name="'+el.name+'"]:checked')){
+          scrollTarget = el.closest('.ffield')||el.closest('.fradio')||el;
+          break;
+        }
+      } else {
+        if(!el.checkValidity()){ scrollTarget = el; break; }
+      }
+    }
+    if(!scrollTarget && !hasSig) scrollTarget = document.getElementById('sig-canvas');
+    if(scrollTarget) scrollTarget.scrollIntoView({behavior:'smooth',block:'center'});
     return;
   }
 
@@ -789,9 +919,16 @@ form.addEventListener('submit', async function(e){
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<svg class="spin" viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Processing…';
 
-  var playerName = document.getElementById('p-first').value+' '+document.getElementById('p-last').value;
+  var currentPlayer = getPlayerData();
+  var allPlayers = players.concat([currentPlayer]); // saved + current
+  var playerName = currentPlayer.first+' '+currentPlayer.last;
   var parentEmail = document.getElementById('par1-email').value;
   var teamVal = document.querySelector('[name="team"]:checked').value;
+  var totalCount = allPlayers.length;
+  var totalCents = Math.round(REG_FEE * totalCount * 100);
+  var totalDesc = totalCount>1
+    ? 'PL Gridders 2026 – '+totalCount+' players – '+allPlayers.map(function(p){return p.first+' '+p.last;}).join(', ')
+    : 'PL Gridders 2026 – '+playerName+' – '+teamVal;
 
   try {
     // ── Step 1: Create PaymentIntent via Cloudflare Pages Function ──
@@ -799,8 +936,8 @@ form.addEventListener('submit', async function(e){
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
-        amount: REG_FEE_CENTS,
-        description: 'PL Gridders 2026 – '+playerName+' – '+teamVal,
+        amount: totalCents,
+        description: totalDesc,
         email: parentEmail
       })
     });
@@ -830,15 +967,17 @@ form.addEventListener('submit', async function(e){
 
     // ── Step 3: Payment succeeded — send registration data via Web3Forms ──
     document.getElementById('sig-data').value = canvas.toDataURL('image/png');
-    document.getElementById('w3f-subject').value = 'PL Gridders 2026 — '+playerName+' Registered · '+teamVal;
+    var subjectLine = totalCount>1
+      ? 'PL Gridders 2026 — '+totalCount+' Players Registered ('+allPlayers.map(function(p){return p.first;}).join(', ')+')'
+      : 'PL Gridders 2026 — '+playerName+' Registered · '+teamVal;
+    document.getElementById('w3f-subject').value = subjectLine;
 
     var fd = new FormData(form);
     fd.set('payment_id',    confirmResult.paymentIntent.id);
-    fd.set('payment_status','PAID — $'+REG_FEE.toFixed(2));
-    // Remove file from Web3Forms (text only)
-    var certFile = form.querySelector('[name="birth_certificate"]');
-    if(certFile && certFile.files[0]) fd.set('birth_certificate_filename', certFile.files[0].name+' (to be emailed separately)');
-    fd.delete('birth_certificate');
+    fd.set('payment_status','PAID — $'+(REG_FEE*totalCount).toFixed(2)+' ('+totalCount+' player'+(totalCount>1?'s':'')+' × $'+REG_FEE.toFixed(2)+')');
+    if(totalCount>1){
+      fd.set('all_players', allPlayers.map(function(p,i){return '#'+(i+1)+': '+p.first+' '+p.last+' | '+p.team+' | Grade: '+p.grade+' | Shirt: '+p.shirt;}).join('\n'));
+    }
     fd.delete('botcheck');
 
     if(W3F_KEY && W3F_KEY !== 'YOUR_WEB3FORMS_KEY'){
@@ -847,11 +986,18 @@ form.addEventListener('submit', async function(e){
 
     // ── Step 4: Show success screen ──
     var gradeVal = document.querySelector('[name="player_grade"]:checked');
-    document.getElementById('confirm-player').textContent   = playerName+"'s";
-    document.getElementById('confirm-player-2').textContent = playerName;
-    document.getElementById('confirm-email').textContent    = parentEmail;
-    document.getElementById('confirm-team').textContent     = teamVal;
-    document.getElementById('confirm-grade').textContent    = gradeVal ? gradeVal.value : '—';
+    var totalPaid = (REG_FEE*totalCount).toFixed(2);
+    document.getElementById('confirm-email').textContent = parentEmail;
+    document.getElementById('confirm-amount').textContent = totalPaid;
+    var listEl = document.getElementById('confirm-players-list');
+    listEl.innerHTML = allPlayers.map(function(p){
+      return '<div class="sc-row"><span>'+(p.first+' '+p.last)+': </span><strong>'+(p.team||'—')+'</strong></div>';
+    }).join('');
+    if(totalCount>1){
+      document.getElementById('confirm-body').innerHTML='Your <strong>'+totalCount+' players</strong> are officially registered for the 2026 PL Gridders season. Stripe has emailed a payment receipt to <strong>'+parentEmail+'</strong>, and our coaches will be in touch soon.';
+    } else {
+      document.getElementById('confirm-body').innerHTML=playerName+' is officially registered for the 2026 PL Gridders season. Stripe has emailed a payment receipt to <strong>'+parentEmail+'</strong>, and our coaches will be in touch soon.';
+    }
 
     form.style.display = 'none';
     success.classList.add('on');
