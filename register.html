@@ -2,229 +2,207 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>2026 Player Registration | PL Gridders</title>
+  <title>Register | PL Gridders 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#09060a">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta name="description" content="Register your player for the 2026 PL Gridders season — football and cheerleading, K–6th grade, Commodore, PA.">
+  <meta name="theme-color" content="#a8221f">
   <!-- Stripe.js — free, loaded from Stripe's CDN -->
   <script src="https://js.stripe.com/v3/" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Graduate&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css">
   <style>
-    :root{
-      --bg:#09060a;--card:rgba(14,7,13,.97);
-      --red:#dc2626;--red-2:#ef4444;--red-3:#fca5a5;
-      --red-soft:rgba(220,38,38,.1);--red-glow:rgba(220,38,38,.28);--red-border:rgba(220,38,38,.4);
-      --green:#22c55e;--green-soft:rgba(34,197,94,.12);--green-border:rgba(34,197,94,.45);
-      --stripe:#635bff;--stripe-soft:rgba(99,91,255,.12);--stripe-border:rgba(99,91,255,.4);
-      --text:#ede9e9;--muted:#7a7080;--border:rgba(155,105,115,.18);--border-med:rgba(175,120,130,.26);
-      --radius:13px;--radius-lg:22px;--t:170ms ease-out;
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    body::before{content:"";position:fixed;top:0;left:0;right:0;height:480px;background:radial-gradient(ellipse at 50% -15%,rgba(220,38,38,.08),transparent 65%);pointer-events:none;z-index:0}
-    a{color:inherit;text-decoration:none} button{font-family:inherit;cursor:pointer} img{max-width:100%;display:block}
-    .container{width:min(800px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
-    .wide{width:min(1140px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
-    .display{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
-
-    /* ── BUTTONS ── */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.65rem 1.6rem;border-radius:999px;border:1px solid transparent;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:all var(--t);line-height:1;font-family:inherit}
-    .btn--red{background:linear-gradient(135deg,var(--red),#991b1b);color:#fff;box-shadow:0 10px 28px var(--red-glow)}
-    .btn--red:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 38px rgba(220,38,38,.45)}
-    .btn--red:disabled{opacity:.45;cursor:not-allowed}
-    .btn--ghost{background:transparent;border-color:var(--border-med);color:var(--text)}
-    .btn--ghost:hover{border-color:var(--red-border);color:var(--red-3);transform:translateY(-1px)}
-    .btn--stripe{background:linear-gradient(135deg,#635bff,#4b44cc);color:#fff;box-shadow:0 10px 28px rgba(99,91,255,.32)}
-    .btn--stripe:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 18px 38px rgba(99,91,255,.48)}
-    .btn--stripe:disabled{opacity:.45;cursor:not-allowed}
-    .btn--lg{padding:.88rem 2.4rem;font-size:.9rem}
-
-    /* ── HEADER ── */
-    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(9,6,10,.91);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding-block:.82rem;gap:1rem}
-    .brand{display:flex;align-items:center;gap:.7rem}
-    .brand-logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--red),#7f1d1d);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px var(--red-glow);flex-shrink:0}
-    .brand-logo svg{width:20px;height:20px}
-    .brand-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
-    .brand-sub{font-size:.58rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-top:.05rem}
-    .nav-links{display:flex;align-items:center;gap:1.5rem;font-size:.76rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-    .nav-links a{transition:color var(--t)}.nav-links a:hover{color:var(--text)}
-
     /* ── PAGE HERO ── */
-    .reg-hero{padding:2.5rem 0 1.8rem;border-bottom:1px solid var(--border)}
-    .rh-kicker{display:inline-flex;align-items:center;gap:.45rem;padding:.2rem .65rem .2rem .28rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--red-3);margin-bottom:.75rem}
-    .kicker-dot{width:7px;height:7px;border-radius:999px;background:var(--red);animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(220,38,38,.3)}50%{box-shadow:0 0 0 7px rgba(220,38,38,.07)}}
-    .rh-title{font-size:clamp(2rem,5vw,3rem);line-height:.95;margin-bottom:.5rem}
+    .reg-hero{position:relative;padding:3rem 0 2.6rem;border-bottom:3px solid var(--ink);overflow:hidden;
+      background:radial-gradient(circle at 90% 10%, rgba(217,161,59,.18), transparent 45%), var(--paper)}
+    .reg-hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;
+      background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 110px)}
+    .rh-title{font-size:clamp(2.2rem,5.2vw,3.4rem);margin-top:1rem}
     .rh-title .accent{color:var(--red)}
-    .rh-sub{font-size:.86rem;color:var(--muted);line-height:1.6;max-width:540px}
-    .fee-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .75rem;border-radius:999px;background:var(--stripe-soft);border:1px solid var(--stripe-border);font-size:.72rem;color:#c4c0ff;font-weight:600;margin-top:.75rem}
+    .rh-sub{font-family:'Lora',Georgia,serif;font-size:1rem;color:var(--ink-2);max-width:34rem;line-height:1.75;margin-top:.9rem}
+    .fee-badge{
+      display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;
+      text-transform:uppercase;letter-spacing:.1em;
+      padding:.5rem .95rem;background:var(--gold);color:var(--ink);
+      border:2px solid var(--ink);border-radius:var(--r-sm);box-shadow:3px 3px 0 rgba(34,28,20,.85);
+      transform:rotate(-.8deg);
+    }
 
-    /* ── PROGRESS ── */
-    .prog-wrap{padding-block:1.5rem .5rem}
-    .prog-bar{height:3px;background:var(--border);border-radius:999px;overflow:hidden}
-    .prog-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--red-2));border-radius:999px;width:0%;transition:width .4s ease-out}
+    /* ── PROGRESS: drive down the field ── */
+    .prog-wrap{position:sticky;top:71px;z-index:40;padding-block:.7rem;background:var(--paper);border-bottom:2px solid var(--line)}
+    .prog-bar{
+      height:18px;border:2px solid var(--ink);border-radius:var(--r-sm);overflow:hidden;position:relative;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(244,237,219,.7) calc(10% - 2px) 10%),
+        var(--green);
+    }
+    .prog-fill{
+      height:100%;width:0%;transition:width 400ms ease;position:relative;
+      background:repeating-linear-gradient(115deg, rgba(217,161,59,.92) 0 10px, rgba(200,51,46,.92) 10px 20px);
+      border-right:3px solid var(--ink);
+    }
+    .prog-label{
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;
+      text-transform:uppercase;letter-spacing:.26em;color:var(--muted);margin-bottom:.3rem;
+      display:flex;justify-content:space-between;
+    }
 
     /* ── FORM SECTIONS ── */
-    .form-wrap{padding-block:.5rem 4rem}
-    .fsec{margin-bottom:1.6rem;border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--border);overflow:hidden}
-    .fsec-head{padding:.9rem 1.35rem;background:rgba(9,4,9,.98);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.8rem}
-    .fsec-num{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;color:var(--red);min-width:1.5rem;line-height:1}
-    .fsec-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em}
-    .fsec-sub{font-size:.72rem;color:var(--muted);margin-top:.08rem}
-    .fsec-body{padding:1.2rem 1.35rem;display:flex;flex-direction:column;gap:.9rem}
-
-    /* ── FIELDS ── */
-    .frow{display:grid;gap:.8rem}
-    .frow--2{grid-template-columns:1fr 1fr}
-    .frow--3{grid-template-columns:1fr 1fr 1fr}
-    .ffield{display:flex;flex-direction:column;gap:.26rem}
-    .ffield--full{grid-column:1/-1}
-    .flabel{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:rgba(200,180,185,.85)}
-    .flabel .req{color:var(--red-3);margin-left:.15rem}
-    .flabel .opt{font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:.66rem;margin-left:.3rem}
-    .finput,.fselect,.ftextarea{border-radius:10px;border:1px solid var(--border-med);background:rgba(9,4,9,.95);padding:.52rem .72rem;color:var(--text);font-size:.83rem;font-family:inherit;outline:none;width:100%;transition:border-color var(--t),box-shadow var(--t)}
-    .finput::placeholder,.ftextarea::placeholder{color:rgba(120,100,120,.55)}
-    .finput:focus,.fselect:focus,.ftextarea:focus{border-color:var(--red-border);box-shadow:0 0 0 2px rgba(220,38,38,.13),0 6px 18px rgba(0,0,0,.5)}
-    .ftextarea{min-height:76px;resize:vertical}
-    .fselect option{background:#180d18}
-    .finput.err{border-color:#f87171;box-shadow:0 0 0 2px rgba(248,113,113,.13)}
-
-    /* ── RADIO / PILL CHOOSER ── */
-    .fradio{display:flex;flex-wrap:wrap;gap:.4rem}
-    .fradio-item{position:relative}
-    .fradio-item input{position:absolute;opacity:0;width:0;height:0}
-    .fradio-item label{display:inline-flex;align-items:center;gap:.4rem;padding:.34rem .78rem;border-radius:999px;border:1px solid var(--border-med);background:rgba(9,4,9,.9);font-size:.76rem;color:var(--muted);cursor:pointer;transition:all var(--t);user-select:none}
-    .fradio-item label::before{content:"";width:8px;height:8px;border-radius:999px;border:1.4px solid var(--muted);transition:all var(--t);flex-shrink:0}
-    .fradio-item input:checked+label{border-color:var(--red-border);background:var(--red-soft);color:var(--red-3)}
-    .fradio-item input:checked+label::before{background:var(--red);border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.18)}
-    .fradio-item label:hover{border-color:var(--red-border);color:var(--text)}
-
-    /* ── TEAM CARDS ── */
-    .fteam{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
-    .fteam-item{position:relative}
-    .fteam-item input{position:absolute;opacity:0;width:0;height:0}
-    .fteam-item label{display:flex;flex-direction:column;gap:.18rem;padding:.65rem .8rem;border-radius:11px;border:1px solid var(--border);background:rgba(9,4,9,.95);font-size:.74rem;color:var(--muted);cursor:pointer;transition:all var(--t);user-select:none}
-    .fteam-item label strong{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;text-transform:uppercase;letter-spacing:.04em;color:var(--text)}
-    .fteam-item input:checked+label{border-color:var(--red-border);background:var(--red-soft);color:var(--red-3)}
-    .fteam-item input:checked+label strong{color:var(--text)}
-    .fteam-item label:hover{border-color:var(--red-border)}
-
-    /* ── CHECKBOX ── */
-    .fcheck{position:relative;display:flex;align-items:flex-start;gap:.75rem}
-    .fcheck input{position:absolute;opacity:0;width:0;height:0}
-    .fcheck label{display:flex;align-items:flex-start;gap:.75rem;font-size:.83rem;color:var(--text);cursor:pointer;line-height:1.55;padding-top:.05rem}
-    .fcheck label::before{content:"";width:18px;height:18px;min-width:18px;border-radius:5px;border:1.5px solid var(--border-med);background:rgba(9,4,9,.95);transition:all var(--t);margin-top:.14rem}
-    .fcheck input:checked+label::before{background:var(--red);border-color:var(--red);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 7L5.5 10L11.5 4' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:12px}
-    .fcheck label:hover::before{border-color:var(--red-border)}
-
-    /* ── WAIVER ── */
-    .waiver-box{border-radius:11px;background:rgba(220,38,38,.04);border:1px solid var(--red-border);padding:.9rem 1.05rem;font-size:.81rem;color:rgba(230,210,215,.82);line-height:1.72}
-    .waiver-box strong{color:var(--text)}
-
-    /* ── SIGNATURE ── */
-    .sig-outer{border-radius:11px;border:1.5px solid var(--border-med);background:#fff;overflow:hidden}
-    .sig-outer canvas{display:block;width:100%;touch-action:none;cursor:crosshair}
-    .sig-bar{display:flex;align-items:center;justify-content:space-between;margin-top:.45rem}
-    .sig-clear{padding:.28rem .75rem;border-radius:999px;border:1px solid var(--border-med);background:transparent;font-size:.7rem;color:var(--muted);cursor:pointer;font-family:inherit;transition:all var(--t)}
-    .sig-clear:hover{border-color:var(--red-border);color:var(--red-3)}
-    .sig-hint{font-size:.68rem;color:var(--muted);line-height:1.5}
-
-    /* ── FILE UPLOAD ── */
-    .fupload{position:relative}
-    .fupload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2}
-    .fupload-face{border-radius:10px;border:1.5px dashed var(--border-med);background:rgba(9,4,9,.8);padding:.75rem 1rem;text-align:center;font-size:.78rem;color:var(--muted);transition:all var(--t)}
-    .fupload:hover .fupload-face{border-color:var(--red-border);color:var(--red-3)}
-    .fupload-name{margin-top:.3rem;font-size:.72rem;color:var(--red-3)}
-    .fupload-alt{font-size:.7rem;color:var(--muted);margin-top:.38rem;line-height:1.55}
-    .fupload-alt strong{color:var(--text)}
-
-    /* ── DIVIDER ── */
-    .fdiv{height:1px;background:linear-gradient(90deg,transparent,var(--border-med),transparent);margin-block:.1rem}
-
-    /* ── STRIPE PAYMENT SECTION ── */
-    .pay-sec{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--stripe-border);overflow:hidden;margin-bottom:1.6rem}
-    .pay-sec-head{padding:.9rem 1.35rem;background:linear-gradient(135deg,rgba(99,91,255,.12),rgba(9,4,9,.98));border-bottom:1px solid var(--stripe-border);display:flex;align-items:center;gap:.8rem}
-    .pay-sec-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#635bff,#4b44cc);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .pay-sec-icon svg{width:17px;height:17px;stroke:#fff}
-    .pay-sec-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;text-transform:uppercase;letter-spacing:.06em}
-    .pay-sec-sub{font-size:.71rem;color:rgba(190,185,255,.75);margin-top:.07rem}
-    .pay-body{padding:1.2rem 1.35rem;display:flex;flex-direction:column;gap:1rem}
-    .pay-summary{border-radius:10px;background:rgba(99,91,255,.07);border:1px solid var(--stripe-border);padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem}
-    .pay-summary-desc{font-size:.8rem;color:rgba(190,185,255,.9)}
-    .pay-summary-amount{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;color:#c4c0ff;line-height:1}
-    .pay-summary-note{font-size:.65rem;color:var(--muted);margin-top:.08rem;text-align:right}
-    #stripe-element{border-radius:10px;border:1px solid var(--border-med);background:rgba(9,4,9,.95);padding:.6rem .72rem;min-height:44px;transition:border-color var(--t)}
-    #stripe-element.StripeElement--focus{border-color:var(--stripe-border);box-shadow:0 0 0 2px rgba(99,91,255,.15)}
-    #stripe-element.StripeElement--invalid{border-color:#f87171}
-    .pay-error{font-size:.76rem;color:#f87171;min-height:1rem}
-    .pay-secure{display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:var(--muted)}
-    .pay-secure svg{width:12px;height:12px;stroke:var(--muted)}
-
-    /* ── SUBMIT AREA ── */
-    .submit-area{display:flex;flex-direction:column;align-items:center;gap:.85rem;text-align:center;margin-bottom:2rem}
-    .submit-note{font-size:.74rem;color:var(--muted);line-height:1.6;max-width:500px}
-    .submit-note strong{color:var(--text)}
-    .form-err{color:#f87171;font-size:.76rem;display:none}
-
-    /* ── SUCCESS ── */
-    .success-screen{display:none;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;padding:3rem 1rem}
-    .success-screen.on{display:flex}
-    .success-icon{width:64px;height:64px;border-radius:999px;background:var(--green-soft);border:1.5px solid var(--green-border);display:flex;align-items:center;justify-content:center}
-    .success-icon svg{width:30px;height:30px;stroke:var(--green)}
-    .success-title{font-size:clamp(1.7rem,4vw,2.4rem);line-height:.95}
-    .success-title .accent{color:var(--green)}
-    .success-body{font-size:.88rem;color:var(--muted);max-width:480px;line-height:1.65}
-    .success-body strong{color:var(--text)}
-    .success-card{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--green-border);padding:1.35rem 1.5rem;width:100%;max-width:440px;text-align:left}
-    .sc-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.2em;color:rgba(100,200,130,.75);margin-bottom:.3rem}
-    .sc-row{font-size:.83rem;color:var(--text);margin-bottom:.22rem}
-    .sc-row span{color:var(--muted)}
-
-    /* ── FOOTER ── */
-    .site-footer{padding-block:1.5rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--muted);text-align:center}
-
-    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-    .spin{animation:spin .8s linear infinite}
-
-    /* ── MULTI-PLAYER ── */
-    .player-roster{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
-    .player-tag{display:flex;align-items:center;justify-content:space-between;padding:.55rem .9rem;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.25);border-radius:var(--radius);font-size:.82rem}
-    .player-tag-info{display:flex;flex-direction:column;gap:.05rem}
-    .player-tag-name{font-weight:600;color:var(--green)}
-    .player-tag-team{color:var(--muted);font-size:.72rem}
-    .player-tag-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.85rem;padding:.1rem .35rem;border-radius:4px;line-height:1;transition:color var(--t)}
-    .player-tag-remove:hover{color:#f87171}
-    .add-player-btn{width:100%;padding:.8rem;background:rgba(255,255,255,.03);border:1.5px dashed var(--border-med);border-radius:var(--radius);color:var(--muted);font-size:.82rem;font-family:inherit;cursor:pointer;transition:all var(--t);display:flex;align-items:center;justify-content:center;gap:.45rem;margin-bottom:1.5rem}
-    .add-player-btn:hover{background:rgba(255,255,255,.06);color:var(--text);border-color:rgba(175,120,130,.5)}
-    .pay-total-row{display:flex;align-items:center;justify-content:space-between;padding:.55rem 0 0;border-top:1px solid rgba(99,91,255,.2);margin-top:.4rem}
-    .pay-total-label{font-size:.74rem;color:rgba(190,185,255,.7)}
-    .pay-total-amount{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;color:#c4c0ff}
-
-    @media(max-width:640px){
-      .frow--2,.frow--3{grid-template-columns:1fr}
-      .fteam{grid-template-columns:1fr 1fr}
-      .nav-links{display:none}
+    .form-wrap{max-width:860px;margin-inline:auto;padding-top:2rem}
+    .fsec{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow-sm);margin-bottom:1.8rem;position:relative;
     }
-    @media(max-width:400px){.fteam{grid-template-columns:1fr}}
+    .fsec-head{
+      display:flex;align-items:center;gap:.95rem;padding:1rem 1.3rem;
+      border-bottom:2px dashed var(--line);
+    }
+    .fsec-num{
+      width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+      font-family:'Graduate',serif;font-size:1rem;color:var(--paper);
+      background:var(--red);border:2px solid var(--ink);border-radius:50%;
+      box-shadow:2px 2px 0 rgba(34,28,20,.85);
+    }
+    .fsec-num--plus{background:var(--green);font-size:1.3rem}
+    .fsec-title{font-family:'Graduate',serif;font-size:1rem;text-transform:uppercase;line-height:1.3}
+    .fsec-title .lite{font-family:'Barlow',sans-serif;font-weight:500;text-transform:none;font-size:.78rem;letter-spacing:0;color:var(--muted)}
+    .fsec-sub{font-size:.82rem;color:var(--muted);margin-top:.1rem}
+    .fsec-body{padding:1.3rem 1.3rem 1.1rem}
+    .fdiv{border-top:2px dashed var(--line);margin-block:1.2rem}
+
+    /* waiver */
+    .waiver-box{
+      background:var(--paper);border:2px solid var(--ink);border-radius:var(--r-sm);
+      padding:1rem 1.1rem;font-family:'Lora',Georgia,serif;font-size:.92rem;line-height:1.8;
+      color:var(--ink-2);margin-bottom:1rem;
+    }
+    .waiver-box strong{color:var(--red-deep)}
+
+    /* signature */
+    .sig-outer{border:2px solid var(--ink);border-radius:var(--r-sm);background:var(--card);position:relative}
+    .sig-outer::before{
+      content:"✗";position:absolute;left:12px;bottom:26px;color:var(--muted);
+      font-size:1rem;pointer-events:none;
+    }
+    .sig-outer::after{
+      content:"";position:absolute;left:30px;right:12px;bottom:30px;
+      border-bottom:2px dashed var(--line);pointer-events:none;
+    }
+    #sig-canvas{width:100%;height:120px;display:block;cursor:crosshair;touch-action:none;position:relative;z-index:1}
+    .sig-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:.5rem;flex-wrap:wrap}
+    .sig-clear{
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;
+      text-transform:uppercase;letter-spacing:.1em;
+      background:var(--paper);border:2px solid var(--ink);border-radius:var(--r-sm);
+      padding:.32rem .8rem;box-shadow:2px 2px 0 rgba(34,28,20,.7);transition:all var(--t);
+    }
+    .sig-clear:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(34,28,20,.85)}
+    .sig-hint{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+
+    /* upload */
+    .fupload{position:relative;border:2px dashed var(--ink);border-radius:var(--r-sm);background:var(--paper);transition:border-color var(--t),background var(--t)}
+    .fupload:hover{border-color:var(--red);background:var(--red-wash)}
+    .fupload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+    .fupload-face{padding:1.3rem 1rem;text-align:center;font-size:.88rem;color:var(--muted)}
+    .fupload-face svg{width:22px;height:22px;margin:0 auto .3rem;stroke:var(--muted)}
+    .fupload-name{padding:0 1rem .8rem;text-align:center;font-weight:600;font-size:.88rem;color:var(--green-deep)}
+    .fupload-name:empty{display:none}
+    .fupload-alt{font-size:.8rem;color:var(--muted);margin-top:.5rem;line-height:1.6}
+
+    /* multi-player roster */
+    .player-roster{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.4rem}
+    .player-tag{
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      background:var(--card);border:2px solid var(--green);border-radius:var(--r-sm);
+      box-shadow:3px 3px 0 rgba(47,107,60,.4);padding:.7rem .95rem;
+    }
+    .player-tag-name{font-family:'Graduate',serif;font-size:.9rem;text-transform:uppercase}
+    .player-tag-team{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.1rem}
+    .player-tag-remove{
+      flex-shrink:0;width:30px;height:30px;border:2px solid var(--ink);border-radius:var(--r-sm);
+      background:var(--paper);font-weight:700;color:var(--red);transition:all var(--t);
+    }
+    .player-tag-remove:hover{background:var(--red);color:var(--paper)}
+    .add-player-btn{
+      width:100%;display:flex;align-items:center;justify-content:center;gap:.55rem;
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;
+      text-transform:uppercase;letter-spacing:.1em;color:var(--green-deep);
+      background:rgba(47,107,60,.07);border:2px dashed var(--green);border-radius:var(--r-sm);
+      padding:.85rem 1rem;margin-bottom:1.8rem;transition:all var(--t);
+    }
+    .add-player-btn:hover{background:rgba(47,107,60,.14)}
+
+    /* ── PAYMENT TICKET ── */
+    .pay-sec{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow);margin-bottom:1.8rem;overflow:hidden;
+    }
+    .pay-sec-head{
+      display:flex;align-items:center;gap:.95rem;padding:1rem 1.3rem;
+      background:var(--ink);color:var(--paper);
+    }
+    .pay-sec-icon{
+      width:42px;height:42px;flex-shrink:0;border:2px solid var(--gold);border-radius:var(--r-sm);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .pay-sec-icon svg{width:20px;height:20px;stroke:var(--gold)}
+    .pay-sec-title{font-family:'Graduate',serif;font-size:1rem;text-transform:uppercase;color:var(--paper)}
+    .pay-sec-sub{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:.15rem}
+    .pay-body{padding:1.3rem}
+    .pay-summary{
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      border:2px dashed var(--ink);border-radius:var(--r-sm);background:var(--gold-wash);
+      padding:.85rem 1.05rem;margin-bottom:1rem;position:relative;
+    }
+    .pay-summary-desc{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;text-transform:uppercase;letter-spacing:.08em}
+    .pay-summary-team{font-size:.78rem;color:var(--muted);margin-top:.1rem}
+    .pay-summary-amount{font-family:'Graduate',serif;font-size:1.45rem;color:var(--red);text-align:right}
+    .pay-summary-note{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:right}
+    .pay-total-row{
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      padding:.7rem 1.05rem;margin-bottom:1rem;border:2px solid var(--green);
+      border-radius:var(--r-sm);background:rgba(47,107,60,.07);
+    }
+    .pay-total-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.9rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green-deep)}
+    .pay-total-amount{font-family:'Graduate',serif;font-size:1.1rem;color:var(--green-deep)}
+
+    /* submit */
+    .submit-area{text-align:center;padding-bottom:1rem}
+    .submit-note{font-size:.85rem;color:var(--muted);max-width:34rem;margin:0 auto 1.1rem;line-height:1.65}
+    .form-err{display:none;margin-top:1rem;color:var(--red-bright);font-weight:600;font-size:.92rem}
   </style>
 </head>
 <body>
 
+<!-- TOP STRIPE -->
+<div class="top-stripe">
+  <div class="container">
+    <span>★ Victory Through Character</span>
+    <div class="ts-right">
+      <span class="ts-hide">Commodore, PA</span>
+      <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</div>
+
 <!-- HEADER -->
 <header class="site-header">
-  <div class="wide">
+  <div class="container">
     <nav class="nav">
       <a href="index.html" class="brand">
         <div class="brand-logo">
-          <svg viewBox="0 0 24 24" fill="none">
-            <ellipse cx="12" cy="12" rx="9" ry="5.8" fill="rgba(255,255,255,.92)"/>
-            <line x1="3" y1="12" x2="21" y2="12" stroke="#7f1d1d" stroke-width="1.2" stroke-dasharray="3 2"/>
-            <line x1="12" y1="6.2" x2="12" y2="17.8" stroke="#7f1d1d" stroke-width="1.2"/>
-            <line x1="7.5" y1="8" x2="7.5" y2="16" stroke="#7f1d1d" stroke-width=".9"/>
-            <line x1="16.5" y1="8" x2="16.5" y2="16" stroke="#7f1d1d" stroke-width=".9"/>
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M24 2.5 43 8.5v17c0 11-8.6 17.6-19 20-10.4-2.4-19-9-19-20v-17Z" fill="#a8221f" stroke="#221c14" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M24 7.5 38.5 12v13.2c0 8.6-6.6 13.8-14.5 15.8-7.9-2-14.5-7.2-14.5-15.8V12Z" fill="none" stroke="#d9a13b" stroke-width="1.6"/>
+            <g transform="rotate(-18 24 24)">
+              <ellipse cx="24" cy="24" rx="11" ry="7" fill="#f4eddb" stroke="#221c14" stroke-width="1.8"/>
+              <line x1="18" y1="24" x2="30" y2="24" stroke="#a8221f" stroke-width="1.4"/>
+              <line x1="20.5" y1="22" x2="20.5" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+              <line x1="24" y1="22" x2="24" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+              <line x1="27.5" y1="22" x2="27.5" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+            </g>
           </svg>
         </div>
         <div>
@@ -232,12 +210,16 @@
           <div class="brand-sub">Victory Through Character</div>
         </div>
       </a>
-      <div class="nav-links">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span class="hamburger"></span></button>
+      <div class="nav-links" id="nav-links">
         <a href="index.html">Home</a>
         <a href="index.html#teams">Teams</a>
         <a href="index.html#schedule">Schedule</a>
+        <a href="resources.html">Resources</a>
+        <a href="donate.html">Donate</a>
         <a href="about.html">About</a>
         <a href="index.html#contact">Contact</a>
+        <a href="register.html" class="nav-reg">Register Now</a>
       </div>
     </nav>
   </div>
@@ -246,7 +228,7 @@
 <!-- PAGE HERO -->
 <div class="reg-hero">
   <div class="container">
-    <div class="rh-kicker"><span class="kicker-dot"></span>PL Gridders · 2026 Season</div>
+    <span class="sticker">PL Gridders · 2026 Season</span>
     <h1 class="display rh-title"><span class="accent">Player</span><br>Registration</h1>
     <p class="rh-sub">Complete all fields, sign the liability waiver, then pay your registration fee — all on one page.</p>
     <div class="fee-badge">
@@ -256,16 +238,19 @@
   </div>
 </div>
 
-<div class="container">
-  <!-- PROGRESS BAR -->
-  <div class="prog-wrap">
+<!-- PROGRESS BAR -->
+<div class="prog-wrap">
+  <div class="container">
+    <div class="prog-label"><span>Drive to the end zone</span><span>Registration progress</span></div>
     <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
   </div>
+</div>
 
+<div class="container">
   <!-- THE FORM -->
   <form id="reg-form" novalidate class="form-wrap">
 
-    <!-- Web3Forms hidden fields — fill in your key in SETUP -->
+    <!-- Web3Forms hidden fields -->
     <input type="hidden" name="access_key" id="w3f-key" value="2f112d65-7fc7-447b-a597-4b55505c911c">
     <input type="hidden" name="subject" id="w3f-subject" value="PL Gridders 2026 — New Registration">
     <input type="hidden" name="from_name" value="PL Gridders Registration">
@@ -282,7 +267,7 @@
         </div>
       </div>
       <div class="fsec-body">
-        <div class="frow frow--2">
+        <div class="frow--2">
           <div class="ffield">
             <label class="flabel" for="p-first">First Name<span class="req">*</span></label>
             <input class="finput" id="p-first" name="player_first" type="text" placeholder="Jordan" required autocomplete="given-name">
@@ -292,7 +277,7 @@
             <input class="finput" id="p-last" name="player_last" type="text" placeholder="Smith" required autocomplete="family-name">
           </div>
         </div>
-        <div class="frow frow--2">
+        <div class="frow--2">
           <div class="ffield">
             <label class="flabel" for="p-age">Player's Current Age<span class="req">*</span></label>
             <input class="finput" id="p-age" name="player_age" type="number" min="4" max="15" placeholder="10" required>
@@ -306,7 +291,7 @@
           <label class="flabel" for="p-street">Street Address</label>
           <input class="finput" id="p-street" name="player_street" type="text" placeholder="123 Main Street" autocomplete="street-address">
         </div>
-        <div class="frow frow--3">
+        <div class="frow--3">
           <div class="ffield">
             <label class="flabel" for="p-city">City</label>
             <input class="finput" id="p-city" name="player_city" type="text" placeholder="Commodore" autocomplete="address-level2">
@@ -373,7 +358,7 @@
         </div>
       </div>
       <div class="fsec-body">
-        <div class="frow frow--2">
+        <div class="frow--2">
           <div class="ffield">
             <label class="flabel" for="par1-first">First Name<span class="req">*</span></label>
             <input class="finput" id="par1-first" name="parent1_first" type="text" placeholder="Jamie" required autocomplete="given-name">
@@ -383,7 +368,7 @@
             <input class="finput" id="par1-last" name="parent1_last" type="text" placeholder="Smith" required autocomplete="family-name">
           </div>
         </div>
-        <div class="frow frow--2">
+        <div class="frow--2">
           <div class="ffield">
             <label class="flabel" for="par1-email">Email Address<span class="req">*</span></label>
             <input class="finput" id="par1-email" name="parent1_email" type="email" placeholder="you@example.com" required autocomplete="email">
@@ -401,12 +386,12 @@
       <div class="fsec-head">
         <div class="fsec-num">03</div>
         <div>
-          <div class="fsec-title">Parent / Legal Guardian #2 <span style="font-family:'DM Sans',sans-serif;font-weight:400;text-transform:none;font-size:.7rem;letter-spacing:0;color:var(--muted)">(optional)</span></div>
+          <div class="fsec-title">Parent / Legal Guardian #2 <span class="lite">(optional)</span></div>
           <div class="fsec-sub">If applicable</div>
         </div>
       </div>
       <div class="fsec-body">
-        <div class="frow frow--2">
+        <div class="frow--2">
           <div class="ffield">
             <label class="flabel" for="par2-first">First Name</label>
             <input class="finput" id="par2-first" name="parent2_first" type="text" placeholder="Alex">
@@ -416,7 +401,7 @@
             <input class="finput" id="par2-last" name="parent2_last" type="text" placeholder="Smith">
           </div>
         </div>
-        <div class="frow frow--2">
+        <div class="frow--2">
           <div class="ffield">
             <label class="flabel" for="par2-email">Email Address</label>
             <input class="finput" id="par2-email" name="parent2_email" type="email" placeholder="alex@example.com">
@@ -439,7 +424,7 @@
         </div>
       </div>
       <div class="fsec-body">
-        <div class="frow frow--2">
+        <div class="frow--2">
           <div class="ffield">
             <label class="flabel" for="ec-first">First Name<span class="req">*</span></label>
             <input class="finput" id="ec-first" name="ec_first" type="text" placeholder="Chris" required>
@@ -449,7 +434,7 @@
             <input class="finput" id="ec-last" name="ec_last" type="text" placeholder="Johnson" required>
           </div>
         </div>
-        <div class="frow frow--2">
+        <div class="frow--2">
           <div class="ffield">
             <label class="flabel" for="ec-rel">Relationship to Player<span class="req">*</span></label>
             <input class="finput" id="ec-rel" name="ec_relationship" type="text" placeholder="Grandparent, Aunt, etc." required>
@@ -511,7 +496,7 @@
           </div>
           <div class="sig-bar">
             <button type="button" class="sig-clear" id="sig-clear-btn">↺ Clear</button>
-            <span class="sig-hint">BY SIGNING YOU GUARANTEE ALL INFORMATION IS CORRECT TO THE BEST OF YOUR KNOWLEDGE</span>
+            <span class="sig-hint">By signing you guarantee all information is correct to the best of your knowledge</span>
           </div>
         </div>
       </div>
@@ -522,7 +507,7 @@
       <div class="fsec-head">
         <div class="fsec-num">07</div>
         <div>
-          <div class="fsec-title">Birth Certificate <span style="font-family:'DM Sans',sans-serif;font-weight:400;text-transform:none;font-size:.7rem;letter-spacing:0;color:var(--muted)">(first-time players only)</span></div>
+          <div class="fsec-title">Birth Certificate <span class="lite">(first-time players only)</span></div>
           <div class="fsec-sub">Required for players new to the program</div>
         </div>
       </div>
@@ -532,20 +517,20 @@
           <div class="fupload">
             <input type="file" id="birth-cert" name="birth_certificate" accept="image/*,.pdf" aria-label="Upload birth certificate">
             <div class="fupload-face">
-              <svg viewBox="0 0 24 24" fill="none" style="width:22px;height:22px;margin:0 auto .3rem;stroke:var(--muted)" stroke-width="1.5"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M8 12l4-4m0 0l4 4m-4-4v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M8 12l4-4m0 0l4 4m-4-4v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               <div>Click to browse or drag a file here</div>
             </div>
             <div class="fupload-name" id="cert-name"></div>
           </div>
-          <div class="fupload-alt">If you cannot upload now, email it to <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="62121710010a0311070e0b0c0705100b060607101122050f030b0e4c010d0f">[email&#160;protected]</a></strong> with your player's name in the subject line.</div>
+          <div class="fupload-alt">If you cannot upload now, email it to <strong><a href="mailto:purchaselinegridders@gmail.com">purchaselinegridders@gmail.com</a></strong> with your player's name in the subject line.</div>
         </div>
       </div>
     </div>
 
     <!-- ══ ADDITIONAL PLAYERS ════════════════════════════════════ -->
     <div id="player-roster-wrap" style="display:none">
-      <div class="fsec-head" style="margin-bottom:.6rem">
-        <div class="fsec-num" style="background:rgba(34,197,94,.12);color:var(--green);border-color:rgba(34,197,94,.25)">+</div>
+      <div class="fsec-head" style="margin-bottom:.6rem;border-bottom:none;padding-left:0">
+        <div class="fsec-num fsec-num--plus">+</div>
         <div>
           <div class="fsec-title">Players in This Order</div>
           <div class="fsec-sub">All will be charged together below</div>
@@ -573,7 +558,7 @@
         <div class="pay-summary">
           <div>
             <div class="pay-summary-desc">2026 PL Gridders Registration</div>
-            <div style="font-size:.68rem;color:var(--muted);margin-top:.08rem" id="pay-team-label">Select a team above to continue</div>
+            <div class="pay-summary-team" id="pay-team-label">Select a team above to continue</div>
           </div>
           <div>
             <div class="pay-summary-amount">$<span id="pay-amount-display">40.00</span></div>
@@ -600,7 +585,7 @@
     <!-- SUBMIT -->
     <div class="submit-area">
       <p class="submit-note"><strong>By submitting you confirm all information is accurate</strong> and that you accept the liability waiver above. Payment is processed immediately via Stripe and a receipt will be emailed to you.</p>
-      <button class="btn btn--stripe btn--lg" type="submit" id="submit-btn">
+      <button class="btn btn--red btn--lg" type="submit" id="submit-btn">
         <svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Submit Registration &amp; Pay Now
       </button>
@@ -621,24 +606,25 @@
     <div class="success-card">
       <div class="sc-label">Registration Summary</div>
       <div id="confirm-players-list"></div>
-      <div class="sc-row" style="margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--border)"><span>Amount paid: </span><strong>$<span id="confirm-amount">40.00</span></strong></div>
+      <div class="sc-row" style="margin-top:.4rem;padding-top:.4rem;border-top:2px dashed var(--line)"><span>Amount paid: </span><strong>$<span id="confirm-amount">40.00</span></strong></div>
     </div>
     <a href="register.html" class="btn btn--red">Register Another Family</a>
-    <a href="index.html" class="btn btn--ghost" style="margin-top:-.3rem">← Back to Home</a>
+    <a href="index.html" class="btn btn--ghost">← Back to Home</a>
   </div>
 
 </div><!-- end .container -->
 
 <footer class="site-footer">
-  <div class="wide">
-    <span>&copy; <span id="yr"></span> PL Gridders · Commodore, PA</span>
-    &nbsp;·&nbsp;
-    <a id="footer-email" href="mailto:purchaselinegridders@gmail.com" style="color:var(--red-3)">purchaselinegridders@gmail.com</a>
-    &nbsp;·&nbsp;<span id="footer-phone">(814) 241-3237</span>
+  <div class="container foot-base" style="border-top:none">
+    <div>&copy; <span id="yr"></span> PL Gridders · Commodore, PA</div>
+    <div>
+      <a id="footer-email" href="mailto:purchaselinegridders@gmail.com" style="color:var(--gold)">purchaselinegridders@gmail.com</a>
+      &nbsp;·&nbsp;<span id="footer-phone">(814) 241-3237</span>
+    </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
 'use strict';
 
@@ -664,6 +650,22 @@ function setFee(fee){
 document.getElementById('yr').textContent = new Date().getFullYear();
 document.getElementById('w3f-key').value  = W3F_KEY;
 setFee(REG_FEE);
+
+// ── MOBILE NAV ──────────────────────────────────────────────────
+var navT = document.getElementById('nav-toggle');
+var navL = document.getElementById('nav-links');
+if(navT){
+  navT.addEventListener('click', function(){
+    var o = navL.classList.toggle('nav-links--open');
+    navT.classList.toggle('nav-toggle--open', o);
+    document.body.classList.toggle('no-scroll', o);
+  });
+  navL.querySelectorAll('a').forEach(function(a){a.addEventListener('click', function(){
+    navL.classList.remove('nav-links--open');
+    navT.classList.remove('nav-toggle--open');
+    document.body.classList.remove('no-scroll');
+  });});
+}
 
 // ── MULTI-PLAYER ────────────────────────────────────────────────
 var players = []; // saved players (all except the current one in the form)
@@ -782,25 +784,29 @@ document.getElementById('add-player-btn').addEventListener('click',function(){
 
 // ── STRIPE INIT ────────────────────────────────────────────────
 var stripe, cardElement;
-if(typeof Stripe !== 'undefined'){
+function initStripe(){
+  if(typeof Stripe === 'undefined'){
+    document.getElementById('stripe-element').innerHTML = '<p style="color:#c8332e;font-size:.8rem">Stripe failed to load. Please refresh the page.</p>';
+    return;
+  }
   stripe = Stripe(STRIPE_PK);
   var elements = stripe.elements({
     appearance:{
-      theme:'night',
+      theme:'stripe',
       variables:{
-        colorPrimary:'#635bff',
-        colorBackground:'#090409',
-        colorText:'#ede9e9',
-        colorDanger:'#f87171',
-        fontFamily:'DM Sans, system-ui, sans-serif',
-        borderRadius:'10px',
+        colorPrimary:'#a8221f',
+        colorBackground:'#fdfaf0',
+        colorText:'#221c14',
+        colorDanger:'#c8332e',
+        fontFamily:'Barlow, system-ui, sans-serif',
+        borderRadius:'3px',
       }
     }
   });
   cardElement = elements.create('card',{
     style:{
-      base:{fontSize:'14px',fontFamily:'DM Sans, system-ui, sans-serif',color:'#ede9e9','::placeholder':{color:'rgba(120,100,120,.55)'}},
-      invalid:{color:'#f87171'}
+      base:{fontSize:'15px',fontFamily:'Barlow, system-ui, sans-serif',color:'#221c14','::placeholder':{color:'#b3a78e'}},
+      invalid:{color:'#c8332e'}
     },
     hidePostalCode: false
   });
@@ -808,9 +814,9 @@ if(typeof Stripe !== 'undefined'){
   cardElement.on('change', function(e){
     document.getElementById('pay-error').textContent = e.error ? e.error.message : '';
   });
-} else {
-  document.getElementById('stripe-element').innerHTML = '<p style="color:#f87171;font-size:.8rem">Stripe failed to load. Please refresh the page.</p>';
 }
+if(document.readyState === 'complete'){ initStripe(); }
+else { window.addEventListener('load', initStripe); }
 
 // ── TEAM LABEL UPDATE ──────────────────────────────────────────
 document.querySelectorAll('[name="team"]').forEach(function(r){
@@ -827,7 +833,7 @@ var drawing = false, hasSig = false;
 function resizeCanvas(){
   var w = canvas.offsetWidth;
   canvas.width = w; canvas.height = 120;
-  ctx.strokeStyle = '#1a0018'; ctx.lineWidth = 2.2;
+  ctx.strokeStyle = '#221c14'; ctx.lineWidth = 2.2;
   ctx.lineCap = 'round'; ctx.lineJoin = 'round';
 }
 resizeCanvas();
@@ -985,7 +991,6 @@ form.addEventListener('submit', async function(e){
     }
 
     // ── Step 4: Show success screen ──
-    var gradeVal = document.querySelector('[name="player_grade"]:checked');
     var totalPaid = (REG_FEE*totalCount).toFixed(2);
     document.getElementById('confirm-email').textContent = parentEmail;
     document.getElementById('confirm-amount').textContent = totalPaid;
@@ -1005,4 +1010,13 @@ form.addEventListener('submit', async function(e){
     window.scrollTo({top:0, behavior:'smooth'});
 
   } catch(err){
-    
+    payErr.textContent = err.message || 'Something went wrong. Please try again.';
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M4 10.5 8.5 15 16 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Submit Registration &amp; Pay Now';
+  }
+});
+
+})();
+</script>
+</body>
+</html>

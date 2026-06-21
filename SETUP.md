@@ -9,9 +9,18 @@ This is your complete, self-hosted website. Zero monthly fees beyond your domain
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Your main public website |
+| `index.html` | Home — hero, teams, schedule, news, contact |
+| `about.html` | Mission, pillars, programs |
+| `register.html` | Full registration form + Stripe payment |
+| `donate.html` | Donation form + Stripe payment |
+| `resources.html` | BAND group links + downloadable forms |
+| `theme.css` | **Shared design system — required by every page. Always deploy it together with the HTML files.** |
 | `admin.html` | Visual tool to update config without touching code |
+| `functions/api/create-payment-intent.js` | Cloudflare Pages Function that powers Stripe payments |
+| `_v1-backup/` | The previous (dark) design, kept for reference — no need to deploy |
 | `SETUP.md` | This guide |
+
+> **June 2026 redesign:** the site now uses a "gameday program" look (cream / dragon red / gold, varsity lettering). All functionality is unchanged — same Google Sheets CMS, same Stripe flow, same Web3Forms keys.
 
 ---
 

@@ -5,264 +5,254 @@
   <title>PL Gridders | Victory Through Character</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="PL Gridders – youth football and cheerleading in Commodore, PA. FLAG, JV, and Varsity squads for K–6th grade.">
-  <meta name="theme-color" content="#0a0608">
+  <meta name="theme-color" content="#a8221f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Graduate&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css">
   <style>
-    :root {
-      --bg:         #09060a;
-      --bg-card:    rgba(15, 8, 14, 0.97);
-      --red:        #dc2626;
-      --red-2:      #ef4444;
-      --red-3:      #fca5a5;
-      --red-soft:   rgba(220, 38, 38, 0.12);
-      --red-glow:   rgba(220, 38, 38, 0.32);
-      --red-border: rgba(220, 38, 38, 0.42);
-      --green:      #22c55e;
-      --text:       #ede9e9;
-      --muted:      #7a7080;
-      --border:     rgba(160, 110, 110, 0.18);
-      --border-med: rgba(180, 120, 120, 0.3);
-      --radius:     16px;
-      --radius-lg:  24px;
-      --shadow:     0 20px 50px rgba(0,0,0,0.85);
-      --t:          200ms ease-out;
+    /* ═══ HOME HERO ═══ */
+    .hero{position:relative;z-index:1;padding:4rem 0 4.2rem;overflow:hidden}
+    .hero::before{ /* faint yard-line grid */
+      content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;
+      background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 110px);
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-    body::after{content:"";position:fixed;top:0;left:0;right:0;height:500px;background:radial-gradient(ellipse at 50% -10%,rgba(220,38,38,0.1),transparent 65%);pointer-events:none;z-index:0}
-    a{color:inherit;text-decoration:none}
-    button{font-family:inherit;cursor:pointer}
-    img{max-width:100%;display:block}
-    .no-scroll{overflow:hidden}
-    .container{width:min(1140px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
-    .display{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.95}
+    .hero::after{ /* gold halftone corner */
+      content:"";position:absolute;top:-80px;right:-80px;width:420px;height:420px;border-radius:50%;
+      background:radial-gradient(circle, var(--gold) 1.6px, transparent 1.6px);
+      background-size:14px 14px;opacity:.28;pointer-events:none;
+      -webkit-mask-image:radial-gradient(circle at 70% 30%, #000 0%, transparent 68%);
+              mask-image:radial-gradient(circle at 70% 30%, #000 0%, transparent 68%);
+    }
+    .hero-inner{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,1fr);gap:3.2rem;align-items:center}
+    .hero-kicker-row{display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem;animation:fadeDown 600ms ease-out both .1s}
+    .hero-tagline{
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;
+      text-transform:uppercase;letter-spacing:.34em;color:var(--red);
+      display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem;
+      animation:fadeRight 600ms ease-out both .2s;
+    }
+    .hero-tagline::before{content:"";width:34px;height:10px;flex-shrink:0;background:repeating-linear-gradient(115deg,var(--red) 0 3px,transparent 3px 7px)}
+    .hero-title{font-size:clamp(2.6rem,5.8vw + .5rem,4.9rem);margin-bottom:1.2rem;animation:fadeUp 700ms ease-out both .3s}
+    .hero-title .accent{display:block;color:var(--red);text-shadow:3px 3px 0 var(--gold-wash)}
+    .hero-title .line2{display:block;color:var(--ink)}
+    .hero-subtitle{
+      font-family:'Lora',Georgia,serif;font-size:1.04rem;color:var(--ink-2);
+      max-width:32rem;line-height:1.8;margin-bottom:1.9rem;
+      animation:fadeUp 700ms ease-out both .4s;
+    }
+    .hero-ctas{display:flex;flex-wrap:wrap;gap:.85rem;margin-bottom:2.4rem;animation:fadeUp 700ms ease-out both .5s}
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+    @keyframes fadeRight{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+    @keyframes punchIn{from{opacity:0;transform:scale(.94) rotate(.6deg)}to{opacity:1;transform:none}}
 
-    /* BUTTONS */
-    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.5rem;border-radius:999px;border:1px solid transparent;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:all var(--t);line-height:1}
-    .btn--red{background:linear-gradient(135deg,var(--red),#991b1b);color:#fff;box-shadow:0 10px 28px var(--red-glow)}
-    .btn--red:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(220,38,38,.5)}
-    .btn--ghost{background:transparent;border-color:var(--border-med);color:var(--text)}
-    .btn--ghost:hover{border-color:var(--red-border);color:var(--red-3);transform:translateY(-1px)}
-    .btn--outline{background:var(--red-soft);border-color:var(--red-border);color:var(--red-3)}
-    .btn--outline:hover{background:rgba(220,38,38,.2);transform:translateY(-1px)}
-    .btn--sm{padding:.38rem .95rem;font-size:.72rem}
-    .btn--lg{padding:.75rem 2rem;font-size:.88rem}
+    /* stat ticket stubs */
+    .hero-stats{display:flex;flex-wrap:wrap;gap:.6rem;animation:fadeUp 700ms ease-out both .6s}
+    .h-stat{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-sm);
+      padding:.55rem .95rem .5rem;text-align:center;box-shadow:3px 3px 0 rgba(34,28,20,.85);
+      position:relative;
+    }
+    .h-stat::before{content:"";position:absolute;top:4px;left:4px;right:4px;border-top:2px dashed var(--line)}
+    .h-stat-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.66rem;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);order:2}
+    .h-stat-value{font-family:'Graduate',serif;font-size:1.25rem;color:var(--red);line-height:1.2;margin-top:.25rem}
 
-    /* HEADER */
-    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(9,6,10,0.91);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding-block:.82rem;gap:1.5rem}
-    .brand{display:flex;align-items:center;gap:.7rem}
-    .brand-logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--red),#7f1d1d);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px var(--red-glow);flex-shrink:0}
-    .brand-logo svg{width:22px;height:22px}
-    .brand-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
-    .brand-sub{font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-top:.05rem}
-    .nav-links{display:flex;align-items:center;gap:1.75rem;font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-    .nav-links a{transition:color var(--t);position:relative}
-    .nav-links a::after{content:"";position:absolute;left:0;bottom:-.38rem;width:0;height:2px;border-radius:999px;background:var(--red);transition:width var(--t)}
-    .nav-links a:hover{color:var(--text)}
-    .nav-links a:hover::after{width:100%}
-    .nav-actions{display:flex;align-items:center;gap:.7rem}
-    .nav-toggle{display:none;width:38px;height:38px;border-radius:999px;border:1px solid var(--border-med);background:rgba(15,8,14,.9);align-items:center;justify-content:center}
-    .hamburger{width:18px;height:2px;background:var(--text);border-radius:999px;position:relative;transition:transform var(--t)}
-    .hamburger::before,.hamburger::after{content:"";position:absolute;left:0;width:18px;height:2px;background:inherit;border-radius:inherit;transition:transform var(--t),top var(--t),opacity var(--t)}
-    .hamburger::before{top:-6px}
-    .hamburger::after{top:6px}
-    .nav-toggle--open .hamburger{transform:rotate(45deg)}
-    .nav-toggle--open .hamburger::before{top:0;transform:rotate(-90deg)}
-    .nav-toggle--open .hamburger::after{top:0;opacity:0}
-
-    /* HERO */
-    .hero{padding:4rem 0 4.5rem;position:relative;overflow:hidden}
-    .hero::before{content:"";position:absolute;top:-20%;right:-5%;width:50%;height:130%;background:linear-gradient(155deg,rgba(220,38,38,.07) 0%,transparent 55%);clip-path:polygon(22% 0%,100% 0%,100% 100%,0% 100%);pointer-events:none}
-    .hero-inner{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:3rem;align-items:center}
-    .hero-kicker{display:inline-flex;align-items:center;gap:.45rem;padding:.25rem .75rem .25rem .35rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--red-3);margin-bottom:1.1rem}
-    .kicker-dot{width:8px;height:8px;border-radius:999px;background:var(--red);box-shadow:0 0 0 4px rgba(220,38,38,.3);animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(220,38,38,.3)}50%{box-shadow:0 0 0 8px rgba(220,38,38,.1)}}
-    .hero-tagline{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
-    .hero-tagline::before{content:"";display:block;width:26px;height:1.5px;background:var(--red);flex-shrink:0}
-    .hero-title{font-size:clamp(2.8rem,6vw + 1rem,5.2rem);margin-bottom:1rem}
-    .hero-title .accent{color:var(--red)}
-    .hero-subtitle{font-size:.94rem;color:var(--muted);max-width:30rem;line-height:1.7;margin-bottom:1.8rem}
-    .hero-ctas{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:2rem}
-    .hero-stats{display:flex;gap:2rem;flex-wrap:wrap}
-    .h-stat-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);margin-bottom:.18rem}
-    .h-stat-value{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.04em}
-
-    /* Hero panel */
-    .hero-panel{border-radius:var(--radius-lg);border:1px solid var(--border-med);background:var(--bg-card);padding:1.5rem;box-shadow:var(--shadow);position:relative;overflow:hidden}
-    .hero-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(220,38,38,.07),transparent 60%);pointer-events:none}
-    .hero-field{border-radius:14px;overflow:hidden;box-shadow:0 18px 48px rgba(0,0,0,.7);position:relative;line-height:0}
+    /* hero right: framed field + next-game ticket */
+    .hero-panel{animation:punchIn 700ms ease-out both .45s}
+    .hero-field{
+      border:3px solid var(--ink);border-radius:var(--r-md);overflow:hidden;line-height:0;
+      box-shadow:var(--shadow), 12px 12px 0 rgba(217,161,59,.35);
+      transform:rotate(-1deg);background:var(--green-deep);
+    }
     .hero-field svg{display:block;width:100%;height:auto}
-    /* End zones — left and right strips */
-    .hero-next{margin-top:1rem;border-radius:14px;border:1px solid var(--border-med);background:rgba(9,6,10,.92);padding:.85rem 1rem;display:flex;align-items:center;gap:1rem}
-    .next-icon{width:36px;height:36px;border-radius:10px;background:var(--red-soft);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .next-icon svg{width:18px;height:18px;stroke:var(--red-3)}
-    .next-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
-    .next-opp{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.97rem;letter-spacing:.04em;text-transform:uppercase}
-    .next-meta{font-size:.68rem;color:var(--muted);margin-top:.1rem}
-    .next-badge{margin-left:auto;padding:.26rem .6rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--red-3);white-space:nowrap}
-
-    /* SECTION BASE */
-    .section{padding-block:3.5rem}
-    .sk{font-size:.65rem;text-transform:uppercase;letter-spacing:.28em;color:var(--red-3);font-weight:600;margin-bottom:.4rem}
-    .st{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:.5rem}
-    .ss{font-size:.87rem;color:var(--muted);max-width:28rem;line-height:1.7}
-    .sh{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;margin-bottom:2rem}
-    .sa{font-size:.76rem;color:var(--muted);text-align:right;flex-shrink:0}
-    .sa a{color:var(--red-3);font-weight:500}
-
-
-
-    /* TEAMS */
-    .teams-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
-    .col-heading{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:.55rem}
-    .col-heading svg{width:15px;height:15px;flex-shrink:0}
-    .col-heading::after{content:"";flex:1;height:1px;background:var(--border)}
-    .team-stack{display:flex;flex-direction:column;gap:.85rem}
-    .tc{border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);padding:1.1rem 1.2rem;position:relative;overflow:hidden;transition:border-color var(--t),transform var(--t),box-shadow var(--t)}
-    .tc:hover{border-color:var(--red-border);transform:translateY(-2px);box-shadow:0 18px 40px rgba(0,0,0,.7)}
-    .tc::before{content:"";position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--red),var(--red-2));opacity:0;transition:opacity var(--t)}
-    .tc:hover::before{opacity:1}
-    .tc-badge{position:absolute;top:.85rem;right:.9rem;padding:.17rem .5rem;border-radius:999px;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;background:var(--red-soft);border:1px solid var(--red-border);color:var(--red-3)}
-    .tc-div{font-size:.66rem;text-transform:uppercase;letter-spacing:.22em;color:var(--muted);margin-bottom:.22rem}
-    .tc-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.6rem}
-    .tc-info{font-size:.77rem;color:var(--muted);display:flex;flex-direction:column;gap:.22rem}
-    .tc-info strong{color:var(--text);font-weight:500}
-    .tc-foot{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.7rem}
-    .chip{padding:.18rem .58rem;border-radius:999px;border:1px solid var(--border-med);font-size:.67rem;color:var(--muted)}
-    .tc-roster{margin-top:0;border-radius:10px;background:rgba(9,6,10,.95);border:1px dashed var(--border-med);padding:.6rem .7rem;font-size:.75rem;color:var(--muted);max-height:0;overflow:hidden;opacity:0;transition:max-height 220ms ease-out,opacity 200ms ease-out,margin-top 180ms ease-out}
-    .tc--open .tc-roster{max-height:300px;opacity:1;margin-top:.65rem}
-    .r-title{font-size:.58rem;text-transform:uppercase;letter-spacing:.22em;color:var(--muted);margin-bottom:.38rem}
-    .r-chips{display:flex;flex-wrap:wrap;gap:.28rem}
-    .r-chip{padding:.16rem .52rem;border-radius:999px;border:1px solid var(--border);font-size:.67rem;color:var(--text)}
-
-    /* Loading */
-    .loading{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--muted);padding:1.5rem 0}
-    .spinner{width:16px;height:16px;border-radius:999px;border:2px solid var(--border-med);border-top-color:var(--red);animation:spin .7s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* SCHEDULE */
-    .sched-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.1rem}
-    .fb{border-radius:999px;padding:.32rem .9rem;background:rgba(15,8,14,.9);border:1px solid var(--border-med);color:var(--muted);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:all var(--t)}
-    .fb:hover{border-color:var(--red-border);color:var(--red-3)}
-    .fb--on{background:var(--red-soft);border-color:var(--red-border);color:var(--red-3);box-shadow:0 6px 18px var(--red-glow)}
-    .s-table{border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
-    .s-head,.s-row{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,.85fr) minmax(0,.9fr) minmax(0,.9fr);gap:.75rem;align-items:center;padding:.72rem 1rem}
-    .s-head{background:rgba(9,4,9,.99);border-bottom:1px solid var(--border);font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--muted)}
-    .s-row{border-bottom:1px solid var(--border);transition:background var(--t)}
-    .s-row:last-child{border-bottom:none}
-    .s-row:hover{background:rgba(220,38,38,.03)}
-    .s-opp{font-weight:500;font-size:.82rem}
-    .s-sub{font-size:.68rem;color:var(--muted);margin-top:.1rem}
-    .s-tag{display:inline-block;padding:.18rem .52rem;border-radius:999px;font-size:.63rem;font-weight:600;border:1px solid var(--border);color:var(--muted)}
-    .s-tag--home{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.45);color:#86efac}
-    .r-win{color:#4ade80;font-weight:600}
-    .r-loss{color:#f87171;font-weight:600}
-    .s-empty{padding:1.5rem 1rem;font-size:.8rem;color:var(--muted);display:none}
-    .s-empty.on{display:block}
-
-    /* HOW IT WORKS */
-    /* REGISTRATION */
-    .rc{border-radius:var(--radius);background:rgba(9,4,9,.98);border:1px solid var(--border);padding:1.5rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color var(--t),transform var(--t),box-shadow var(--t);position:relative;overflow:hidden}
-    .rc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-    .rc-grades{font-size:.77rem;color:var(--muted)}
-    .rc-note{font-size:.68rem;color:var(--muted)}
-    .rc-perks{display:flex;flex-direction:column;gap:.28rem;margin-block:.5rem}
-    .rc-perk{display:flex;align-items:center;gap:.42rem;font-size:.75rem;color:var(--muted)}
-    .reg-info h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
-    .ti{border-radius:10px;background:var(--bg-card);border:1px solid var(--border);padding:.65rem .75rem;font-size:.77rem}
-    .ti-time{color:var(--muted)}
-
-    /* GALLERY */
-
-    /* NEWS */
-    .news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem}
-    .nc{border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);padding:1.25rem 1.35rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color var(--t),transform var(--t)}
-    .nc:hover{border-color:var(--red-border);transform:translateY(-2px)}
-    .n-meta{display:flex;gap:.6rem;align-items:center;font-size:.68rem;color:var(--muted)}
-    .nbadge{padding:.12rem .5rem;border-radius:999px;font-size:.59rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;background:var(--red-soft);border:1px solid var(--red-border);color:var(--red-3)}
-    .n-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:.03em}
-    .n-body{font-size:.82rem;color:var(--muted);line-height:1.7}
-    .n-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.73rem;color:var(--red-3);font-weight:500;margin-top:.15rem}
-
-    /* CONTACT */
-    .con-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:2rem;align-items:flex-start}
-    .cp{border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);padding:1.5rem;display:flex;flex-direction:column;gap:1rem}
-    .cl{font-size:.6rem;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
-    .cv{font-size:.87rem;color:var(--text)}
-    .cn{font-size:.73rem;color:var(--muted)}
-    .c-hi{border-radius:10px;background:var(--red-soft);border:1px solid var(--red-border);padding:.75rem;font-size:.8rem;color:#fecaca;line-height:1.6}
-    .cf{border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border-med);padding:1.5rem;box-shadow:var(--shadow)}
-    .cf-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem}
-    .fg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin-bottom:.75rem}
-    .ff{display:flex;flex-direction:column;gap:.22rem}
-    .fl{font-size:.7rem;color:rgba(209,213,219,.85)}
-    .fl span{color:#f87171;margin-left:.1rem}
-    .fi,.fs,.fta{border-radius:10px;border:1px solid var(--border-med);background:rgba(9,4,9,.97);padding:.54rem .7rem;color:var(--text);font-size:.82rem;font-family:inherit;outline:none;transition:border-color var(--t),box-shadow var(--t)}
-    .fi::placeholder,.fta::placeholder{color:rgba(120,110,120,.65)}
-    .fi:focus,.fs:focus,.fta:focus{border-color:var(--red-border);box-shadow:0 0 0 1px rgba(220,38,38,.28)}
-    .fta{min-height:88px;resize:vertical}
-    .fs option{background:#09040a}
-    .cf-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:.75rem}
-    .cf-fn{font-size:.68rem;color:var(--muted);max-width:22rem;line-height:1.5}
-    .f-ok{display:none;margin-top:.75rem;padding:.65rem .75rem;border-radius:10px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.35);font-size:.77rem;color:#86efac}
-    .f-ok.on{display:block}
-
-    /* LIGHTBOX */
-    .lb{position:fixed;inset:0;background:rgba(9,4,9,.97);display:none;align-items:center;justify-content:center;padding:1rem;z-index:60;backdrop-filter:blur(18px)}
-    .lb--on{display:flex}
-    .lb-in{width:min(700px,100%);border-radius:18px;background:var(--bg-card);border:1px solid var(--border-med);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.95)}
-    .lb-img{max-height:360px;overflow:hidden}
-    .lb-img img{width:100%;height:100%;object-fit:cover}
-    .lb-bar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.75rem 1rem;font-size:.82rem;color:var(--text)}
-    .lb-x{width:30px;height:30px;border-radius:999px;border:1px solid var(--border-med);background:rgba(9,4,9,.9);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--text);transition:all var(--t)}
-    .lb-x:hover{background:var(--red-soft);border-color:var(--red-border);color:var(--red-3)}
-
-    /* FOOTER */
-    .site-footer{padding-block:1.75rem;border-top:1px solid var(--border);font-size:.74rem;color:var(--muted)}
-    .fi-r{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-    .f-links{display:flex;gap:1rem;flex-wrap:wrap}
-    .f-links a{transition:color var(--t)}
-    .f-links a:hover{color:var(--text)}
-    .f-soc{display:flex;gap:.5rem;align-items:center}
-    .soc-btn{width:30px;height:30px;border-radius:999px;border:1px solid var(--border);background:rgba(15,8,14,.95);display:flex;align-items:center;justify-content:center;transition:all var(--t)}
-    .soc-btn svg{width:13px;height:13px;stroke:var(--muted)}
-    .soc-btn:hover{border-color:var(--red-border);background:var(--red-soft)}
-    .soc-btn:hover svg{stroke:var(--red-3)}
-
-    /* REVEAL */
-    .reveal{opacity:0;transform:translateY(28px);transition:opacity 440ms ease-out,transform 440ms ease-out}
-    .revealed{opacity:1;transform:none}
-
-    /* RESPONSIVE */
+    .hero-next{
+      margin-top:1.4rem;display:flex;align-items:center;gap:1rem;
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-sm);
+      box-shadow:var(--shadow-sm);padding:.85rem 1.05rem;position:relative;
+      transform:rotate(.6deg);
+    }
+    .hero-next::before{ /* ticket perforation */
+      content:"";position:absolute;top:6px;bottom:6px;right:64px;
+      border-right:2px dashed var(--line);
+    }
+    .next-icon{
+      width:42px;height:42px;flex-shrink:0;border:2px solid var(--ink);border-radius:var(--r-sm);
+      background:var(--gold);display:flex;align-items:center;justify-content:center;
+    }
+    .next-icon svg{width:20px;height:20px;stroke:var(--ink)}
+    .next-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;text-transform:uppercase;letter-spacing:.3em;color:var(--red)}
+    .next-opp{font-family:'Graduate',serif;font-size:.92rem;text-transform:uppercase;line-height:1.3;margin-top:.1rem}
+    .next-meta{font-size:.78rem;color:var(--muted);margin-top:.1rem}
+    .next-badge{
+      margin-left:auto;flex-shrink:0;width:52px;text-align:center;
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.66rem;
+      text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);line-height:1.3;
+      padding-left:.6rem;
+    }
     @media(max-width:960px){
-      .hero-inner{grid-template-columns:1fr;gap:2rem}
-      .hero-right{max-width:460px}
-      .teams-cols{grid-template-columns:1fr;gap:2rem}
-      .con-grid{grid-template-columns:1fr}
-      .s-head,.s-row{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)}
-      .s-head span:nth-child(2),.s-row>span:nth-child(2){display:none}
+      .hero{padding:2.8rem 0 3rem}
+      .hero-inner{grid-template-columns:1fr;gap:2.6rem}
+      .hero-panel{max-width:560px}
     }
-    @media(max-width:768px){
-      .nav-links{position:fixed;inset:0 0 auto;padding:4.5rem 1.75rem 1.5rem;flex-direction:column;align-items:flex-start;background:rgba(9,4,9,.99);backdrop-filter:blur(20px);transform:translateY(-100%);opacity:0;pointer-events:none;transition:transform 260ms ease-out,opacity 220ms ease-out;gap:1.25rem;font-size:1rem;z-index:49}
-      .nav-links--open{transform:none;opacity:1;pointer-events:auto}
-      .nav-actions{display:none}
-      .nav-toggle{display:flex}
-      .news-grid{grid-template-columns:1fr}
-      .sh{flex-direction:column;align-items:flex-start}
-      .sa{text-align:left}
-      .fg{grid-template-columns:1fr}
-      .s-head,.s-row{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr)}
-      .s-head span:nth-child(4),.s-row>span:nth-child(4){display:none}
+
+    /* ═══ SECTIONS ═══ */
+    .section{padding-block:4.6rem;position:relative;z-index:1}
+    .section--band{background:var(--paper-2);border-block:2px solid var(--line)}
+
+    /* ═══ TEAMS ═══ */
+    .teams-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem}
+    @media(max-width:860px){.teams-cols{grid-template-columns:1fr}}
+    .col-heading{
+      display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem;
+      font-family:'Graduate',serif;font-size:1.05rem;text-transform:uppercase;
+      padding-bottom:.55rem;border-bottom:3px solid var(--ink);
     }
-    @media(max-width:520px){
-      .s-head,.s-row{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
-      .s-head span:nth-child(3),.s-row>span:nth-child(3){display:none}
-      .fi-r{flex-direction:column;align-items:flex-start}
+    .col-heading svg{width:20px;height:20px;color:var(--red)}
+    .team-stack{display:flex;flex-direction:column;gap:1rem}
+    .tc{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow-sm);padding:1.1rem 1.2rem 1rem;position:relative;
+      border-left:8px solid var(--red);transition:transform var(--t),box-shadow var(--t);
     }
+    .tc:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(34,28,20,.9)}
+    .tc-badge{
+      position:absolute;top:-11px;right:12px;
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;
+      text-transform:uppercase;letter-spacing:.12em;color:var(--ink);
+      background:var(--gold);border:2px solid var(--ink);border-radius:var(--r-sm);
+      padding:.14rem .55rem;box-shadow:2px 2px 0 rgba(34,28,20,.85);transform:rotate(1.6deg);
+    }
+    .tc-div{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.26em;color:var(--red);margin-bottom:.2rem}
+    .tc-name{font-size:1.15rem;margin-bottom:.55rem}
+    .tc-info{font-size:.88rem;color:var(--ink-2);display:flex;flex-direction:column;gap:.22rem;margin-bottom:.8rem}
+    .tc-info strong{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem;color:var(--muted);margin-right:.25rem}
+    .tc-foot{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap}
+    .tc-roster{display:none;margin-top:.9rem;padding-top:.8rem;border-top:2px dashed var(--line)}
+    .tc--open .tc-roster{display:block}
+    .r-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.26em;color:var(--red);margin-bottom:.5rem}
+    .r-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+    .r-chip{font-size:.8rem;padding:.18rem .55rem;background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-sm)}
+
+    /* ═══ SCOREBOARD (SCHEDULE) ═══ */
+    .scoreboard{background:var(--ink);color:var(--paper);border-block:3px solid var(--ink);position:relative}
+    .scoreboard::before{ /* scoreboard bulbs */
+      content:"";position:absolute;top:10px;left:0;right:0;height:6px;opacity:.5;
+      background:radial-gradient(circle, var(--gold) 2px, transparent 2.6px);
+      background-size:26px 6px;background-position:center;background-repeat:repeat-x;
+    }
+    .scoreboard .sk{color:var(--gold)}
+    .scoreboard .sk::before{background:repeating-linear-gradient(115deg,var(--gold) 0 3px,transparent 3px 7px)}
+    .scoreboard .st{color:var(--paper)}
+    .scoreboard .ss{color:rgba(244,237,219,.72)}
+    .scoreboard .sa{color:rgba(244,237,219,.55)}
+    .sched-filters{display:flex;gap:.5rem;margin-bottom:1.3rem;flex-wrap:wrap}
+    .filt{
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;
+      text-transform:uppercase;letter-spacing:.12em;
+      padding:.42rem .95rem;border:2px solid rgba(244,237,219,.45);border-radius:var(--r-sm);
+      background:transparent;color:rgba(244,237,219,.75);transition:all var(--t);
+    }
+    .filt:hover{border-color:var(--gold);color:var(--gold)}
+    .filt--on{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+    .s-table{border:2px solid rgba(244,237,219,.35);border-radius:var(--r-md);overflow:hidden;background:rgba(244,237,219,.04)}
+    .s-head,.s-row{
+      display:grid;grid-template-columns:2.2fr 1fr .9fr 1.3fr 1.2fr;gap:.8rem;
+      padding:.7rem 1.1rem;align-items:center;
+    }
+    .s-head{
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;
+      text-transform:uppercase;letter-spacing:.22em;color:var(--gold);
+      border-bottom:2px solid rgba(244,237,219,.3);background:rgba(244,237,219,.05);
+    }
+    .s-row{border-bottom:1px dashed rgba(244,237,219,.18);font-size:.92rem}
+    .s-row:last-child{border-bottom:none}
+    .s-row:hover{background:rgba(244,237,219,.05)}
+    .s-opp{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.05rem;text-transform:uppercase;letter-spacing:.05em;display:flex;flex-direction:column}
+    .s-sub{font-size:.72rem;letter-spacing:.18em;color:rgba(244,237,219,.5);font-weight:500}
+    .s-team{font-size:.82rem;color:rgba(244,237,219,.65)}
+    .s-date{font-size:.85rem;color:rgba(244,237,219,.85)}
+    .s-res{font-family:'Graduate',serif;font-size:.95rem;letter-spacing:.04em;color:rgba(244,237,219,.6)}
+    .r-win{color:#7fc98f}
+    .r-loss{color:#f0857f}
+    .s-tag{
+      display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:600;
+      font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;
+      padding:.18rem .55rem;border:1.5px solid rgba(244,237,219,.35);border-radius:var(--r-sm);
+      color:rgba(244,237,219,.8);
+    }
+    .s-tag--home{border-color:var(--gold);color:var(--gold)}
+    .s-empty{display:none;padding:1.4rem;text-align:center;color:rgba(244,237,219,.55);font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.16em}
+    .s-empty.on{display:block}
+    @media(max-width:760px){
+      .s-head{display:none}
+      .s-row{grid-template-columns:1fr 1fr;gap:.35rem .8rem;padding:.85rem 1rem}
+      .s-row>:nth-child(1){grid-column:1/-1}
+    }
+
+    /* ═══ NEWS ═══ */
+    .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.2rem}
+    .nc{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow-sm);padding:1.25rem 1.3rem 1.15rem;
+      display:flex;flex-direction:column;transition:transform var(--t),box-shadow var(--t);
+    }
+    .nc:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(34,28,20,.9)}
+    .n-meta{display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
+    .nbadge{
+      font-weight:700;font-size:.72rem;letter-spacing:.18em;color:var(--red);
+      border:2px dashed var(--red);border-radius:var(--r-sm);padding:.12rem .5rem;
+      transform:rotate(-1.5deg);background:rgba(168,34,31,.05);
+    }
+    .n-title{font-family:'Graduate',serif;font-weight:400;font-size:1.02rem;text-transform:uppercase;line-height:1.35;margin-bottom:.55rem}
+    .n-body{font-family:'Lora',Georgia,serif;font-size:.9rem;color:var(--ink-2);line-height:1.75;flex:1;margin-bottom:.9rem}
+    .n-link{
+      display:inline-flex;align-items:center;gap:.4rem;align-self:flex-start;
+      font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.88rem;
+      text-transform:uppercase;letter-spacing:.12em;color:var(--red);
+      border-bottom:2px solid var(--gold);padding-bottom:.1rem;transition:color var(--t);
+    }
+    .n-link:hover{color:var(--red-deep)}
+
+    /* ═══ CONTACT ═══ */
+    .con-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr);gap:1.6rem;align-items:start}
+    @media(max-width:880px){.con-grid{grid-template-columns:1fr}}
+    .cp{
+      background:var(--red);color:var(--paper);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow);padding:1.5rem 1.4rem;display:flex;flex-direction:column;gap:1.15rem;
+      position:relative;overflow:hidden;
+    }
+    .cp::after{
+      content:"";position:absolute;bottom:-60px;right:-60px;width:220px;height:220px;border-radius:50%;
+      background:radial-gradient(circle, rgba(244,237,219,.35) 1.4px, transparent 1.4px);
+      background-size:12px 12px;opacity:.5;pointer-events:none;
+    }
+    .cl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.28em;color:var(--gold);margin-bottom:.2rem}
+    .cv{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.06rem;letter-spacing:.04em}
+    .cv a{border-bottom:2px solid var(--gold)}
+    .cn{font-size:.82rem;color:rgba(244,237,219,.75);margin-top:.15rem}
+    .c-hi{
+      margin-top:.3rem;background:rgba(34,28,20,.25);border:2px dashed rgba(244,237,219,.4);
+      border-radius:var(--r-sm);padding:.85rem .95rem;
+      font-family:'Lora',Georgia,serif;font-style:italic;font-size:.9rem;line-height:1.7;
+      position:relative;z-index:1;
+    }
+    .cf{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow);padding:1.6rem 1.5rem;
+    }
+    .cf-title{font-size:1.3rem;margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:3px solid var(--ink);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .cf-title::after{content:"FREE";font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.2em;color:var(--red);border:2px dashed var(--red);padding:.1rem .45rem;border-radius:var(--r-sm);transform:rotate(2deg)}
+    .fg{display:grid;grid-template-columns:1fr 1fr;gap:0 .9rem}
+    @media(max-width:640px){.fg{grid-template-columns:1fr}}
+    .cf-foot{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:.4rem}
+    .cf-fn{font-size:.78rem;color:var(--muted);max-width:24rem;line-height:1.5}
+    .f-ok{
+      display:none;margin-top:1rem;padding:.8rem 1rem;border:2px solid var(--green);
+      border-radius:var(--r-sm);background:rgba(47,107,60,.08);color:var(--green-deep);
+      font-weight:600;font-size:.92rem;
+    }
+    .f-ok.on{display:block}
   </style>
 </head>
 <body>
@@ -306,8 +296,6 @@ const SITE_CONFIG = {
     tryoutDates:   "Dates TBD – check back soon",
     parentMeeting: "TBD – details sent via email",
     divisions: [
-      // stripeLink: paste your Stripe Payment Link URL — one link for all divisions (same fee)
-      // Create at: dashboard.stripe.com → Payment Links → + New
       { id:"flag",    level:"FLAG Division",    name:"Flag Gridders",    grades:"Kindergarten – 2nd Grade",  fee:"$--",  feeNote:"Paid securely via Stripe", stripeLink:"https://buy.stripe.com/bJe28r2Qy5PRcXs5AU2VG03", tryoutTime:"TBD", featured:false },
       { id:"jv",      level:"JV Division",      name:"JV Gridders",      grades:"3rd – 4th Grade",           fee:"$--",  feeNote:"Paid securely via Stripe", stripeLink:"https://buy.stripe.com/bJe28r2Qy5PRcXs5AU2VG03", tryoutTime:"TBD", featured:true  },
       { id:"varsity", level:"Varsity Division",  name:"Varsity Gridders", grades:"5th – 6th Grade",           fee:"$--",  feeNote:"Paid securely via Stripe", stripeLink:"https://buy.stripe.com/bJe28r2Qy5PRcXs5AU2VG03", tryoutTime:"TBD", featured:false },
@@ -319,9 +307,11 @@ const SITE_CONFIG = {
       "Instant receipt emailed to you",
     ],
   },
-  // ── CONTACT FORM (Web3Forms — free, 250/mo) ─────────────────
-  // Get your free key at https://web3forms.com → enter purchaselinegridders@gmail.com
+  // ── CONTACT FORM ─────────────────────────────────────────────
+  // Inquiries are sent via Web3Forms (same key as register/donate).
+  // Can be overridden from the Settings sheet ("Web3Forms Key").
   web3formsKey: "2f112d65-7fc7-447b-a597-4b55505c911c",
+  formSubmitEmail: "purchaselinegridders@gmail.com",
   sheets: {
     id:       "1uf_RiluRt0-WLpasKP8bmxPfMWNPgERO0pxbxk_4xcQ",
     schedule: "Schedule",
@@ -331,18 +321,33 @@ const SITE_CONFIG = {
 };
 </script>
 
+<!-- TOP STRIPE -->
+<div class="top-stripe">
+  <div class="container">
+    <span>★ Victory Through Character</span>
+    <div class="ts-right">
+      <span class="ts-hide" id="ts-loc">Commodore, PA</span>
+      <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</div>
+
 <!-- HEADER -->
 <header class="site-header" id="top">
   <div class="container">
     <nav class="nav">
       <a href="#home" class="brand">
         <div class="brand-logo">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="12" cy="12" rx="9" ry="5.8" fill="rgba(255,255,255,0.92)"/>
-            <line x1="3" y1="12" x2="21" y2="12" stroke="#7f1d1d" stroke-width="1.2" stroke-dasharray="3 2"/>
-            <line x1="12" y1="6.2" x2="12" y2="17.8" stroke="#7f1d1d" stroke-width="1.2"/>
-            <line x1="7.5" y1="8" x2="7.5" y2="16" stroke="#7f1d1d" stroke-width="0.9"/>
-            <line x1="16.5" y1="8" x2="16.5" y2="16" stroke="#7f1d1d" stroke-width="0.9"/>
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M24 2.5 43 8.5v17c0 11-8.6 17.6-19 20-10.4-2.4-19-9-19-20v-17Z" fill="#a8221f" stroke="#221c14" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M24 7.5 38.5 12v13.2c0 8.6-6.6 13.8-14.5 15.8-7.9-2-14.5-7.2-14.5-15.8V12Z" fill="none" stroke="#d9a13b" stroke-width="1.6"/>
+            <g transform="rotate(-18 24 24)">
+              <ellipse cx="24" cy="24" rx="11" ry="7" fill="#f4eddb" stroke="#221c14" stroke-width="1.8"/>
+              <line x1="18" y1="24" x2="30" y2="24" stroke="#a8221f" stroke-width="1.4"/>
+              <line x1="20.5" y1="22" x2="20.5" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+              <line x1="24" y1="22" x2="24" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+              <line x1="27.5" y1="22" x2="27.5" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+            </g>
           </svg>
         </div>
         <div>
@@ -352,13 +357,14 @@ const SITE_CONFIG = {
       </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span class="hamburger"></span></button>
       <div class="nav-links" id="nav-links">
-        <a href="#home">Home</a>
+        <a href="#home" class="on">Home</a>
         <a href="#teams">Teams</a>
         <a href="#schedule">Schedule</a>
         <a href="resources.html">Resources</a>
         <a href="donate.html">Donate</a>
         <a href="about.html">About</a>
         <a href="#contact">Contact</a>
+        <a href="register.html" class="nav-reg">Register Now</a>
       </div>
       <div class="nav-actions">
         <button class="btn btn--ghost btn--sm" onclick="goTo('schedule')">Schedule</button>
@@ -368,15 +374,29 @@ const SITE_CONFIG = {
   </div>
 </header>
 
+<!-- PENNANT BUNTING -->
+<div class="bunting" aria-hidden="true">
+  <svg preserveAspectRatio="none" viewBox="0 0 1200 26" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="pennants" x="0" y="0" width="120" height="26" patternUnits="userSpaceOnUse">
+        <path d="M0 0h40L20 24Z"   fill="#a8221f" stroke="#221c14" stroke-width="1.4"/>
+        <path d="M40 0h40L60 24Z"  fill="#f4eddb" stroke="#221c14" stroke-width="1.4"/>
+        <path d="M80 0h40L100 24Z" fill="#d9a13b" stroke="#221c14" stroke-width="1.4"/>
+      </pattern>
+    </defs>
+    <rect width="1200" height="26" fill="url(#pennants)"/>
+  </svg>
+</div>
+
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="container hero-inner">
     <div>
-      <div class="hero-kicker"><span class="kicker-dot"></span><span id="hero-kicker">2026 Season · Registration Open</span></div>
+      <div class="hero-kicker-row"><span class="sticker" id="hero-kicker">2026 Season · Registration Open</span></div>
       <div class="hero-tagline" id="hero-tagline">Victory Through Character</div>
       <h1 class="display hero-title">
-        <span class="accent" id="hero-line1">Purchase Line</span><br>
-        <span id="hero-line2">Little Gridders</span>
+        <span class="accent" id="hero-line1">Purchase Line</span>
+        <span class="line2" id="hero-line2">Little Gridders</span>
       </h1>
       <p class="hero-subtitle" id="hero-sub">Youth football and cheerleading in Commodore, PA. FLAG, JV, and Varsity squads for Kindergarten through 6th grade — building champions on and off the field.</p>
       <div class="hero-ctas">
@@ -391,160 +411,50 @@ const SITE_CONFIG = {
     <div class="hero-right">
       <div class="hero-panel">
         <div class="hero-field" id="hero-field">
-          <div class="field-badge"><span class="field-badge-dot"></span>Commodore, PA</div>
           <svg viewBox="0 0 1200 530" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Football field diagram">
             <defs>
-              <!-- Alternating grass stripes -->
-              <pattern id="stripe" x="0" y="0" width="100" height="530" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="50" height="530" fill="#15803d"/>
-                <rect x="50" y="0" width="50" height="530" fill="#166534"/>
-              </pattern>
-              <!-- End zone stripes - slightly darker -->
-              <pattern id="ezstripe" x="0" y="0" width="20" height="530" patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="10" height="530" fill="#14532d"/>
-                <rect x="10" y="0" width="10" height="530" fill="#166534"/>
+              <pattern id="grass" x="100" y="0" width="200" height="530" patternUnits="userSpaceOnUse">
+                <rect x="0"   y="0" width="100" height="530" fill="#2f6b3c"/>
+                <rect x="100" y="0" width="100" height="530" fill="#2a6136"/>
               </pattern>
             </defs>
-
-            <!-- ── PLAY FIELD (100px–1100px = 1000px wide) ── -->
-            <rect x="100" y="0" width="1000" height="530" fill="url(#stripe)"/>
-
-            <!-- ── LEFT END ZONE ── -->
-            <rect x="0" y="0" width="100" height="530" fill="url(#ezstripe)"/>
-            <!-- End zone border lines -->
-            <line x1="100" y1="0" x2="100" y2="530" stroke="white" stroke-width="3"/>
-            <line x1="0"   y1="0" x2="0"   y2="530" stroke="white" stroke-width="3"/>
-            <!-- Left end zone text -->
-            <text x="50" y="285" font-family="Arial Black, Arial" font-weight="900" font-size="38" fill="rgba(255,255,255,.55)" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90,50,285)" letter-spacing="6">GRIDDERS</text>
-
-            <!-- ── RIGHT END ZONE ── -->
-            <rect x="1100" y="0" width="100" height="530" fill="url(#ezstripe)"/>
-            <line x1="1100" y1="0" x2="1100" y2="530" stroke="white" stroke-width="3"/>
-            <line x1="1200" y1="0" x2="1200" y2="530" stroke="white" stroke-width="3"/>
-            <text x="1150" y="285" font-family="Arial Black, Arial" font-weight="900" font-size="38" fill="rgba(255,255,255,.55)" text-anchor="middle" dominant-baseline="middle" transform="rotate(90,1150,285)" letter-spacing="6">GRIDDERS</text>
-
-            <!-- ── OUTER FIELD BORDER ── -->
-            <rect x="0" y="0" width="1200" height="530" fill="none" stroke="white" stroke-width="3"/>
-
-            <!-- ── 10-YARD LINE BORDERS (sidelines of play field) ── -->
-            <!-- Top & bottom sidelines -->
-            <line x1="100" y1="0"   x2="1100" y2="0"   stroke="white" stroke-width="3"/>
-            <line x1="100" y1="530" x2="1100" y2="530" stroke="white" stroke-width="3"/>
-
-            <!-- ── YARD LINES every 10 yards (9 interior lines) ── -->
-            <!-- Each 10 yards = 100px. Lines at: 200,300,400,500,600,700,800,900,1000 -->
-            <line x1="200"  y1="0" x2="200"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
-            <line x1="300"  y1="0" x2="300"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
-            <line x1="400"  y1="0" x2="400"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
-            <line x1="500"  y1="0" x2="500"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
-            <!-- 50 yard line — brighter -->
-            <line x1="600"  y1="0" x2="600"  y2="530" stroke="white" stroke-width="3"/>
-            <line x1="700"  y1="0" x2="700"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
-            <line x1="800"  y1="0" x2="800"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
-            <line x1="900"  y1="0" x2="900"  y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
-            <line x1="1000" y1="0" x2="1000" y2="530" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
-
-            <!-- ── 5-YARD LINES (shorter tick marks at sidelines only) ── -->
-            <line x1="150" y1="0" x2="150" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="150" y1="530" x2="150" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="250" y1="0" x2="250" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="250" y1="530" x2="250" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="350" y1="0" x2="350" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="350" y1="530" x2="350" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="450" y1="0" x2="450" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="450" y1="530" x2="450" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="550" y1="0" x2="550" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="550" y1="530" x2="550" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="650" y1="0" x2="650" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="650" y1="530" x2="650" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="750" y1="0" x2="750" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="750" y1="530" x2="750" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="850" y1="0" x2="850" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="850" y1="530" x2="850" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="950" y1="0" x2="950" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="950" y1="530" x2="950" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="1050" y1="0" x2="1050" y2="18" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-            <line x1="1050" y1="530" x2="1050" y2="512" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
-
-            <!-- ── HASH MARKS (top third and bottom third, every 10 yards) ── -->
-            <!-- Top hashes at y=170 -->
-            <line x1="200"  y1="165" x2="200"  y2="178" stroke="white" stroke-width="2"/>
-            <line x1="300"  y1="165" x2="300"  y2="178" stroke="white" stroke-width="2"/>
-            <line x1="400"  y1="165" x2="400"  y2="178" stroke="white" stroke-width="2"/>
-            <line x1="500"  y1="165" x2="500"  y2="178" stroke="white" stroke-width="2"/>
-            <line x1="600"  y1="165" x2="600"  y2="178" stroke="white" stroke-width="2"/>
-            <line x1="700"  y1="165" x2="700"  y2="178" stroke="white" stroke-width="2"/>
-            <line x1="800"  y1="165" x2="800"  y2="178" stroke="white" stroke-width="2"/>
-            <line x1="900"  y1="165" x2="900"  y2="178" stroke="white" stroke-width="2"/>
-            <line x1="1000" y1="165" x2="1000" y2="178" stroke="white" stroke-width="2"/>
-            <!-- 5-yard top hashes -->
-            <line x1="150"  y1="165" x2="150"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="250"  y1="165" x2="250"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="350"  y1="165" x2="350"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="450"  y1="165" x2="450"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="550"  y1="165" x2="550"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="650"  y1="165" x2="650"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="750"  y1="165" x2="750"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="850"  y1="165" x2="850"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="950"  y1="165" x2="950"  y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="1050" y1="165" x2="1050" y2="175" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <!-- Bottom hashes at y=352 -->
-            <line x1="200"  y1="352" x2="200"  y2="365" stroke="white" stroke-width="2"/>
-            <line x1="300"  y1="352" x2="300"  y2="365" stroke="white" stroke-width="2"/>
-            <line x1="400"  y1="352" x2="400"  y2="365" stroke="white" stroke-width="2"/>
-            <line x1="500"  y1="352" x2="500"  y2="365" stroke="white" stroke-width="2"/>
-            <line x1="600"  y1="352" x2="600"  y2="365" stroke="white" stroke-width="2"/>
-            <line x1="700"  y1="352" x2="700"  y2="365" stroke="white" stroke-width="2"/>
-            <line x1="800"  y1="352" x2="800"  y2="365" stroke="white" stroke-width="2"/>
-            <line x1="900"  y1="352" x2="900"  y2="365" stroke="white" stroke-width="2"/>
-            <line x1="1000" y1="352" x2="1000" y2="365" stroke="white" stroke-width="2"/>
-            <!-- 5-yard bottom hashes -->
-            <line x1="150"  y1="355" x2="150"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="250"  y1="355" x2="250"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="350"  y1="355" x2="350"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="450"  y1="355" x2="450"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="550"  y1="355" x2="550"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="650"  y1="355" x2="650"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="750"  y1="355" x2="750"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="850"  y1="355" x2="850"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="950"  y1="355" x2="950"  y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-            <line x1="1050" y1="355" x2="1050" y2="365" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
-
-            <!-- ── YARD NUMBERS ── -->
-            <!-- Top row numbers -->
-            <text x="200"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">10</text>
-            <text x="300"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">20</text>
-            <text x="400"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">30</text>
-            <text x="500"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">40</text>
-            <text x="600"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">50</text>
-            <text x="700"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">40</text>
-            <text x="800"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">30</text>
-            <text x="900"  y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">20</text>
-            <text x="1000" y="148" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle">10</text>
-            <!-- Bottom row numbers (upside down, as on real field) -->
-            <text x="200"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,200,405)">10</text>
-            <text x="300"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,300,405)">20</text>
-            <text x="400"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,400,405)">30</text>
-            <text x="500"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,500,405)">40</text>
-            <text x="600"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,600,405)">50</text>
-            <text x="700"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,700,405)">40</text>
-            <text x="800"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,800,405)">30</text>
-            <text x="900"  y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,900,405)">20</text>
-            <text x="1000" y="405" font-family="Arial Black,Arial" font-weight="900" font-size="36" fill="rgba(255,255,255,.75)" text-anchor="middle" transform="rotate(180,1000,405)">10</text>
-
-            <!-- ── GOAL POSTS (simple top-down silhouette) ── -->
-            <!-- Left goal post -->
-            <line x1="18" y1="205" x2="18" y2="325" stroke="rgba(255,220,50,.8)" stroke-width="5" stroke-linecap="round"/>
-            <line x1="18" y1="265" x2="60" y2="265" stroke="rgba(255,220,50,.8)" stroke-width="4" stroke-linecap="round"/>
-            <line x1="60" y1="205" x2="60" y2="325" stroke="rgba(255,220,50,.8)" stroke-width="4" stroke-linecap="round"/>
-            <!-- Right goal post -->
-            <line x1="1182" y1="205" x2="1182" y2="325" stroke="rgba(255,220,50,.8)" stroke-width="5" stroke-linecap="round"/>
-            <line x1="1182" y1="265" x2="1140" y2="265" stroke="rgba(255,220,50,.8)" stroke-width="4" stroke-linecap="round"/>
-            <line x1="1140" y1="205" x2="1140" y2="325" stroke="rgba(255,220,50,.8)" stroke-width="4" stroke-linecap="round"/>
-
-            <!-- ── MIDFIELD CIRCLE ── -->
-            <circle cx="600" cy="265" r="40" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2.5"/>
-            <circle cx="600" cy="265" r="4"  fill="rgba(255,255,255,.5)"/>
+            <!-- end zones -->
+            <rect x="0" y="0" width="100" height="530" fill="#a8221f"/>
+            <rect x="1100" y="0" width="100" height="530" fill="#a8221f"/>
+            <text x="50" y="265" font-family="Graduate, Arial Black, Arial" font-size="34" fill="#d9a13b" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90,50,265)" letter-spacing="8">GRIDDERS</text>
+            <text x="1150" y="265" font-family="Graduate, Arial Black, Arial" font-size="34" fill="#d9a13b" text-anchor="middle" dominant-baseline="middle" transform="rotate(90,1150,265)" letter-spacing="8">GRIDDERS</text>
+            <!-- playing field -->
+            <rect x="100" y="0" width="1000" height="530" fill="url(#grass)"/>
+            <!-- yard lines -->
+            <path d="M200 0V530 M300 0V530 M400 0V530 M500 0V530 M700 0V530 M800 0V530 M900 0V530 M1000 0V530" stroke="rgba(244,237,219,.75)" stroke-width="2"/>
+            <path d="M100 0V530 M600 0V530 M1100 0V530" stroke="#f4eddb" stroke-width="3.5"/>
+            <!-- edge ticks -->
+            <path d="M150 0v16 M250 0v16 M350 0v16 M450 0v16 M550 0v16 M650 0v16 M750 0v16 M850 0v16 M950 0v16 M1050 0v16" stroke="rgba(244,237,219,.5)" stroke-width="2"/>
+            <path d="M150 530v-16 M250 530v-16 M350 530v-16 M450 530v-16 M550 530v-16 M650 530v-16 M750 530v-16 M850 530v-16 M950 530v-16 M1050 530v-16" stroke="rgba(244,237,219,.5)" stroke-width="2"/>
+            <!-- hash marks -->
+            <path d="M150 168v12 M200 168v12 M250 168v12 M300 168v12 M350 168v12 M400 168v12 M450 168v12 M500 168v12 M550 168v12 M650 168v12 M700 168v12 M750 168v12 M800 168v12 M850 168v12 M900 168v12 M950 168v12 M1000 168v12 M1050 168v12" stroke="rgba(244,237,219,.6)" stroke-width="2"/>
+            <path d="M150 350v12 M200 350v12 M250 350v12 M300 350v12 M350 350v12 M400 350v12 M450 350v12 M500 350v12 M550 350v12 M650 350v12 M700 350v12 M750 350v12 M800 350v12 M850 350v12 M900 350v12 M950 350v12 M1000 350v12 M1050 350v12" stroke="rgba(244,237,219,.6)" stroke-width="2"/>
+            <!-- yard numbers -->
+            <g font-family="Graduate, Arial Black, Arial" font-size="32" fill="rgba(244,237,219,.78)" text-anchor="middle">
+              <text x="200" y="140">10</text><text x="300" y="140">20</text><text x="400" y="140">30</text><text x="500" y="140">40</text>
+              <text x="600" y="140">50</text>
+              <text x="700" y="140">40</text><text x="800" y="140">30</text><text x="900" y="140">20</text><text x="1000" y="140">10</text>
+            </g>
+            <g font-family="Graduate, Arial Black, Arial" font-size="32" fill="rgba(244,237,219,.78)" text-anchor="middle">
+              <text x="200" y="400" transform="rotate(180,200,400)">10</text><text x="300" y="400" transform="rotate(180,300,400)">20</text>
+              <text x="400" y="400" transform="rotate(180,400,400)">30</text><text x="500" y="400" transform="rotate(180,500,400)">40</text>
+              <text x="600" y="400" transform="rotate(180,600,400)">50</text>
+              <text x="700" y="400" transform="rotate(180,700,400)">40</text><text x="800" y="400" transform="rotate(180,800,400)">30</text>
+              <text x="900" y="400" transform="rotate(180,900,400)">20</text><text x="1000" y="400" transform="rotate(180,1000,400)">10</text>
+            </g>
+            <!-- midfield mark -->
+            <circle cx="600" cy="265" r="46" fill="none" stroke="rgba(244,237,219,.4)" stroke-width="2.5"/>
+            <text x="600" y="276" font-family="Graduate, Arial Black, Arial" font-size="30" fill="rgba(244,237,219,.45)" text-anchor="middle" letter-spacing="3">PLG</text>
+            <!-- goal posts -->
+            <path d="M18 205v120 M18 265h42 M60 205v120" stroke="#d9a13b" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M1182 205v120 M1182 265h-42 M1140 205v120" stroke="#d9a13b" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <!-- frame -->
+            <rect x="0" y="0" width="1200" height="530" fill="none" stroke="#f4eddb" stroke-width="4"/>
           </svg>
         </div>
         <div class="hero-next">
@@ -564,15 +474,15 @@ const SITE_CONFIG = {
 </section>
 
 <!-- TEAMS -->
-<section class="section reveal" id="teams">
+<section class="section section--band reveal" id="teams">
   <div class="container">
     <div class="sh">
       <div>
         <div class="sk">Teams</div>
-        <h2 class="display st">Football &amp; Cheerleading Squads.</h2>
+        <h2 class="display st">Football &amp; Cheerleading Squads</h2>
         <p class="ss">FLAG, JV, and Varsity divisions for both football and cheer — every kid in Commodore has a home with the Gridders.</p>
       </div>
-      <div class="sa"><div class="chip">Red Dragons Community Program</div></div>
+      <div class="sa"><span class="chip">Red Dragons Community Program</span></div>
     </div>
     <div class="teams-cols">
       <div>
@@ -580,57 +490,58 @@ const SITE_CONFIG = {
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="8" cy="8" rx="6" ry="3.8"/><line x1="2" y1="8" x2="14" y2="8" stroke-dasharray="2 1.5"/><line x1="8" y1="4.2" x2="8" y2="11.8"/></svg>
           Football
         </div>
-        <div class="team-stack" id="fb-grid"><div class="loading"><span class="spinner"></span>Loading teams…</div></div>
+        <div class="team-stack reveal-stagger" id="fb-grid"><div class="loading"><span class="spinner"></span>Loading teams...</div></div>
       </div>
       <div>
         <div class="col-heading">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L10 6l4.5.7-3.25 3.15.77 4.5L8 12.25 3.98 14.35l.77-4.5L1.5 6.7 6 6z"/></svg>
           Cheerleading
         </div>
-        <div class="team-stack" id="ch-grid"><div class="loading"><span class="spinner"></span>Loading squads…</div></div>
+        <div class="team-stack reveal-stagger" id="ch-grid"><div class="loading"><span class="spinner"></span>Loading squads...</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SCHEDULE -->
-<section class="section reveal" id="schedule">
+<!-- SCHEDULE / SCOREBOARD -->
+<section class="section scoreboard reveal" id="schedule">
   <div class="container">
     <div class="sh">
       <div>
         <div class="sk">Schedule</div>
-        <h2 class="display st">2026 Game Day Calendar.</h2>
+        <h2 class="display st">2026 Game Day Calendar</h2>
         <p class="ss">Times and locations subject to change. Updates via email and Facebook.</p>
       </div>
       <div class="sa">PL Gridders</div>
     </div>
     <div class="sched-filters">
-      <button class="fb fb--on" data-f="all">All Games</button>
-      <button class="fb" data-f="upcoming">Upcoming</button>
-      <button class="fb" data-f="final">Final Scores</button>
+      <button class="filt filt--on" data-f="all">All Games</button>
+      <button class="filt" data-f="upcoming">Upcoming</button>
+      <button class="filt" data-f="final">Final Scores</button>
     </div>
     <div class="s-table">
       <div class="s-head"><span>Opponent</span><span>Team</span><span>Result</span><span>Date &amp; Time</span><span>Location</span></div>
-      <div id="sched-rows"><div class="loading" style="padding:1rem"><span class="spinner"></span>Loading schedule…</div></div>
+      <div id="sched-rows"><div class="loading" style="padding:1rem;color:rgba(244,237,219,.6)"><span class="spinner"></span>Loading schedule...</div></div>
       <div class="s-empty" id="sched-empty">No games match the selected filter.</div>
     </div>
   </div>
 </section>
 
-<!-- REGISTRATION -->
 <!-- NEWS -->
 <section class="section reveal" id="news">
   <div class="container">
     <div class="sh">
       <div>
         <div class="sk">News</div>
-        <h2 class="display st">Announcements &amp; Updates.</h2>
+        <h2 class="display st">Announcements &amp; Updates</h2>
       </div>
       <div class="sa"><a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener">Follow us on Facebook →</a></div>
     </div>
-    <div class="news-grid" id="news-grid"><div class="loading"><span class="spinner"></span>Loading…</div></div>
+    <div class="news-grid reveal-stagger" id="news-grid"><div class="loading"><span class="spinner"></span>Loading...</div></div>
   </div>
 </section>
+
+<div class="container"><hr class="hashrule"></div>
 
 <!-- CONTACT -->
 <section class="section reveal" id="contact">
@@ -638,7 +549,7 @@ const SITE_CONFIG = {
     <div class="sh">
       <div>
         <div class="sk">Get Involved</div>
-        <h2 class="display st">Ready to join the Gridders?</h2>
+        <h2 class="display st">Ready to Join the Gridders?</h2>
         <p class="ss">Fill out the form and we'll follow up with next steps for registration, evaluations, and equipment.</p>
       </div>
     </div>
@@ -651,7 +562,7 @@ const SITE_CONFIG = {
         </div>
         <div>
           <div class="cl">Email</div>
-          <div class="cv"><a href="/cdn-cgi/l/email-protection#52222720313a3321373e3b3c3735203b363637202112353f333b3e7c313d3f" id="c-email" style="color:var(--red-3)"><span class="__cf_email__" data-cfemail="88f8fdfaebe0e9fbede4e1e6edeffae1ececedfafbc8efe5e9e1e4a6ebe7e5">[email&#160;protected]</span></a></div>
+          <div class="cv"><a href="mailto:purchaselinegridders@gmail.com" id="c-email">purchaselinegridders@gmail.com</a></div>
         </div>
         <div>
           <div class="cl">Phone</div>
@@ -659,19 +570,19 @@ const SITE_CONFIG = {
         </div>
         <div>
           <div class="cl">Follow Us</div>
-          <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener" style="color:var(--red-3);font-size:.84rem;font-weight:500">PL Gridders on Facebook →</a>
+          <div class="cv"><a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener">PL Gridders on Facebook →</a></div>
         </div>
-        <div class="c-hi">We never cut players for ability at the youth level. If your child wants to play and be a good teammate, we will find them a place in our program.</div>
+        <div class="c-hi">"We never cut players for ability at the youth level. If your child wants to play and be a good teammate, we will find them a place in our program."</div>
       </aside>
       <form class="cf" id="cform" novalidate>
         <div class="cf-title display">Send an Inquiry</div>
         <div class="fg">
-          <div class="ff"><label class="fl" for="pname">Parent / Guardian Name <span>*</span></label><input class="fi" id="pname" name="parent-name" type="text" placeholder="Your name" required></div>
-          <div class="ff"><label class="fl" for="pemail">Email Address <span>*</span></label><input class="fi" id="pemail" name="email" type="email" placeholder="you@example.com" required></div>
-          <div class="ff"><label class="fl" for="cname">Child's Name <span>*</span></label><input class="fi" id="cname" name="child-name" type="text" placeholder="Player or cheerleader name" required></div>
-          <div class="ff">
-            <label class="fl" for="cgrade">Child's Grade <span>*</span></label>
-            <select class="fs" id="cgrade" name="grade" required>
+          <div class="ffield"><label class="flabel" for="pname">Parent / Guardian Name <span class="req">*</span></label><input class="finput" id="pname" name="parent-name" type="text" placeholder="Your name" required></div>
+          <div class="ffield"><label class="flabel" for="pemail">Email Address <span class="req">*</span></label><input class="finput" id="pemail" name="email" type="email" placeholder="you@example.com" required></div>
+          <div class="ffield"><label class="flabel" for="cname">Child's Name <span class="req">*</span></label><input class="finput" id="cname" name="child-name" type="text" placeholder="Player or cheerleader name" required></div>
+          <div class="ffield">
+            <label class="flabel" for="cgrade">Child's Grade <span class="req">*</span></label>
+            <select class="fselect" id="cgrade" name="grade" required>
               <option value="">Select grade</option>
               <option value="k">Kindergarten</option>
               <option value="1">1st Grade</option>
@@ -682,9 +593,9 @@ const SITE_CONFIG = {
               <option value="6">6th Grade</option>
             </select>
           </div>
-          <div class="ff">
-            <label class="fl" for="prog">Program Interest <span>*</span></label>
-            <select class="fs" id="prog" name="program" required>
+          <div class="ffield">
+            <label class="flabel" for="prog">Program Interest <span class="req">*</span></label>
+            <select class="fselect" id="prog" name="program" required>
               <option value="">Select program</option>
               <option value="football">Football</option>
               <option value="cheer">Cheerleading</option>
@@ -692,9 +603,9 @@ const SITE_CONFIG = {
               <option value="unsure">Not sure yet</option>
             </select>
           </div>
-          <div class="ff"><label class="fl" for="cphone">Phone Number</label><input class="fi" id="cphone" name="phone" type="tel" placeholder="(814) 000-0000"></div>
+          <div class="ffield"><label class="flabel" for="cphone">Phone Number</label><input class="finput" id="cphone" name="phone" type="tel" placeholder="(814) 000-0000"></div>
         </div>
-        <div class="ff" style="margin-bottom:.85rem"><label class="fl" for="msg">Questions or Details</label><textarea class="fta" id="msg" name="message" placeholder="Tell us about your child, any questions about equipment, schedule, or costs…"></textarea></div>
+        <div class="ffield"><label class="flabel" for="msg">Questions or Details</label><textarea class="ftextarea" id="msg" name="message" placeholder="Tell us about your child, any questions about equipment, schedule, or costs..."></textarea></div>
         <div class="cf-foot">
           <p class="cf-fn">By submitting you agree to be contacted about PL Gridders programs. We never share your info.</p>
           <button type="submit" class="btn btn--red">
@@ -702,24 +613,19 @@ const SITE_CONFIG = {
             Submit Inquiry
           </button>
         </div>
-        <div class="f-ok" id="f-ok">✓ Message received! We'll be in touch soon.</div>
+        <div class="f-ok" id="f-ok">Message received! We'll be in touch soon.</div>
       </form>
     </div>
   </div>
 </section>
 
-<!-- LIGHTBOX -->
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Expanded photo">
-  <div class="lb-in">
-    <div class="lb-img"><img src="" alt="" id="lb-img"></div>
-    <div class="lb-bar"><div id="lb-cap"></div><button class="lb-x" id="lb-close" type="button" aria-label="Close">×</button></div>
-  </div>
-</div>
-
 <!-- FOOTER -->
 <footer class="site-footer">
-  <div class="container fi-r">
-    <div>© <span id="yr"></span> PL Gridders · Commodore, PA. All rights reserved.</div>
+  <div class="container foot-inner">
+    <div class="foot-brand">
+      <div class="display">PL Gridders</div>
+      <p>Victory Through Character · Est. 2018</p>
+    </div>
     <div class="f-links">
       <a href="#schedule">Schedule</a>
       <a href="#teams">Teams</a>
@@ -727,24 +633,26 @@ const SITE_CONFIG = {
       <a href="resources.html">Resources</a>
       <a href="donate.html">Donate</a>
       <a href="#contact">Contact</a>
-      <a href="admin.html" style="color:rgba(120,80,80,.5);font-size:.65rem">Admin</a>
     </div>
-    <div class="f-soc">
-      <span style="font-size:.7rem;color:var(--muted)">Follow:</span>
-      <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" class="soc-btn" id="fb-btn" aria-label="Facebook" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M15.5 3H13a4 4 0 0 0-4 4v2H6.5v3H9v9h3v-9h2.5L15 9H12V7a1 1 0 0 1 1-1h2.5V3Z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+    <div class="f-contact">
+      <a href="mailto:purchaselinegridders@gmail.com">purchaselinegridders@gmail.com</a><br>
+      (814) 241-3237<br>
+      <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" id="fb-btn" target="_blank" rel="noopener">Facebook →</a>
     </div>
+  </div>
+  <div class="container foot-base">
+    <div>&copy; <span id="yr"></span> PL Gridders · Commodore, PA. All rights reserved.</div>
+    <a href="admin.html" style="opacity:.45">Admin</a>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
   function g(id){return document.getElementById(id)}
   function goTo(id){const t=g(id);if(t)t.scrollIntoView({behavior:'smooth'})}
   window.goTo=goTo;
 
-  // Map Settings tab rows to key→value
+  /* ── SETTINGS FROM SHEETS ── */
   function settingVal(rows,key){const r=rows.find(x=>x.Setting&&x.Setting.trim()===key.trim()&&!x.Setting.startsWith('─'));return r?r.Value:'';}
 
   async function applyConfig(){
@@ -753,12 +661,8 @@ const SITE_CONFIG = {
     if(sheetsReady()){
       try{
         const rows=await fetchSheet('Settings');
-        console.log('[Settings] rows received:',rows?rows.length:0);
         if(rows&&rows.length){
-          console.log('[Settings] row[0] keys:',Object.keys(rows[0]));
-          console.log('[Settings] row[0] values:',Object.values(rows[0]));
-          console.log('[Settings] all Setting values:',rows.map(r=>JSON.stringify(r.Setting)));
-          const sv=k=>{const v=settingVal(rows,k);console.log('[Settings] lookup "'+k+'" =',JSON.stringify(v));return v||null;};
+          const sv=k=>settingVal(rows,k)||null;
           if(sv('Org Name'))          {C.org.name=C.org.fullName=sv('Org Name');}
           if(sv('Tagline'))           {C.org.tagline=sv('Tagline');}
           if(sv('Season Year'))       {C.org.season=sv('Season Year');}
@@ -778,6 +682,7 @@ const SITE_CONFIG = {
           if(sv('Registration Fee'))  {C.registration.fee=sv('Registration Fee');}
           if(sv('Tryout Dates'))      {C.registration.tryoutDates=sv('Tryout Dates');}
           if(sv('Parent Meeting'))    {C.registration.parentMeeting=sv('Parent Meeting');}
+          if(sv('Web3Forms Key'))     {C.web3formsKey=sv('Web3Forms Key');}
         }
       }catch(e){console.warn('Settings load failed:',e);}
     }
@@ -785,7 +690,7 @@ const SITE_CONFIG = {
     g('brand-name').textContent=C.org.name;
     g('brand-sub').textContent=C.org.tagline;
     g('hero-kicker').textContent=C.hero.kicker;
-    g('hero-tagline').innerHTML='<span style="display:inline-block;width:26px;height:1.5px;background:var(--red);margin-right:.6rem;vertical-align:middle;flex-shrink:0"></span>'+C.org.tagline;
+    g('hero-tagline').textContent=C.org.tagline;
     g('hero-line1').textContent=C.hero.headLine1;
     g('hero-line2').textContent=C.hero.headLine2;
     g('hero-sub').textContent=C.hero.subtitle;
@@ -797,11 +702,21 @@ const SITE_CONFIG = {
     g('c-email').textContent=C.org.email;
     g('c-email').href='mailto:'+C.org.email;
     g('c-phone').textContent=C.org.phone;
+    if(g('ts-loc'))g('ts-loc').textContent=C.org.location;
     if(g('fb-btn'))g('fb-btn').href=C.org.facebook;
     g('yr').textContent=new Date().getFullYear();
     document.title=C.org.fullName+' · '+C.org.tagline;
-  }
 
+    /* ── HERO STATS ── */
+    const statsEl=g('hero-stats');
+    if(statsEl&&C.stats){
+      statsEl.innerHTML=C.stats.map(s=>`
+        <div class="h-stat">
+          <div class="h-stat-value">${s.num}</div>
+          <div class="h-stat-label">${s.label}</div>
+        </div>`).join('');
+    }
+  }
 
   function parseCSV(text){
     const lines=text.split('\n').filter(l=>l.trim());
@@ -871,6 +786,11 @@ const SITE_CONFIG = {
         btn.textContent=open?'Hide roster':'View roster';
       });
     });
+
+    /* Re-observe stagger container */
+    if(el.classList.contains('reveal-stagger')&&!el.classList.contains('revealed')){
+      staggerObs.observe(el);
+    }
   }
 
   async function loadTeams(){
@@ -902,19 +822,19 @@ const SITE_CONFIG = {
     con.innerHTML=rows.map(r=>`
       <div class="s-row">
         <span class="s-opp">${r.Opponent||''}<span class="s-sub">${r.Week||''}</span></span>
-        <span style="font-size:.77rem;color:var(--muted)">${r.Team||''}</span>
-        <span class="${r.Result&&r.Result.startsWith('W')?'r-win':r.Result&&r.Result.startsWith('L')?'r-loss':''}">${r.Result||'TBD'}</span>
-        <span style="font-size:.79rem">${r.Date||''}</span>
+        <span class="s-team">${r.Team||''}</span>
+        <span class="s-res ${r.Result&&r.Result.startsWith('W')?'r-win':r.Result&&r.Result.startsWith('L')?'r-loss':''}">${r.Result||'TBD'}</span>
+        <span class="s-date">${r.Date||''}</span>
         <span><span class="s-tag ${r.Home==='true'?'s-tag--home':''}">${r.Location||''}</span></span>
       </div>`).join('');
   }
 
   async function loadSched(){if(!sheetsReady()){renderSched(SCHED_FALLBACK);return;}const d=await fetchSheet(SITE_CONFIG.sheets.schedule);renderSched(d&&d.length?d:SCHED_FALLBACK);}
 
-  document.querySelectorAll('.fb[data-f]').forEach(btn=>{
+  document.querySelectorAll('.filt[data-f]').forEach(btn=>{
     btn.addEventListener('click',()=>{
-      document.querySelectorAll('.fb[data-f]').forEach(b=>b.classList.remove('fb--on'));
-      btn.classList.add('fb--on');applySched(btn.dataset.f);
+      document.querySelectorAll('.filt[data-f]').forEach(b=>b.classList.remove('filt--on'));
+      btn.classList.add('filt--on');applySched(btn.dataset.f);
     });
   });
 
@@ -923,21 +843,27 @@ const SITE_CONFIG = {
     {Title:"Questions? We're Here to Help",Date:"",Badge:"",Body:"Reach out via email or phone for any questions about registration, equipment, schedules, or how to get your child involved in football or cheerleading with the Gridders.",Link:"#contact",LinkText:"Contact us"},
   ];
   function renderNews(items){
-    g('news-grid').innerHTML=items.map(n=>`
+    const grid=g('news-grid');
+    grid.innerHTML=items.map(n=>`
       <article class="nc">
         <div class="n-meta">${n.Badge?`<span class="nbadge">${n.Badge}</span>`:''}<span>${n.Date||''}</span></div>
         <h3 class="n-title">${n.Title||''}</h3>
         <p class="n-body">${n.Body||''}</p>
         ${n.Link?`<a class="n-link" href="${n.Link}" ${n.Link.startsWith('http')?'target="_blank" rel="noopener"':''}>${n.LinkText||'Read more'}<svg viewBox="0 0 20 20" fill="none" width="13" height="13"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`:''}
       </article>`).join('');
+    if(grid.classList.contains('reveal-stagger')&&!grid.classList.contains('revealed')){
+      staggerObs.observe(grid);
+    }
   }
   async function loadNews(){
-    if(!sheetsReady()){console.log('[News] sheet not ready');renderNews(NEWS_FALLBACK);return;}
+    if(!sheetsReady()){renderNews(NEWS_FALLBACK);return;}
     const d=await fetchSheet(SITE_CONFIG.sheets.news);
-    console.log('[News] rows:',d?d.length:0,'first:',d&&d[0]?JSON.stringify(d[0]):'none');
     renderNews(d&&d.length?d:NEWS_FALLBACK);
   }
 
+  /* ── CONTACT FORM ──
+     Sends via Web3Forms (key in SITE_CONFIG, overridable from the
+     Settings sheet). Falls back to FormSubmit if no key is set. */
   const form=g('cform');
   if(form){form.addEventListener('submit',async function(e){
     e.preventDefault();if(!form.checkValidity()){form.reportValidity();return;}
@@ -951,25 +877,15 @@ const SITE_CONFIG = {
         fd.append('subject','PL Gridders – New Inquiry from '+fd.get('parent-name'));
         fd.append('from_name','PL Gridders Website');
         await fetch('https://api.web3forms.com/submit',{method:'POST',body:fd});
+      }else if(SITE_CONFIG.formSubmitEmail){
+        await fetch('https://formsubmit.co/ajax/'+encodeURIComponent(SITE_CONFIG.formSubmitEmail),{
+          method:'POST',body:fd,headers:{'Accept':'application/json'}});
       }
     }catch(err){console.warn('Form submit error:',err);}
     form.reset();
     g('f-ok').classList.add('on');
     btn.disabled=false;btn.innerHTML='✓ Sent';
   });}
-
-  const lb=g('lb'),lbImg=g('lb-img'),lbCap=g('lb-cap'),lbX=g('lb-close');
-  document.querySelectorAll('.gi').forEach(item=>{
-    item.addEventListener('click',()=>{
-      lbImg.src=item.dataset.src||item.querySelector('img').src;
-      lbCap.textContent=item.dataset.cap||'';
-      lb.classList.add('lb--on');document.body.classList.add('no-scroll');
-    });
-  });
-  function closeLb(){lb.classList.remove('lb--on');document.body.classList.remove('no-scroll');lbImg.src='';}
-  if(lbX)lbX.addEventListener('click',closeLb);
-  if(lb)lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
 
   const nt=g('nav-toggle'),nl=g('nav-links');
   if(nt){
@@ -982,15 +898,18 @@ const SITE_CONFIG = {
     }));
   }
 
+  /* ── SCROLL REVEAL ── */
   const revs=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
-    const obs=new IntersectionObserver((entries,o)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');o.unobserve(e.target);}});},{threshold:.1});
+    const obs=new IntersectionObserver((entries,o)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');o.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
     revs.forEach(r=>obs.observe(r));
   }else{revs.forEach(r=>r.classList.add('revealed'));}
 
-  // Field is now a static SVG — no JS needed
+  /* ── STAGGER REVEAL ── */
+  const staggerObs=new IntersectionObserver((entries,o)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');o.unobserve(e.target);}});},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
+  document.querySelectorAll('.reveal-stagger').forEach(el=>staggerObs.observe(el));
 
-  // ── INIT ──────────────────────────────────────────────────
+  /* ── INIT ── */
   (async()=>{
     await applyConfig();
     loadTeams();

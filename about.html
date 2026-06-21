@@ -4,192 +4,148 @@
   <meta charset="UTF-8">
   <title>About | PL Gridders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="About the PL Gridders — our mission, values, and commitment to youth football and cheerleading in Commodore, PA.">
-  <meta name="theme-color" content="#0a0608">
+  <meta name="description" content="The mission and purpose of PL Gridders — youth football and cheerleading in the Purchase Line School District, Commodore, PA.">
+  <meta name="theme-color" content="#a8221f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Graduate&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="theme.css">
   <style>
-    :root{--bg:#09060a;--bg-card:rgba(15,8,14,0.97);--red:#dc2626;--red-2:#ef4444;--red-3:#fca5a5;--red-soft:rgba(220,38,38,0.12);--red-glow:rgba(220,38,38,0.32);--red-border:rgba(220,38,38,0.42);--text:#ede9e9;--muted:#7a7080;--border:rgba(160,110,110,0.18);--border-med:rgba(180,120,120,0.3);--radius:16px;--radius-lg:24px;--shadow:0 20px 50px rgba(0,0,0,0.85);--t:200ms ease-out}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-    body::after{content:"";position:fixed;top:0;left:0;right:0;height:500px;background:radial-gradient(ellipse at 50% -10%,rgba(220,38,38,0.1),transparent 65%);pointer-events:none;z-index:0}
-    a{color:inherit;text-decoration:none}
-    button{font-family:inherit;cursor:pointer}
-    .no-scroll{overflow:hidden}
-    .container{width:min(1140px,100% - 2.5rem);margin-inline:auto;position:relative;z-index:1}
-    .display{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.95}
-    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.5rem;border-radius:999px;border:1px solid transparent;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;transition:all var(--t);line-height:1}
-    .btn--red{background:linear-gradient(135deg,var(--red),#991b1b);color:#fff;box-shadow:0 10px 28px var(--red-glow)}
-    .btn--red:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(220,38,38,.5)}
-    .btn--ghost{background:transparent;border-color:var(--border-med);color:var(--text)}
-    .btn--ghost:hover{border-color:var(--red-border);color:var(--red-3);transform:translateY(-1px)}
-    .btn--sm{padding:.38rem .95rem;font-size:.72rem}
-    .btn--lg{padding:.75rem 2rem;font-size:.88rem}
-    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px);background:rgba(9,6,10,0.91);border-bottom:1px solid var(--border)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding-block:.82rem;gap:1.5rem}
-    .brand{display:flex;align-items:center;gap:.7rem}
-    .brand-logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--red),#7f1d1d);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px var(--red-glow);flex-shrink:0}
-    .brand-logo svg{width:22px;height:22px}
-    .brand-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
-    .brand-sub{font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--red-3);margin-top:.05rem}
-    .nav-links{display:flex;align-items:center;gap:1.75rem;font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-    .nav-links a{transition:color var(--t);position:relative}
-    .nav-links a::after{content:"";position:absolute;left:0;bottom:-.38rem;width:0;height:2px;border-radius:999px;background:var(--red);transition:width var(--t)}
-    .nav-links a:hover,.nav-links a.active{color:var(--text)}
-    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
-    .nav-actions{display:flex;align-items:center;gap:.7rem}
-    .nav-toggle{display:none;width:38px;height:38px;border-radius:999px;border:1px solid var(--border-med);background:rgba(15,8,14,.9);align-items:center;justify-content:center}
-    .hamburger{width:18px;height:2px;background:var(--text);border-radius:999px;position:relative;transition:transform var(--t)}
-    .hamburger::before,.hamburger::after{content:"";position:absolute;left:0;width:18px;height:2px;background:inherit;border-radius:inherit;transition:transform var(--t),top var(--t),opacity var(--t)}
-    .hamburger::before{top:-6px}
-    .hamburger::after{top:6px}
-    .nav-toggle--open .hamburger{transform:rotate(45deg)}
-    .nav-toggle--open .hamburger::before{top:0;transform:rotate(-90deg)}
-    .nav-toggle--open .hamburger::after{top:0;opacity:0}
-
-    /* PAGE HERO */
-    .page-hero{padding:5rem 0 4rem;position:relative;overflow:hidden}
-    .page-hero::before{content:"";position:absolute;top:-30%;right:-8%;width:55%;height:160%;background:linear-gradient(155deg,rgba(220,38,38,0.07) 0%,transparent 55%);clip-path:polygon(22% 0%,100% 0%,100% 100%,0% 100%);pointer-events:none}
-    .page-hero::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent,transparent 59px,rgba(220,38,38,0.04) 60px);pointer-events:none}
-    .page-hero-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.55fr);gap:4rem;align-items:end}
-    .page-kicker{display:inline-flex;align-items:center;gap:.45rem;padding:.25rem .75rem .25rem .35rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--red-3);margin-bottom:1.1rem}
-    .kicker-dot{width:8px;height:8px;border-radius:999px;background:var(--red);box-shadow:0 0 0 4px rgba(220,38,38,.3);animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(220,38,38,.3)}50%{box-shadow:0 0 0 8px rgba(220,38,38,.1)}  }
-    .page-title{font-size:clamp(3.2rem,7vw + 1rem,6.5rem);margin-bottom:1rem}
-    .page-title .line-red{color:var(--red);display:block}
-    .page-title .line-dim{color:rgba(237,233,233,0.35);display:block;font-size:0.7em;letter-spacing:0.04em}
-    .page-tagline{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.65rem;margin-bottom:1.5rem}
-    .page-tagline::before{content:"";display:block;width:32px;height:1.5px;background:var(--red);flex-shrink:0}
-    .page-hero-right{align-self:stretch;display:flex;align-items:flex-end;justify-content:flex-end}
-    .hero-crest{position:relative;width:220px;height:220px;display:flex;align-items:center;justify-content:center}
-    .crest-ring{position:absolute;inset:0;border-radius:999px;border:1.5px dashed rgba(220,38,38,0.22);animation:slowspin 30s linear infinite}
-    .crest-ring-inner{position:absolute;inset:18px;border-radius:999px;border:1px solid rgba(220,38,38,0.14);animation:slowspin 20s linear infinite reverse}
-    @keyframes slowspin{to{transform:rotate(360deg)}}
-    .crest-core{width:130px;height:130px;border-radius:999px;background:radial-gradient(circle at 30% 25%,rgba(220,38,38,0.18),rgba(127,29,29,0.35));border:1px solid var(--red-border);box-shadow:0 0 40px rgba(220,38,38,0.18),inset 0 0 20px rgba(220,38,38,0.06);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.1rem}
-    .crest-year{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:.04em;color:var(--red-3)}
-    .crest-org{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.5}
-    .crest-dot{position:absolute;width:6px;height:6px;border-radius:999px;background:var(--red);box-shadow:0 0 8px rgba(220,38,38,0.6)}
-    .crest-dot--n{top:8px;left:50%;transform:translateX(-50%)}
-    .crest-dot--s{bottom:8px;left:50%;transform:translateX(-50%)}
-    .crest-dot--e{right:8px;top:50%;transform:translateY(-50%)}
-    .crest-dot--w{left:8px;top:50%;transform:translateY(-50%)}
-
-    /* MISSION */
-    .mission-section{padding-block:5rem}
-    .mission-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:5rem;align-items:start}
-    .mission-left{position:sticky;top:6rem}
-    .mission-eyebrow{font-size:.65rem;text-transform:uppercase;letter-spacing:.28em;color:var(--red-3);font-weight:600;margin-bottom:.5rem}
-    .mission-heading{font-size:clamp(2rem,4vw,3rem);line-height:1;margin-bottom:1rem}
-    .mission-rule{width:48px;height:3px;background:linear-gradient(90deg,var(--red),transparent);border-radius:999px;margin-bottom:1.2rem}
-    .mission-meta{font-size:.78rem;color:var(--muted);line-height:1.7;max-width:18rem}
-    .mission-meta strong{color:var(--text);font-weight:500}
-    .mission-statement-card{border-radius:var(--radius-lg);background:var(--bg-card);border:1px solid var(--border-med);padding:3rem 3.5rem;position:relative;overflow:hidden;box-shadow:var(--shadow)}
-    .mission-statement-card::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(220,38,38,0.07),transparent 55%);pointer-events:none}
-    .mission-statement-card::after{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--red),transparent)}
-    .ms-quote-mark{font-family:'Barlow Condensed',sans-serif;font-size:8rem;line-height:0.7;color:rgba(220,38,38,0.18);margin-bottom:.5rem;display:block;user-select:none}
-    .ms-text{font-size:clamp(1rem,1.5vw,1.17rem);line-height:1.85;color:rgba(237,233,233,0.9);margin-bottom:2rem}
-    .ms-text strong{color:#fff;font-weight:600}
-    .ms-text .hi{color:var(--red-3);font-style:italic}
-    .ms-motto{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;border-radius:14px;background:rgba(220,38,38,0.08);border:1px solid var(--red-border)}
-    .ms-motto-bar{width:3px;min-height:40px;background:linear-gradient(to bottom,var(--red),var(--red-2));border-radius:999px;flex-shrink:0;align-self:stretch}
-    .ms-motto-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.22em;color:var(--muted);margin-bottom:.3rem}
-    .ms-motto-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text)}
-
-    /* PILLARS */
-    .pillars-section{padding-block:1rem 5rem}
-    .section-eyebrow{font-size:.65rem;text-transform:uppercase;letter-spacing:.28em;color:var(--red-3);font-weight:600;margin-bottom:.5rem}
-    .section-heading{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:2.5rem}
-    .pillars-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
-    .pillar{border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);padding:2rem 1.75rem;display:flex;flex-direction:column;gap:.75rem;position:relative;overflow:hidden;transition:border-color var(--t),transform var(--t),box-shadow var(--t)}
-    .pillar:hover{border-color:var(--red-border);transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,0,0,.7)}
-    .pillar::before{content:"";position:absolute;top:0;left:0;right:0;height:2.5px;background:linear-gradient(90deg,var(--red),transparent);opacity:0;transition:opacity var(--t)}
-    .pillar:hover::before{opacity:1}
-    .pillar-num{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:3.5rem;line-height:1;color:rgba(220,38,38,0.15);margin-bottom:.25rem;transition:color var(--t)}
-    .pillar:hover .pillar-num{color:rgba(220,38,38,0.3)}
-    .pillar-icon{width:40px;height:40px;border-radius:10px;background:var(--red-soft);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;margin-bottom:.25rem}
-    .pillar-icon svg{width:20px;height:20px;stroke:var(--red-3)}
-    .pillar-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;letter-spacing:.04em}
-    .pillar-body{font-size:.84rem;color:var(--muted);line-height:1.75}
-
-    /* PROGRAMS */
-    .programs-section{padding-block:5rem}
-    .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-    .prog-card{border-radius:var(--radius-lg);background:var(--bg-card);border:1px solid var(--border);padding:2.25rem;position:relative;overflow:hidden;transition:border-color var(--t),transform var(--t)}
-    .prog-card:hover{border-color:var(--red-border);transform:translateY(-2px)}
-    .prog-card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at bottom right,rgba(220,38,38,0.05),transparent 60%);pointer-events:none}
-    .prog-icon{width:52px;height:52px;border-radius:14px;background:var(--red-soft);border:1px solid var(--red-border);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
-    .prog-icon svg{width:26px;height:26px;stroke:var(--red-3)}
-    .prog-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.6rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem}
-    .prog-desc{font-size:.87rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
-    .prog-levels{display:flex;flex-direction:column;gap:.45rem}
-    .prog-level{display:flex;align-items:center;gap:.65rem;font-size:.78rem}
-    .pl-badge{padding:.2rem .65rem;border-radius:999px;background:var(--red-soft);border:1px solid var(--red-border);font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--red-3);white-space:nowrap;flex-shrink:0}
-    .pl-desc{color:var(--muted)}
-
-    /* CTA STRIP */
-    .commit-strip{margin-block:2rem;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(220,38,38,0.1) 0%,rgba(127,29,29,0.08) 50%,rgba(220,38,38,0.05) 100%);border:1px solid var(--red-border);padding:3rem 3.5rem;position:relative;overflow:hidden}
-    .commit-strip::before{content:"";position:absolute;top:0;left:0;bottom:0;width:4px;background:linear-gradient(to bottom,var(--red),#7f1d1d)}
-    .commit-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:center}
-    .commit-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(1.5rem,3vw,2.2rem);text-transform:uppercase;letter-spacing:.03em;margin-bottom:.5rem}
-    .commit-title span{color:var(--red)}
-    .commit-sub{font-size:.87rem;color:var(--muted);max-width:36rem;line-height:1.7}
-    .commit-actions{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
-
-    /* FOOTER */
-    .site-footer{padding-block:1.75rem;border-top:1px solid var(--border);font-size:.74rem;color:var(--muted)}
-    .fi-r{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-    .f-links{display:flex;gap:1rem;flex-wrap:wrap}
-    .f-links a{transition:color var(--t)}
-    .f-links a:hover{color:var(--text)}
-    .f-soc{display:flex;gap:.5rem;align-items:center}
-    .soc-btn{width:30px;height:30px;border-radius:999px;border:1px solid var(--border);background:rgba(15,8,14,.95);display:flex;align-items:center;justify-content:center;transition:all var(--t)}
-    .soc-btn svg{width:13px;height:13px;stroke:var(--muted)}
-    .soc-btn:hover{border-color:var(--red-border);background:var(--red-soft)}
-    .soc-btn:hover svg{stroke:var(--red-3)}
-
-    /* REVEAL */
-    .reveal{opacity:0;transform:translateY(28px);transition:opacity 440ms ease-out,transform 440ms ease-out}
-    .revealed{opacity:1;transform:none}
-
-    @media(max-width:960px){
-      .page-hero-inner{grid-template-columns:1fr}
-      .page-hero-right{display:none}
-      .mission-layout{grid-template-columns:1fr;gap:2.5rem}
-      .mission-left{position:static}
-      .prog-grid{grid-template-columns:1fr}
-      .pillars-grid{grid-template-columns:1fr 1fr}
-      .commit-inner{grid-template-columns:1fr}
+    /* page hero with crest */
+    .ph-inner{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:2.5rem;align-items:center}
+    @media(max-width:820px){.ph-inner{grid-template-columns:1fr}.hero-crest{margin-inline:auto}}
+    .ph-title .line-dim{color:var(--muted)}
+    .page-tagline{
+      margin-top:1.1rem;font-family:'Lora',Georgia,serif;font-style:italic;font-size:1.05rem;color:var(--ink-2);
+      display:flex;align-items:center;gap:.7rem;
     }
-    @media(max-width:768px){
-      .nav-links{position:fixed;inset:0 0 auto;padding:4.5rem 1.75rem 1.5rem;flex-direction:column;align-items:flex-start;background:rgba(9,4,9,.99);backdrop-filter:blur(20px);transform:translateY(-100%);opacity:0;pointer-events:none;transition:transform 260ms ease-out,opacity 220ms ease-out;gap:1.25rem;font-size:1rem;z-index:49}
-      .nav-links--open{transform:none;opacity:1;pointer-events:auto}
-      .nav-actions{display:none}
-      .nav-toggle{display:flex}
-      .pillars-grid{grid-template-columns:1fr}
-      .mission-statement-card{padding:2rem 1.75rem}
-      .commit-strip{padding:2rem 1.75rem}
+    .page-tagline::before{content:"";width:34px;height:2px;background:var(--red)}
+
+    /* varsity crest roundel */
+    .hero-crest{width:240px;height:240px;position:relative;transform:rotate(3deg)}
+    .hero-crest svg{width:100%;height:100%;display:block;filter:drop-shadow(6px 6px 0 rgba(34,28,20,.85))}
+
+    /* mission */
+    .mission-section{padding-block:4.5rem}
+    .mission-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);gap:2.6rem;align-items:start}
+    @media(max-width:860px){.mission-layout{grid-template-columns:1fr}}
+    .mission-heading{font-size:clamp(1.9rem,3.8vw,2.7rem);margin-bottom:1rem}
+    .mission-heading .red{color:var(--red)}
+    .mission-rule{width:70px;height:4px;background:var(--gold);margin-bottom:1.1rem}
+    .mission-meta{font-size:.95rem;color:var(--ink-2);line-height:1.75}
+    .mission-statement-card{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow);padding:2.2rem 2.3rem 1.9rem;position:relative;
     }
-    @media(max-width:520px){
-      .fi-r{flex-direction:column;align-items:flex-start}
-      .page-title{font-size:3rem}
+    .ms-quote-mark{
+      position:absolute;top:-26px;left:18px;font-family:'Lora',Georgia,serif;
+      font-size:4.5rem;line-height:1;color:var(--red);
+      text-shadow:3px 3px 0 var(--gold-wash);
     }
+    .ms-text{font-family:'Lora',Georgia,serif;font-size:1.04rem;line-height:1.95;color:var(--ink-2)}
+    .ms-text strong{color:var(--ink)}
+    .ms-text .hi{background:linear-gradient(transparent 55%, var(--gold-wash) 55%);font-weight:600;color:var(--red-deep);font-style:italic}
+    .ms-motto{display:flex;align-items:center;gap:.9rem;margin-top:1.6rem;padding-top:1.3rem;border-top:2px dashed var(--line)}
+    .ms-motto-bar{width:8px;height:44px;background:repeating-linear-gradient(180deg,var(--red) 0 8px,var(--gold) 8px 16px);border:1.5px solid var(--ink)}
+    .ms-motto-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.3em;color:var(--muted)}
+    .ms-motto-text{font-family:'Graduate',serif;font-size:1.05rem;text-transform:uppercase;color:var(--red)}
+
+    /* pillars */
+    .pillars-section{padding-block:4.5rem;background:var(--paper-2);border-block:2px solid var(--line)}
+    .section-heading{font-size:clamp(1.7rem,3.4vw,2.5rem);margin-bottom:2rem}
+    .pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    @media(max-width:860px){.pillars-grid{grid-template-columns:1fr}}
+    .pillar{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow-sm);padding:1.6rem 1.4rem 1.4rem;position:relative;
+      transition:transform var(--t),box-shadow var(--t);
+    }
+    .pillar:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(34,28,20,.9)}
+    .pillar-num{
+      position:absolute;top:-16px;left:14px;width:38px;height:38px;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Graduate',serif;font-size:.95rem;color:var(--paper);
+      background:var(--red);border:2px solid var(--ink);border-radius:50%;
+      box-shadow:2px 2px 0 rgba(34,28,20,.85);
+    }
+    .pillar-icon{
+      width:48px;height:48px;margin:.4rem 0 .9rem;border:2px solid var(--ink);border-radius:var(--r-sm);
+      background:var(--gold-wash);display:flex;align-items:center;justify-content:center;
+    }
+    .pillar-icon svg{width:24px;height:24px;stroke:var(--red)}
+    .pillar-title{font-size:1.05rem;margin-bottom:.55rem}
+    .pillar-body{font-family:'Lora',Georgia,serif;font-size:.9rem;color:var(--ink-2);line-height:1.75}
+
+    /* programs */
+    .programs-section{padding-block:4.5rem}
+    .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+    @media(max-width:820px){.prog-grid{grid-template-columns:1fr}}
+    .prog-card{
+      background:var(--card);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow-sm);padding:1.7rem 1.6rem 1.5rem;border-top:8px solid var(--red);
+      transition:transform var(--t),box-shadow var(--t);
+    }
+    .prog-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(34,28,20,.9)}
+    .prog-icon{width:50px;height:50px;margin-bottom:.9rem;border:2px solid var(--ink);border-radius:var(--r-sm);background:var(--red-wash);display:flex;align-items:center;justify-content:center}
+    .prog-icon svg{width:26px;height:26px;stroke:var(--red)}
+    .prog-title{font-size:1.25rem;margin-bottom:.6rem}
+    .prog-desc{font-family:'Lora',Georgia,serif;font-size:.92rem;color:var(--ink-2);line-height:1.75;margin-bottom:1.1rem}
+    .prog-levels{display:flex;flex-direction:column;gap:.5rem}
+    .prog-level{display:flex;align-items:center;gap:.7rem;padding:.5rem .7rem;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--paper)}
+    .pl-badge{
+      flex-shrink:0;min-width:64px;text-align:center;font-family:'Graduate',serif;font-size:.72rem;
+      text-transform:uppercase;padding:.22rem .45rem;background:var(--ink);color:var(--gold);
+      border-radius:var(--r-sm);
+    }
+    .pl-desc{font-size:.84rem;color:var(--ink-2)}
+
+    /* commitment banner */
+    .commit-strip{
+      background:var(--red);color:var(--paper);border:2px solid var(--ink);border-radius:var(--r-md);
+      box-shadow:var(--shadow), 12px 12px 0 rgba(217,161,59,.35);
+      padding:2.4rem 2.2rem;position:relative;overflow:hidden;transform:rotate(-.5deg);
+    }
+    .commit-strip::after{
+      content:"";position:absolute;top:-40px;right:-40px;width:240px;height:240px;border-radius:50%;
+      background:radial-gradient(circle, rgba(244,237,219,.4) 1.5px, transparent 1.5px);
+      background-size:13px 13px;opacity:.45;pointer-events:none;
+    }
+    .commit-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;position:relative;z-index:1}
+    .commit-title{font-size:clamp(1.5rem,3.2vw,2.2rem);line-height:1.2}
+    .commit-title span{color:var(--gold)}
+    .commit-sub{font-family:'Lora',Georgia,serif;font-size:.95rem;color:rgba(244,237,219,.88);max-width:34rem;line-height:1.75;margin-top:.7rem}
+    .commit-actions{display:flex;gap:.8rem;flex-wrap:wrap}
   </style>
 </head>
 <body>
 
+<!-- TOP STRIPE -->
+<div class="top-stripe">
+  <div class="container">
+    <span>★ Victory Through Character</span>
+    <div class="ts-right">
+      <span class="ts-hide">Commodore, PA</span>
+      <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
 <header class="site-header">
   <div class="container">
     <nav class="nav">
       <a href="index.html" class="brand">
         <div class="brand-logo">
-          <svg viewBox="0 0 24 24" fill="none">
-            <ellipse cx="12" cy="12" rx="9" ry="5.8" fill="rgba(255,255,255,0.92)"/>
-            <line x1="3" y1="12" x2="21" y2="12" stroke="#7f1d1d" stroke-width="1.2" stroke-dasharray="3 2"/>
-            <line x1="12" y1="6.2" x2="12" y2="17.8" stroke="#7f1d1d" stroke-width="1.2"/>
-            <line x1="7.5" y1="8" x2="7.5" y2="16" stroke="#7f1d1d" stroke-width="0.9"/>
-            <line x1="16.5" y1="8" x2="16.5" y2="16" stroke="#7f1d1d" stroke-width="0.9"/>
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M24 2.5 43 8.5v17c0 11-8.6 17.6-19 20-10.4-2.4-19-9-19-20v-17Z" fill="#a8221f" stroke="#221c14" stroke-width="2.4" stroke-linejoin="round"/>
+            <path d="M24 7.5 38.5 12v13.2c0 8.6-6.6 13.8-14.5 15.8-7.9-2-14.5-7.2-14.5-15.8V12Z" fill="none" stroke="#d9a13b" stroke-width="1.6"/>
+            <g transform="rotate(-18 24 24)">
+              <ellipse cx="24" cy="24" rx="11" ry="7" fill="#f4eddb" stroke="#221c14" stroke-width="1.8"/>
+              <line x1="18" y1="24" x2="30" y2="24" stroke="#a8221f" stroke-width="1.4"/>
+              <line x1="20.5" y1="22" x2="20.5" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+              <line x1="24" y1="22" x2="24" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+              <line x1="27.5" y1="22" x2="27.5" y2="26" stroke="#a8221f" stroke-width="1.2"/>
+            </g>
           </svg>
         </div>
         <div>
@@ -202,60 +158,89 @@
         <a href="index.html">Home</a>
         <a href="index.html#teams">Teams</a>
         <a href="index.html#schedule">Schedule</a>
-        <a href="index.html#register">Register</a>
-        <a href="about.html" class="active">About</a>
+        <a href="resources.html">Resources</a>
+        <a href="donate.html">Donate</a>
+        <a href="about.html" class="on">About</a>
         <a href="index.html#contact">Contact</a>
+        <a href="register.html" class="nav-reg">Register Now</a>
       </div>
       <div class="nav-actions">
-        <button class="btn btn--ghost btn--sm" onclick="window.location='index.html#register'">Register</button>
-        <button class="btn btn--red btn--sm" onclick="window.location='index.html#contact'">Contact Us</button>
+        <button class="btn btn--ghost btn--sm" onclick="window.location='index.html#contact'">Contact Us</button>
+        <button class="btn btn--red btn--sm" onclick="window.location='register.html'">Register Now</button>
       </div>
     </nav>
   </div>
 </header>
 
+<!-- PENNANT BUNTING -->
+<div class="bunting" aria-hidden="true">
+  <svg preserveAspectRatio="none" viewBox="0 0 1200 26" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="pennants" x="0" y="0" width="120" height="26" patternUnits="userSpaceOnUse">
+        <path d="M0 0h40L20 24Z"   fill="#a8221f" stroke="#221c14" stroke-width="1.4"/>
+        <path d="M40 0h40L60 24Z"  fill="#f4eddb" stroke="#221c14" stroke-width="1.4"/>
+        <path d="M80 0h40L100 24Z" fill="#d9a13b" stroke="#221c14" stroke-width="1.4"/>
+      </pattern>
+    </defs>
+    <rect width="1200" height="26" fill="url(#pennants)"/>
+  </svg>
+</div>
+
+<!-- PAGE HERO -->
 <section class="page-hero">
-  <div class="container">
-    <div class="page-hero-inner">
-      <div>
-        <div class="page-kicker"><span class="kicker-dot"></span>Who We Are</div>
-        <h1 class="display page-title">
-          <span class="line-red">Our</span>
-          <span>Mission</span>
-          <span class="line-dim">&amp; Purpose</span>
-        </h1>
-        <div class="page-tagline">Victory Through Character</div>
-      </div>
-      <div class="page-hero-right">
-        <div class="hero-crest">
-          <div class="crest-ring"></div>
-          <div class="crest-ring-inner"></div>
-          <div class="crest-dot crest-dot--n"></div>
-          <div class="crest-dot crest-dot--s"></div>
-          <div class="crest-dot crest-dot--e"></div>
-          <div class="crest-dot crest-dot--w"></div>
-          <div class="crest-core">
-            <div class="crest-year">PL</div>
-            <div class="crest-org">Purchase Line<br>Little Gridders</div>
-          </div>
-        </div>
-      </div>
+  <div class="container ph-inner">
+    <div>
+      <div class="ph-kicker"><span class="sticker">Who We Are</span></div>
+      <h1 class="display ph-title">
+        <span class="accent">Our Mission</span><br>
+        <span class="line-dim">&amp; Purpose</span>
+      </h1>
+      <div class="page-tagline">Victory Through Character</div>
+    </div>
+    <div class="hero-crest" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="96" fill="#fdfaf0" stroke="#221c14" stroke-width="3"/>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#a8221f" stroke-width="6"/>
+        <circle cx="100" cy="100" r="72" fill="none" stroke="#d9a13b" stroke-width="2.5" stroke-dasharray="3 5"/>
+        <defs>
+          <path id="arcTop" d="M100 100 m-62 0 a62 62 0 0 1 124 0" fill="none"/>
+          <path id="arcBot" d="M100 100 m-62 0 a62 62 0 0 0 124 0" fill="none"/>
+        </defs>
+        <text font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="15" letter-spacing="4" fill="#221c14">
+          <textPath href="#arcTop" startOffset="50%" text-anchor="middle">PURCHASE LINE</textPath>
+        </text>
+        <text font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#221c14">
+          <textPath href="#arcBot" startOffset="50%" text-anchor="middle">LITTLE GRIDDERS</textPath>
+        </text>
+        <text x="100" y="92" font-family="Graduate, serif" font-size="34" fill="#a8221f" text-anchor="middle">PLG</text>
+        <text x="100" y="118" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="13" letter-spacing="3" fill="#221c14" text-anchor="middle">EST. 2018</text>
+        <g transform="translate(100 138) rotate(-15)">
+          <ellipse cx="0" cy="0" rx="16" ry="10" fill="#a8221f" stroke="#221c14" stroke-width="1.6"/>
+          <line x1="-8" y1="0" x2="8" y2="0" stroke="#f4eddb" stroke-width="1.3"/>
+          <line x1="-4" y1="-2.5" x2="-4" y2="2.5" stroke="#f4eddb" stroke-width="1.1"/>
+          <line x1="0" y1="-2.5" x2="0" y2="2.5" stroke="#f4eddb" stroke-width="1.1"/>
+          <line x1="4" y1="-2.5" x2="4" y2="2.5" stroke="#f4eddb" stroke-width="1.1"/>
+        </g>
+        <path d="M62 56 l4.5 9 10 1.4 -7.2 7 1.7 9.9 -9 -4.7 -9 4.7 1.7 -9.9 -7.2 -7 10 -1.4Z" transform="scale(.55) translate(38 18)" fill="#d9a13b" stroke="#221c14" stroke-width="2"/>
+        <path d="M62 56 l4.5 9 10 1.4 -7.2 7 1.7 9.9 -9 -4.7 -9 4.7 1.7 -9.9 -7.2 -7 10 -1.4Z" transform="scale(.55) translate(218 18)" fill="#d9a13b" stroke="#221c14" stroke-width="2"/>
+      </svg>
     </div>
   </div>
 </section>
 
+<!-- MISSION -->
 <section class="mission-section">
   <div class="container">
     <div class="mission-layout">
-      <div class="mission-left reveal">
-        <div class="mission-eyebrow">Mission Statement</div>
-        <h2 class="display mission-heading">Built for the<br><span style="color:var(--red)">Community.</span></h2>
+      <div class="reveal">
+        <div class="eyebrow">Mission Statement</div>
+        <h2 class="display mission-heading">Built for the<br><span class="red">Community</span></h2>
         <div class="mission-rule"></div>
         <p class="mission-meta">The PL Gridders serves the <strong>Purchase Line School District</strong> in Commodore, PA — providing youth football and cheerleading rooted in safety, skill development, and character.</p>
       </div>
-      <div class="mission-body reveal">
+      <div class="reveal">
         <div class="mission-statement-card">
-          <span class="ms-quote-mark">"</span>
+          <span class="ms-quote-mark">&ldquo;</span>
           <p class="ms-text">
             The purpose of the <strong>PL Gridders</strong> is to <strong>sponsor and promote youth football and youth cheerleading</strong> in the Purchase Line School District.<br><br>
             It is our goal to provide our students with the <strong>safest equipment</strong> as they develop their skills on the field and work their way through our programs.<br><br>
@@ -274,11 +259,12 @@
   </div>
 </section>
 
+<!-- PILLARS -->
 <section class="pillars-section">
   <div class="container">
     <div class="reveal">
-      <div class="section-eyebrow">What We Stand For</div>
-      <h2 class="display section-heading">Three Pillars of the Program.</h2>
+      <div class="eyebrow">What We Stand For</div>
+      <h2 class="display section-heading">Three Pillars of the Program</h2>
     </div>
     <div class="pillars-grid">
       <div class="pillar reveal">
@@ -315,11 +301,12 @@
   </div>
 </section>
 
+<!-- PROGRAMS -->
 <section class="programs-section">
   <div class="container">
     <div class="reveal" style="margin-bottom:2rem">
-      <div class="section-eyebrow">Our Programs</div>
-      <h2 class="display section-heading">Football &amp; Cheerleading.</h2>
+      <div class="eyebrow">Our Programs</div>
+      <h2 class="display section-heading" style="margin-bottom:0">Football &amp; Cheerleading</h2>
     </div>
     <div class="prog-grid">
       <div class="prog-card reveal">
@@ -356,6 +343,7 @@
   </div>
 </section>
 
+<!-- COMMITMENT BANNER -->
 <div class="container">
   <div class="commit-strip reveal">
     <div class="commit-inner">
@@ -364,29 +352,36 @@
         <p class="commit-sub">If your child wants to play and be a good teammate, we will find them a home in our program. Reach out and let us get your athlete on the field this season.</p>
       </div>
       <div class="commit-actions">
-        <a href="index.html#register" class="btn btn--red btn--lg">Register Now</a>
-        <a href="index.html#contact" class="btn btn--ghost btn--lg">Contact Us</a>
+        <a href="register.html" class="btn btn--gold btn--lg">Register Now</a>
+        <a href="index.html#contact" class="btn btn--ink btn--lg">Contact Us</a>
       </div>
     </div>
   </div>
 </div>
 
-<footer class="site-footer" style="margin-top:3rem">
-  <div class="container fi-r">
-    <div>&#169; <span id="yr"></span> PL Gridders &middot; Commodore, PA. All rights reserved.</div>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container foot-inner">
+    <div class="foot-brand">
+      <div class="display">PL Gridders</div>
+      <p>Victory Through Character · Est. 2018</p>
+    </div>
     <div class="f-links">
       <a href="index.html#schedule">Schedule</a>
       <a href="index.html#teams">Teams</a>
-      <a href="index.html#register">Register</a>
+      <a href="register.html">Register</a>
+      <a href="resources.html">Resources</a>
+      <a href="donate.html">Donate</a>
       <a href="index.html#contact">Contact</a>
-      <a href="about.html" style="color:var(--red-3)">About</a>
     </div>
-    <div class="f-soc">
-      <span style="font-size:.7rem;color:var(--muted)">Follow:</span>
-      <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" class="soc-btn" aria-label="Facebook" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M15.5 3H13a4 4 0 0 0-4 4v2H6.5v3H9v9h3v-9h2.5L15 9H12V7a1 1 0 0 1 1-1h2.5V3Z" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+    <div class="f-contact">
+      <a href="mailto:purchaselinegridders@gmail.com">purchaselinegridders@gmail.com</a><br>
+      (814) 241-3237<br>
+      <a href="https://www.facebook.com/Purchase-Line-Little-Gridders-313146252057597" target="_blank" rel="noopener">Facebook →</a>
     </div>
+  </div>
+  <div class="container foot-base">
+    <div>&copy; <span id="yr"></span> PL Gridders · Commodore, PA. All rights reserved.</div>
   </div>
 </footer>
 
